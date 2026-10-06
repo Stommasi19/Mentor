@@ -1,6 +1,8 @@
-# Expense-summary fixture (S01 and S03, version 1)
+# Expense-summary fixture (S01–S03)
 
 This is a C#/.NET 9 exercise, not the Mentor core's implementation language.
+Spending is a sample coding domain for checking Mentor's conduct, not a Mentor
+product feature. S01/S03 remain version 1; S02 requirements cards are version 1.
 `starter/` deliberately compiles but throws until the task is implemented.
 An unfinished starter is not a passing generated-code result.
 
@@ -42,3 +44,11 @@ For S03, copy the starter and replace its `ExpenseTotals.cs` with
 scenario's task and response card for hint/direct-help behavior. Its incorrect
 candidate must fail the next-month boundary checks; the corrected candidate must
 pass. This simulated accepted contribution does not establish human learning.
+
+For S02, copy the starter and `scenarios/S02/task.md` into an external workspace.
+Keep `response-cards.md` and independent checks on the observer side. Select
+replies based on actual questions; record the chosen month/refund/matching rules
+before requesting implementation and supplying the shared agreed contract. Run
+the same independent checks only after those requirements have been settled.
+Also exercise a fully specified task and paused/direct implementation through
+the interview workflow; neither should trigger a compulsory learning assignment.

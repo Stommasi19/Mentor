@@ -4,7 +4,9 @@ Status: M01's core, development adapter, fixture, executable checks, and local r
 are implemented. [M01 results](evidence/M01.md) cover T01–T05, T12, and T13
 architecture. [M02 results](evidence/M02.md) on 2026-10-06 cover the required manual
 control/preference contracts, native lifecycle/refresh, conduct simulations and
-generated-code checks for the recorded combination. Automatic mid-turn compaction,
+generated-code checks for the recorded combination. [M03 results](evidence/M03.md)
+cover focused requirements, workflow invocation, mistake/direct-help and paused
+conduct with independent generated-code checks. Automatic mid-turn compaction,
 broader compatibility and human learning remain pending.
 Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
@@ -42,6 +44,8 @@ and independent checks.
 C# is an initial test case, not a core requirement. Record the actual .NET SDK/
 target and model/provider. Restore the starter and a controlled preference
 record before each run. Reuse the domain while changing the task and misconception.
+Spending is a sample coding task; it is not a feature of Mentor. M03 supplies
+S02's task and observer response cards alongside the existing S01/S03 scenarios.
 
 | Scenario | Task | What to observe |
 | --- | --- | --- |
@@ -170,6 +174,26 @@ Record session overrides as well as starting saved preferences for each run.
 Keep raw host/conversation evidence outside public Git and add an M02 evidence
 report after implementation. The M01 report stays historical evidence for its
 tested revision; its passes do not verify the extended M02 adapter or controls.
+
+## M03 verification matrix
+
+Use the [M03 handoff](handoffs/M03-interview-coaching.md) for the focused scope.
+Invoke the interview through the trusted hook guidance in an external workspace;
+keep observer cards, independent checks, and other transcripts outside it.
+
+| Boundary / criterion | Required observation |
+| --- | --- |
+| Local invocation — T02/T12/T13 architecture | Actual host receipt and model-visible guidance, followed by reading the canonical workflow from the pinned path. Execute guidance after checkout relocation/from another cwd; missing/empty/invalid resources fail visibly. No private toolkit or memory service is required. |
+| Requirements — T10 | S02 questions follow uncertainty and scripted reasoning; month/refund/matching choices are recorded before code checks. Requirements-only requests do not edit code. Remaining assumptions and next-step verification stay visible. |
+| Proportionate pacing — T10 | A fully specified small task proceeds without a compulsory interview or exercise, including on explicit invocation. Exercise the level-specific invitations without forcing code ownership. |
+| Mistake/direct help — T09 | S03 inspects the actual boundary error, gives a useful hint, then honors requested direct help/takeover. Incorrect and corrected code are checked independently. |
+| Paused/direct implementation — T08/T10 | Essential unresolved decisions are clarified while learning prompts are paused; a settled direct request receives complete checked code without an assignment. Effective/saved preferences stay distinct and unchanged unless explicitly requested. |
+| Resulting code and evidence — T04/T12 | Review actual code/comments/docs, run independent checks, cite concrete transcript turns, and separate simulation, host delivery, software correctness, and observed human learning. |
+
+Do not turn workflow prose into exact-wording tests. Existing process-boundary
+adapter cases own invocation/quoting/resource failures; recorded conversations
+assess conduct. Existing fixture checks own the agreed calculation contract.
+Broader language/provider coverage and automatic adaptation remain later work.
 
 ## Per-slice sequence
 

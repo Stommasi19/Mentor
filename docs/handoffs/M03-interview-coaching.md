@@ -1,6 +1,8 @@
 # M03 — learning-focused interview coaching
 
-Status: Queued; implementation has not started.
+Status: Implemented and locally verified on 2026-10-06 for the recorded combination.
+Evidence: [M03 results and limitations](../evidence/M03.md).
+Usage: [local interview invocation](../../adapters/codex/README.md#interview-coaching).
 Dependency: [M02 controls](M02-manual-levels-and-preferences.md).
 Scope: [Skill adaptation](../DESIGN.md#adapt-the-agentic-workflow-skills).
 Criteria: [T09, T10, T12](../TESTING.md#criteria), plus affected hook/code checks.
@@ -36,21 +38,21 @@ through learner reasoning, relevant questions, and explicit assumptions.
    a direct-implementation/paused-coaching request. Record requirements and checks.
 
 No full architecture/product skills, automatic mastery tracking, runner, or
-publication in this slice. The current interview used the upstream workflow;
-Mentor's runtime adaptation intentionally has different pacing.
+publication in this slice. The planning interview used the upstream workflow;
+Mentor's originally authored runtime workflow intentionally has different pacing.
 
 ## Immediate acceptance
 
-- [ ] T10: S02 questions respond to the learner's actual uncertainty/reasoning;
+- [x] T10: S02 questions respond to the learner's actual uncertainty/reasoning;
   month boundaries/refund choices become explicit before implementation checks.
-- [ ] T10: a settled small task proceeds proportionately; unresolved assumptions
+- [x] T10: a settled small task proceeds proportionately; unresolved assumptions
   remain visible rather than prompting an endless interview.
-- [ ] T09: a mistaken idea gets a useful hint/investigation; direct help is honored.
-- [ ] T10: paused coaching and direct-implementation requests retain essential
+- [x] T09: a mistaken idea gets a useful hint/investigation; direct help is honored.
+- [x] T10: paused coaching and direct-implementation requests retain essential
   clarification without forcing a coding/learning assignment.
-- [ ] T12/T13 architecture: core workflow runs in a fresh external workspace without private
+- [x] T12/T13 architecture: core workflow runs in a fresh external workspace without private
   toolkit/memory dependencies; transcript observations cite specific turns.
-- [ ] Record actual local invocation, attribution, affected hook/policy checks,
+- [x] Record actual local invocation, attribution, affected hook/policy checks,
   and code checks for any scenario implementation produced.
 
 Judge behavior and useful decisions, not exact wording, rounds, insight boxes, or
@@ -62,3 +64,15 @@ document the actual adaptation path used before marking the slice complete.
 Explain one requirement the learner helped clarify, the evidence that changed a
 choice, the remaining assumption, and how the next step will be verified.
 Report actual criteria results, failures/pending checks, and updated usage docs.
+
+Completed handback: the scripted learner chose net spending and an exclusive
+next-month boundary after a concrete double-count example, then revised the
+visible category-matching assumption before implementation. Null behavior remains
+unspecified. S02, paused direct implementation and corrected S03 each passed
+11/11 independent code checks; the incorrect S03 sample failed the two expected
+boundary checks. Nine adapter/runtime tests passed, and native receipts, delivered
+guidance and actual workflow reads establish local invocation. Human learning,
+broader compatibility and automatic mid-turn compaction remain pending; the
+scripted conversation is not evidence of human comprehension. See the evidence
+report for execution failures/recovery and source inspection/original authorship.
+M04 review coaching is next.

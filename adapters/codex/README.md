@@ -10,6 +10,11 @@ visible warning; a missing/invalid core resource fails the hook. A host can
 continue after a hook error; do not interpret an open session as proof
 that Mentor loaded.
 
+It also validates `core/workflows/interview.md` and supplies its absolute trusted
+path and a shell-quoted read command. The full interview instructions load when
+needed rather than enlarging every session's context. A missing, empty, or
+invalid-encoding interview resource fails visibly like the other core resources.
+
 `development_config.py` prints a native hook definition with absolute, shell-quoted
 interpreter and handler paths. It does not install anything or change trust.
 The synchronous handler has a 5,000 approximate-token context limit, allowing
@@ -38,6 +43,27 @@ policy or invoke a skill to claim automatic delivery. Inspect the host's actual
 execution and delivered developer context, and exercise S01. Disable the hook
 through `/hooks` and repeat in a fresh session as a negative control. No global
 hook, plugin manifest, marketplace entry, or trust-store edit is needed.
+
+## Interview coaching
+
+Ask naturally: “Use Mentor's interview workflow to clarify this task.” The agent
+reads the canonical resource using the hook-provided location and applies the
+current task, effective level/coaching state, project agreements, and previous
+reasoning. It can also use the workflow when requirements uncertainty warrants
+deeper clarification. No private skill installation or custom slash command is
+required. Explicit invocation on a fully specified task proceeds proportionately.
+
+For example, “Make Mentor ask fewer questions” needs a decision about when a
+question changes the next step; Mentor can help clarify that rule and a check.
+Paused coaching retains necessary clarification without forcing an exercise.
+“Please implement directly” keeps implementation with the agent at any level.
+An interview request alone does not authorize code changes. Decisions, remaining
+assumptions, and verification stay in the conversation or normal task document;
+the workflow does not write preferences or a learning ledger.
+
+See [M03 evidence](../../docs/evidence/M03.md) for tested invocation, conduct, and
+limitations. Spending in the external fixture is a sample coding task, not a
+Mentor product feature. Public packaging/discovery remains M08.
 
 ## Local controls and storage
 

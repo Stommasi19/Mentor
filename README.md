@@ -21,7 +21,12 @@ M02 is implemented and locally verified: session controls, explicit project
 preferences, failure recovery, native lifecycle retention, and two-session refresh.
 The [M02 evidence report](docs/evidence/M02.md) records scope and limitations;
 the [adapter guide](adapters/codex/README.md) explains natural controls and local setup.
-The complete first local usable version still requires M03–M04. Marketplace discovery,
+
+M03 is implemented and locally verified: focused interview coaching, natural
+local invocation, explicit assumptions/verification, and respected direct-help
+and paused-coaching requests. [M03 evidence](docs/evidence/M03.md) separates native
+delivery, simulated conduct, resulting code, and pending human-learning evidence.
+The complete first local usable version still requires M04. Marketplace discovery,
 packaging for other users, and publication remain the final phase.
 
 Run the adapter checks with `python3 -m unittest discover -s tests -v`.
@@ -87,7 +92,8 @@ record the combinations actually tested.
 - [Delivery roadmap](docs/ROADMAP.md)
 - [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
 - [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
-- [Next task: M03 — interview coaching](docs/handoffs/M03-interview-coaching.md)
+- [Completed M03 handoff](docs/handoffs/M03-interview-coaching.md)
+- [Next task: M04 — review coaching](docs/handoffs/M04-review-coaching.md)
 - [Design](docs/DESIGN.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)

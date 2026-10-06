@@ -5,7 +5,9 @@ and M02's confirmed session-default controls and verification contracts.
 M01 is implemented and locally verified; [results](evidence/M01.md) distinguish
 code quality, simulated conduct, and actual host delivery. M02 is also implemented
 and locally verified; [M02 results](evidence/M02.md) record controls, preferences,
-native lifecycle/refresh and conduct/code evidence. M03–M08 remain planned.
+native lifecycle/refresh and conduct/code evidence. M03 interview coaching is
+implemented and locally verified; [M03 results](evidence/M03.md) record invocation,
+focused requirements conduct, direct help and code checks. M04–M08 remain planned.
 M01 was implemented from planning revision `6e1efc2` on
 `feat/m01-readable-code-core`.
 Use [DESIGN.md](DESIGN.md) for the intended experience, [TESTING.md](TESTING.md)
@@ -65,8 +67,8 @@ distribution remains outside this slice.
 ## Core and development adapters
 
 Layout: M01 supplies the policy, development adapter, fixture, and contract checks.
-M02 supplies the controls workflow and neutral preference helper. Interview and
-review workflows remain M03/M04.
+M02 supplies the controls workflow and neutral preference helper. M03 adds the
+interview workflow and trusted local invocation guidance. Review remains M04.
 
 ```text
 core/
@@ -82,7 +84,7 @@ adapters/
     development_config.py # prints hooks.json for a disposable workspace
     session_start.py
     control.py            # thin local tool wrapper, M02
-    skills/               # later thin local invocation wrappers if needed
+    skills/               # optional later wrappers; M03 uses hook guidance
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
 ```
@@ -153,6 +155,14 @@ retains M01's visible adapter failure; it is not a successful policy load. Recor
 actual delivered policy, settings, and control guidance through the native runtime,
 then exercise a control there. Handler JSON or a model acknowledgment alone does
 not prove delivery or working controls. No custom host slash command is assumed.
+
+M03 validates the canonical interview resource on lifecycle delivery and supplies
+its absolute trusted path and a shell-quoted read command. The full workflow is
+read when requirements uncertainty warrants it or the learner explicitly asks to
+use Mentor's interview workflow. This thin invocation guidance avoids a private
+skill dependency and keeps the always-loaded policy concise. Missing/empty/invalid
+core workflow resources fail visibly; workflow use does not change preferences
+or authorize implementation by itself.
 
 ## Local preferences
 

@@ -1,6 +1,6 @@
 # Mentor delivery roadmap
 
-Status: M01 and M02 implemented and locally verified on 2026-10-06; M03 is next.
+Status: M01–M03 implemented and locally verified on 2026-10-06; M04 is next.
 Repository: [Stommasi19/Mentor](https://github.com/Stommasi19/Mentor).
 M01 implementation branch: `feat/m01-readable-code-core`, based on planning
 revision `6e1efc2`. See [evidence and limitations](evidence/M01.md).
@@ -23,8 +23,10 @@ applicable [criteria](TESTING.md) for each portion.
 
 M01's early experiments and local hook verification and M02's controls, preferences,
 native lifecycle/refresh and conduct checks are complete for the recorded combination.
-See [M02 evidence](evidence/M02.md). M01–M04 form
-the first local usable version.
+See [M02 evidence](evidence/M02.md).
+M03's interview workflow, local invocation, requirements/direct-help/paused
+conduct and generated code checks are recorded in [M03 evidence](evidence/M03.md).
+M01–M04 form the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
 and public installation are not completion criteria here. Automatic progression
 is initially absent.
@@ -51,11 +53,13 @@ requires its own explicit instruction.
 
 ## Current next task
 
-[M03 — interview coaching](handoffs/M03-interview-coaching.md) is next. M02 passes
-its required local scope: session-default controls, project-only persistence,
-override retention, failed-save recovery, native startup/resume/manual compaction/
-clear, two-session refresh, four S01 conditions and S03 direct help. Its
-[evidence](evidence/M02.md) separates conduct simulation, code checks and host delivery.
+[M04 — review coaching](handoffs/M04-review-coaching.md) is next. M03 passes its
+focused local scope: original neutral interview workflow, trusted invocation,
+questions following learner reasoning, explicit assumptions/verification,
+proportionate settled-task pacing, paused clarification, and respected direct
+help. Its [evidence](evidence/M03.md) separates conduct simulation, code/comments/
+documentation checks and native delivery. M01/M02 evidence remains historical
+for their recorded revisions and controls/lifecycle scope.
 Automatic mid-turn compaction, broader compatibility and human learning remain
 pending. M01's baseline and policy candidates both passed; no new causal quality
 comparison is claimed. Distribution remains the final phase.

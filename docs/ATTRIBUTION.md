@@ -20,3 +20,19 @@ contract checks were also authored from Mentor's agreed contracts. No upstream
 skill source was copied into the runtime or workflow. The official hook reference
 informed the bounded extended context configuration; testAudit's authoring gate
 was used as a development aid. Neither is a runtime dependency.
+
+M03 inspected `withInterview` from the local Agentic Workflow release
+`e0ff305-portable-20261006T031059Z`, whose README identifies
+`vitalizecare/agentic-workflow` as its source repository. The inspected
+`skills/withInterview/SKILL.md` has SHA-256
+`f6cc85807ffb378296cf69c6d9b4c4f3d2aef0a0f59e0fc4a7669f293b6ddf11`.
+The installed release has no Git metadata or license/notice granting
+redistribution of this skill; its exact upstream commit and copying permissions
+are unconfirmed. No upstream text, templates, or code were copied into M03.
+Instead, the interview workflow, invocation guidance, and scenario cards were
+authored from Mentor's agreed requirements. The upstream's ideas of clarifying
+goals, assumptions, and constraints are acknowledged as design inspiration.
+Its mandatory rounds, delegation interview, confirmation gate, private paths,
+and memory integrations are not runtime dependencies. No copied-source notice
+is required for this original implementation; copying upstream material later
+still requires verified terms and any required notices.
