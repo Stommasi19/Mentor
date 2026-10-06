@@ -8,15 +8,16 @@ Criteria: [T04, T05, T11, T12](../TESTING.md#criteria).
 ## Before and after
 
 Before: readable-code policy, manual controls, and requirements coaching.
-After: a portable `mentor-review` workflow helps the learner inspect an actual
+After: a neutral review workflow helps the learner inspect an actual
 change, understand defects, and write evidence-backed review comments.
 
 ## Implementation
 
 1. Inspect upstream review instructions/version/terms; record required attribution
    for copied adaptations or author original instructions from the requirements.
-2. Add `skills/mentor-review/SKILL.md` without private agents, memory services,
-   required PR metadata, or mandatory multi-agent reviewer counts.
+2. Add `core/workflows/review.md` without coding-language/model/vendor defaults,
+   private agents, memory services, required PR metadata, or mandatory reviewer
+   counts. Use thin local host wrappers where needed; distribution is M08.
 3. Read the actual local diff and relevant surrounding flow. A PR can supply a
    diff but is not required. State what was inspected, checked, and left unknown.
 4. Separate required corrections/verification gaps, learning discussion, and
@@ -49,10 +50,10 @@ this handoff. Review findings alone do not prove a correction has shipped.
   Material findings remain explicit under coaching-off.
 - [ ] T12: report actual commands/results, transcript observations, inspected scope,
   limitations, and unperformed checks without inferring comprehension.
-- [ ] Packaged skill discovery/invocation, attribution, and README usage are tested
-  and documented; affected policy/level behavior remains correct.
+- [ ] Local workflow invocation, attribution, and README usage are tested and
+  documented; T13 core neutrality and affected hook/level behavior remain correct.
 
-After this slice, M01–M04 can be called the first usable version only when their
+After this slice, M01–M04 can be called the first local usable version only when their
 required criteria have actual passing evidence. A full evaluation runner or
 human learning-improvement claim is not required for that local-use milestone.
 

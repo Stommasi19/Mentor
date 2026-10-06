@@ -1,29 +1,37 @@
-# Mentor first usable release
+# Mentor local implementation plan
 
-Status: Confirmed planning scope on 2026-10-06. Implementation has not started.
-Local planning baseline: `main` at `2e422c0035301ab5e9504bff0056d73702c83c40`.
+Status: Revised on 2026-10-06 for language/LLM neutrality and distribution last.
+Implementation has not started.
+Current local baseline: `main` at `42bc70c7d66c24ef54592a151c97488bbeb38a76`.
 Use [DESIGN.md](DESIGN.md) for the intended experience, [TESTING.md](TESTING.md)
 for observable criteria, and [ROADMAP.md](ROADMAP.md) for delivery status.
 
 ## Release goal and decisions
 
-Make Mentor usable by the owner on real projects as soon as practical. Installing
-and trusting the plugin should establish readable-code expectations automatically.
-The learner selects guided, supported, or independent coaching and can pause it
-without dropping code standards. The first usable release includes interview
-and review coaching. Each portion is implemented and tested immediately.
+Make Mentor work well locally before distributing it. Its canonical policy,
+workflows, preference contract, and evaluation criteria are coding-language- and
+LLM-agnostic. Codex is the first development adapter; C# is the first fixture.
+Neither defines the languages/models the core is designed to serve.
+
+First prove generated code is readable, maintainable, appropriately commented,
+and behaviorally correct. Then verify automatic policy delivery through an actual
+local hook. Manual levels and interview/review coaching complete the first local
+usable version. Each portion is implemented and tested immediately. Marketplace
+discovery, packaging for others, and publication are the final phase.
 
 | Decision | Agreed behavior |
 | --- | --- |
-| First user | The owner learning through real project work; Codex first, C# examples. |
+| First user | The owner learning through real projects; neutral core, initial Codex development adapter and C# test case. |
+| Neutrality | No model/vendor APIs, host hook schemas, or target-language defaults in canonical policy/workflows/state. Host specifics live in adapters; record actual tested combinations. |
 | Participation | Guided offers a focused coding part; supported offers coding or reviewing; independent defaults to agent implementation with the learner directing and reviewing. Requests can change that allocation at any level. |
 | Levels | Manual selection in the first usable release. Automatic progression follows. |
-| Code standards | Descriptive domain names, understandable flow, appropriate boundaries, accurate useful documentation, and necessary verification at every level. |
+| Code standards | Descriptive names, understandable flow, appropriate boundaries, useful comments explaining intent/non-obvious rules, accurate documentation, and necessary verification at every level. |
 | Coaching pause | Pause learning prompts while retaining code/documentation expectations and ordinary defect reporting. Native plugin disabling disables the whole package. |
 | Preferences | Local per-project settings outside Git, remembered across sessions. |
 | Readability checks | A policy hook, focused review of the actual diff, and existing project checks. The session hook delivers instructions; it cannot certify resulting code quality. |
 | Verification | Test each slice immediately, reuse a small fixture with task variants and fresh contexts, and retain a reserved scenario. |
 | Urgency | “I want it done as soon as possible so that i can start using it.” No fixed delivery date was given. |
+| Distribution | Marketplace discovery, other-user packaging/installation, and public release happen after local product validation, in the final phase. |
 
 Explore checked local host and packaging constraints; Plan examined learner
 behavior and scope. Their parallel findings informed this plan. No implementation,
@@ -33,8 +41,8 @@ installation, trust changes, or publication were authorized by this planning tas
 
 | ID | Requirement | Verification |
 | --- | --- | --- |
-| R01 | An installed, enabled, trusted plugin supplies its core policy without a manual skill invocation, including exercised lifecycle reloads. | T01–T03 |
-| R02 | Readable-code and documentation expectations remain active when coaching is paused. Respect explicit project agreements and necessary checks. | T04, T05, T08 |
+| R01 | An actual local development hook supplies the shared policy to a fresh host session without pasting it or manually invoking a skill, including exercised lifecycle reloads. | T01–T03 |
+| R02 | Readable, maintainable, appropriately commented code and documentation remain goals when coaching is paused. Respect project agreements and necessary checks. | T04, T05, T08 |
 | R03 | Guided, supported, and independent change coaching intensity and participation defaults; none imposes a coding quota. | T06 |
 | R04 | Explicit level and coaching selections apply to the current conversation and persist for that project. | T07, T08 |
 | R05 | Distinct projects keep separate preferences. Shared worktrees of one repository share its preferences. | T07 |
@@ -42,68 +50,84 @@ installation, trust changes, or publication were authorized by this planning tas
 | R07 | Interview coaching establishes the next useful step through relevant questions and records remaining assumptions. | T10 |
 | R08 | Review reads the actual diff and context, reports identified material defects with evidence, and distinguishes optional polish. | T11 |
 | R09 | Each implementation portion includes its relevant checks and honest evidence before being called complete. | All applicable criteria |
-| R10 | Package resources and adapted workflows work without the author's private toolkit, memory service, or machine paths. | T01, T02, T10, T11 |
-| R11 | Runtime delivery, correctness, readability, mentoring conduct, and human comprehension are separate outcomes. | T12 and every evidence report |
+| R10 | Shared resources, development adapters, and workflows work without the author's private toolkit, memory service, or machine paths. | T01, T02, T10, T11 |
+| R11 | Runtime delivery, correctness, readability/comments, mentoring conduct, and human comprehension are separate outcomes. | T12 and every evidence report |
+| R12 | Core behavior is language/LLM-neutral; compatibility claims identify tested language, model/provider, and host combinations. | T13 |
+| R13 | Distribution/discovery requirements are evaluated in the final milestone after local behavior and quality evidence. | T14 |
 
-## Package and runtime
+## Core and development adapters
 
 Proposed layout; these files do not exist yet:
 
 ```text
-.agents/plugins/marketplace.json
-plugins/mentor/
-  plugin.json
-  policy/core.md
-  hooks/hooks.json
-  hooks/session_start.py
-  scripts/                 # shared state/control helpers added in M02
-  skills/
-    mentor/SKILL.md        # manual controls added in M02
-    mentor-interview/SKILL.md
-    mentor-review/SKILL.md
-tests/                    # executable hook/state contract checks
-fixtures/expense-summary/ # small reusable C# project and scenarios
+core/
+  policy.md
+  workflows/
+    controls.md           # M02
+    interview.md          # M03
+    review.md             # M04
+runtime/                  # neutral project-state/control helpers, M02
+adapters/
+  codex/
+    hooks.json
+    session_start.py
+    skills/               # thin local invocation wrappers if needed
+tests/
+fixtures/expense-summary/ # initial C# task and independent checks
 ```
 
-Use the portable root manifest and `extensions.com.openai` for hook configuration.
-The repo marketplace exposes local source `./plugins/mentor`. Resolve resources
-from the installed package, quote paths containing spaces, and document cache
-refresh/restart behavior. Do not assume editing the checkout changes the installed
-copy. Use Python's standard library for hook/state helpers; record tested versions.
+Keep one canonical core. It follows the actual project's language, conventions,
+and checks, without model names, provider APIs, or language-specific style
+defaults. Runtime helpers may use Python's standard library; that implementation
+choice is separate from the learner's coding language.
 
-The synchronous `SessionStart` command hook handles `startup`, `resume`, `clear`,
-and `compact`. It loads the canonical policy plus the effective preferences and
-emits supported JSON `hookSpecificOutput.additionalContext`. Keep context concise;
-do not inject the entire design, interview transcript, or evidence history.
-Installation/enabling and hook trust are separate. Use the host's review flow
-for the exact hook definition. [Official packaging](https://developers.openai.com/plugins/build/plugins),
-[hook input/output and trust](https://learn.chatgpt.com/docs/hooks).
+The adapter translates host hook inputs, instruction roles, state-location
+configuration, and workflow invocation into neutral core inputs. Do not duplicate
+or specialize the core policy for each vendor. Hosts without a verified automatic
+loading mechanism can be used for explicitly labeled policy experiments; do not
+claim the always-on feature works on them.
+
+M01 first tests policy-driven generated code, then the real local hook. The initial
+Codex adapter uses a synchronous SessionStart command hook for startup/resume/clear/
+compact. Resolve core resources from the development adapter's location rather
+than the fixture working directory; quote paths with spaces. Emit supported
+hook context, keep it concise, and use the host's normal hook review/trust flow.
+Configure the development hook in a disposable workspace through a supported
+local configuration. A plugin manifest, marketplace, or public installer is not
+required. [Official hook configuration and delivery](https://learn.chatgpt.com/docs/hooks).
 
 ```mermaid
 flowchart LR
-  Package[Installed plugin] --> Hook[Trusted SessionStart hook]
-  Hook --> Policy[Core code and coaching policy]
-  Hook --> Project[Resolve local project identity]
-  Project --> State[Preferences or guided defaults]
-  Policy --> Context[Concise developer context]
-  State --> Context
+  Core[Shared policy and workflows] --> Adapter[Development host adapter]
+  State[Neutral local preferences] --> Adapter
+  Adapter --> Hook[Trusted local lifecycle hook]
+  Hook --> Context[Host instruction context]
   Context --> Agent[Coding agent]
+  Agent --> Code[Generated code and comments]
+  Code --> Check[Behavior checks and readability review]
   Control[Explicit mentor control] --> State
-  Control --> Agent
 ```
 
-The hook supplies defaults. The supporting control workflow applies changes to
-the current conversation and persists explicit project settings. Existing user
-instructions and project implementation agreements remain authoritative.
+A direct policy experiment tests behavior. An actual host trace tests automatic
+delivery. The core's generated code must meet the quality criteria in both.
+Manual controls apply to the current conversation and persist project settings.
+User instructions and project implementation agreements remain authoritative.
+
+Final M08 packaging can wrap this core for supported hosts, add manifests,
+marketplace/catalog entries, and other-user installation/update/removal flows.
+Do not move those distribution requirements into M01–M04.
 
 ## Local preferences
 
-Proposed storage: `PLUGIN_DATA/projects/<project-id>/preferences.json`. Codex
-supplies `PLUGIN_DATA` to plugin hook commands as a writable data directory;
-per-project organization is Mentor's own design. Do not write into the installed
-package. [Plugin data environment](https://developers.openai.com/plugins/build/plugins).
+Neutral storage contract: `<data-root>/projects/<project-id>/preferences.json`.
+Core helpers receive the data root and project identity explicitly. The local
+adapter uses `MENTOR_DATA_DIR` when configured, otherwise `<user-home>/.mentor`.
+This keeps preferences outside Git and independent of a model/vendor or installed
+plugin cache. A later host wrapper can map its own data directory to this contract;
+shared settings across hosts require the same configured root. No vendor-specific
+environment variable belongs in the core schema or policy.
 
-Resolve project identity from the event's `cwd`:
+Resolve project identity from the workspace directory supplied by the adapter:
 
 1. Inside Git, use the canonical absolute Git common directory. A repository's
    subdirectories and linked worktrees resolve to the same identity.
@@ -134,9 +158,9 @@ unreadable/invalid records until an explicit reset. Failed writes must not claim
 persistence; the requested change may still apply to the current conversation.
 
 Share identity resolution and validation between the hook and control helper.
-The hook can include a concise resolved data location for control execution;
-ordinary tool calls must not assume the hook-only environment is present.
-Control scripts receive that trusted location explicitly or report it unavailable.
+The adapter can include a concise resolved data location for control execution;
+ordinary tool calls must not assume host-hook environment variables are present.
+Control scripts receive that location explicitly or report it unavailable.
 The control helper validates actions and updates existing valid settings through
 an atomic replacement. Changing one preference preserves the other. First-release
 concurrent writes use last-completed-write semantics; no cross-session merge claim.
@@ -145,8 +169,8 @@ or their next lifecycle hook, rather than receiving live broadcasts.
 
 ## Controls and interaction
 
-These are intended natural-language actions exposed by the bundled `mentor`
-skill, not claims about existing host slash commands.
+These are intended neutral natural-language actions, exposed through a thin host
+control wrapper when necessary, not claims about existing host slash commands.
 
 | Request | Effect |
 | --- | --- |
@@ -174,16 +198,18 @@ them. There is no compulsory full interview or quiz for every edit.
 
 | Slice | Handoff | Required result |
 | --- | --- | --- |
-| M01 | [Hook and code foundation](handoffs/M01-guided-plugin-foundation.md) | Installable guided default, actual hook delivery, original code/coaching policy, initial fixture and immediate contract/interaction checks. |
+| M01 | [Readable-code core and local hook](handoffs/M01-readable-code-core.md) | Neutral policy, actual generated code/comments/docs, controlled baseline, initial fixture, and verified development hook delivery. |
 | M02 | [Manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Explicit controls, project isolation, persistence, coaching pause, and level-specific participation. |
-| M03 | [Interview coaching](handoffs/M03-interview-coaching.md) | Portable learning-focused requirements workflow tested against ambiguity and learner reasoning. |
-| M04 | [Review coaching](handoffs/M04-review-coaching.md) | Local-diff review workflow tested against a real defect plus optional polish. |
+| M03 | [Interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow with a thin development invocation adapter, tested against ambiguity and learner reasoning. |
+| M04 | [Review coaching](handoffs/M04-review-coaching.md) | Neutral local-diff review workflow tested against a real defect plus optional polish. |
 
 Implement and run each slice's applicable [criteria](TESTING.md#criteria) immediately.
 Keep failures and pending checks in its handback. Do not mark a milestone verified
 from a written test plan, policy-only simulation, or synthetic success alone.
-M01 can provide early use feedback; the first usable release is complete after
-M01–M04 meet their criteria. The full scenario runner is not on that critical path.
+M01 provides early local feedback; the first local usable version is complete
+when M01–M04 satisfy their criteria. Actual hook testing is required in M01, even
+though marketplace/distribution testing is deferred. The full runner is outside
+this critical path.
 
 Before copying adapted source, record its repository/version, license, and
 required notices. Author original instructions when redistribution terms do not
@@ -207,12 +233,16 @@ remains an unvalidated heuristic for a later experiment.
 Adapt by concept, visibly and gradually, with manual locks and direct help
 available. Reduced coaching and greater delegation are different from harder
 tasks; automatic challenge selection requires its own design and evaluation.
-The full isolated actor/observer runner, baseline comparisons, human pilot, other
-hosts, and public release receive later handoffs.
+After local M01–M04, M05 broadens language/provider coverage and isolated evaluation;
+M06 tests adaptive evidence; M07 records real-project use and comprehension.
+[M08 distribution](handoffs/M08-distribution.md) is the final milestone: manifests,
+marketplace discovery, other-user installation/update/removal, and publication.
+Do not advertise universal compatibility; publish a tested-support matrix.
 
 ## Definition of this planning change
 
-Complete when the design, roadmap, four handoffs, and test criteria agree; state
+Complete when the design, roadmap, local handoffs, final distribution boundary,
+and test criteria agree; state
 and failure behavior are specified; documentation links/formatting are checked;
 and implementation/evaluation status remains truthful. Plugin execution and
 learning results are pending implementation, not outcomes of this document.

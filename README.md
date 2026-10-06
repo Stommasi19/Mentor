@@ -1,72 +1,69 @@
 # Mentor
 
-An always-on coding-agent plugin that helps junior developers write
-understandable software and practice engineering decisions, implementation,
-debugging, and code review.
+A language- and LLM-agnostic mentoring core for coding agents that helps developers
+produce readable, maintainable, appropriately commented code while practicing
+decisions, implementation, debugging, and review.
 
 ## Project status
 
-Planning stage. The first-release design, implementation plan, verification
-criteria, and four handoffs are documented. The plugin, hooks, supporting skills,
-fixtures, and test runner have not been implemented. There is no installable
-release yet.
+Planning stage. The core, development adapter, fixtures, and executable checks
+have not been implemented. The first priority is demonstrating useful behavior
+and good generated code locally. Marketplace discovery, packaging for other
+users, and publication are the final phase.
 
 ## Intended experience
 
-A lifecycle hook establishes readable-code expectations and mentoring defaults
-for coding tasks. Coaching invites meaningful decisions, offers coding or review
-practice, and provides hints and feedback. The learner can ask for a demonstration
-or have the agent take over a part.
+A shared policy establishes code standards and optional coaching. Thin host
+adapters load that policy automatically through the host's supported hooks.
+Codex is the first development adapter; C# is the first fixture, not a restriction
+on the product's coding language or LLM.
 
-The mentor writes readable code and useful documentation, treats mistakes as
-opportunities to investigate, and teaches reviews grounded in actual behavior.
-Optional polish stays optional; real defects and required checks remain explicit.
-Coaching can be paused while readable-code and documentation expectations remain
-active. Hook instructions and review/checks work together; the hook does not
-certify the quality of generated code.
+The core follows the project's language and conventions. It asks for descriptive
+names, understandable flow, appropriate boundaries, comments explaining intent
+and non-obvious rules, and useful accurate documentation. Comments must appear
+where needed in the resulting code; a verbose chat explanation does not replace
+them. Review and behavioral checks assess the actual change.
+
+Coaching invites decisions, offers coding or review practice, and provides hints
+and feedback. The learner can request a demonstration or takeover. Pausing
+coaching leaves code standards and necessary verification active.
 
 ## Mentoring levels
 
 - **Guided:** Step-by-step help and an offer of a focused coding contribution.
 - **Supported:** Less scaffolding, with a choice of coding or reviewing.
-- **Independent:** The agent implements by default; the learner directs decisions
-  and reviews the result, with help available on request.
+- **Independent:** Agent implementation by default, with the learner directing
+  decisions and reviewing the result.
 
-The first usable version has manual levels and local per-project preferences.
-More experience can mean delegating more implementation while taking ownership
-of decisions and review. Later, support can adapt by concept from independent
-reasoning, prediction, debugging, and review evidence. Explicit requests can
-change who writes code at any level.
+The first local version has manual levels and per-project preferences outside
+Git. Greater experience can mean delegating more code while owning decisions and
+review. Later evidence can support concept-specific adaptation. Explicit requests
+can change implementation ownership at any level.
 
-## First version
+## Build and prove locally
 
-- Codex plugin with a shared mentor policy and session lifecycle hook.
-- Manual guided, supported, and independent levels, local preferences, and a
-  coaching pause that retains code standards.
-- Learning-focused adaptations of `withInterview` and `review` from the
-  agentic-workflow toolkit.
-- Small C# examples for exercising decisions, coding attempts, and reviews.
-- A small reusable C# fixture with immediate checks for each implemented portion,
-  fresh conversations, and actual plugin-loading evidence.
+1. Write the neutral policy and test generated code, comments, and documentation
+   against a small C# case and controlled baseline.
+2. Verify automatic policy loading with a local development hook.
+3. Add manual levels/preferences, interview coaching, and review coaching; test
+   each portion immediately.
+4. Broaden language/model coverage, evaluate adaptation, and try real project work.
+5. Finally package and document the verified behavior for other users, including
+   marketplace discovery and installation.
 
-Automatic progression, an evidence ledger, the full actor/observer runner, and
-a human pilot follow the usable version.
-
-Synthetic conversations assess mentoring behavior. Independent code checks
-assess the resulting software. Human exercises assess learner comprehension.
+Synthetic conversations assess conduct. Behavioral checks assess software.
+Readability review examines code/comments/docs. Unaided human exercises assess
+comprehension. A neutral design is not proof that every model or host is supported;
+record the combinations actually tested.
 
 ## Planning
 
-- [Confirmed implementation plan](docs/IMPLEMENTATION-PLAN.md)
-- [Verification criteria and reusable scenarios](docs/TESTING.md)
+- [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
+- [Verification criteria and scenarios](docs/TESTING.md)
 - [Delivery roadmap](docs/ROADMAP.md)
-- [Next implementation task: M01 — guided plugin foundation](docs/handoffs/M01-guided-plugin-foundation.md)
-- [Design and scope](docs/DESIGN.md)
-- [Levels and adaptive support](docs/DESIGN.md#mentoring-levels-and-adaptive-support)
-- [Evaluation environment and methodology](docs/DESIGN.md#test-environment-and-roles)
+- [Next task: M01 — readable-code core and local hook](docs/handoffs/M01-readable-code-core.md)
+- [Design](docs/DESIGN.md)
 - [Agent instructions](AGENTS.md)
 
-The next implementation slice is the smallest installable plugin foundation:
-package manifest, concise mentor policy, session hook, and immediate checks.
-Manual controls, interview coaching, and review coaching follow in separate
-verified slices. Preparing these documents does not begin implementation.
+The next slice proves the core and local automatic loading. No marketplace entry,
+distributable plugin manifest, or public installation is needed for that slice.

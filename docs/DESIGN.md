@@ -1,6 +1,7 @@
 # Mentor — learning through software engineering
 
-Status: First-release scope confirmed on 2026-10-06. The plugin has not been
+Status: Local-use scope confirmed and revised for language/LLM neutrality and
+product-first delivery on 2026-10-06. The plugin has not been
 implemented or installed. [Implementation plan](IMPLEMENTATION-PLAN.md) and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
@@ -8,9 +9,10 @@ DoughTracker discussion and is maintained here independently.
 
 ## Purpose
 
-Mentor is an always-on coding-agent plugin that helps junior developers write
-understandable software and practice engineering decisions, implementation,
-debugging, and code review. Its default includes the learner in meaningful
+Mentor has a coding-language- and LLM-agnostic core that helps junior developers
+write readable, maintainable, appropriately commented software and practice
+engineering decisions, implementation, debugging, and code review. Host adapters
+make it an always-on plugin or development integration. Its default includes the learner in meaningful
 decisions and coding or review contributions throughout the work.
 
 Success means the learner can explain an approach, predict behavior, investigate
@@ -42,9 +44,11 @@ the resulting change. Instruction delivery is distinct from code quality.
   surrounding context for an accepted coding part, review the attempt, and verify
   the combined result. A demonstration/takeover request receives direct help;
   unaccepted placeholders do not count as a completed change.
-- Write descriptive domain names, traceable control flow, focused methods, and
-  comments explaining non-obvious rules. Keep documentation accurate and useful
-  for following the changed flow and reproducing verification.
+- Write descriptive domain names, traceable control flow, and appropriate
+  boundaries using the project's language and idioms. Add comments explaining
+  intent, constraints, and non-obvious rules, plus useful public-contract
+  documentation. Keep them accurate. Review the generated code itself; teaching
+  prose in the conversation does not replace needed comments or documentation.
 - Treat incomplete ideas and mistakes as opportunities to investigate. Explain
   which part of the reasoning needs revision and why; avoid grades, shaming, and
   invented praise. Do not require a perfect first attempt.
@@ -163,22 +167,31 @@ make a correct product change defective.
 
 ## Plugin architecture
 
-Package a shared mentor policy, lifecycle hook configuration and handler, and
-supporting skills. The hook injects the core policy so the user need not invoke a
-skill for each coding task. Supporting skills supply deeper interview and review
-procedures when relevant.
+Keep the canonical policy, learning workflows, preference schema, and evaluation
+criteria independent of coding language, LLM vendor, model name, and host API.
+Follow the actual project's conventions; do not impose C#, JavaScript, Python,
+or vendor-specific defaults on the learner's work.
 
-For Codex, use a command `SessionStart` hook covering startup, resume, clear, and
-compact events. The hook establishes default model instructions; it is not a
-deterministic code-quality validator. Keep the injected policy concise, and
-preserve explicit changes to mentoring preferences when context is refreshed.
-Codex requires the current plugin hook definition to be reviewed and trusted
-before it runs. Hook scripts must be available in the execution environment.
+Thin adapters map supported host hooks, instruction roles, working directory,
+state location, and invocation forms to this shared core. A host's hook schema
+and skill wrapper belong in its adapter, not in the canonical policy. Python
+may implement development helpers without restricting the target coding language.
 
-Create the first version for Codex, with C# examples. Package the adapted skills
-without dependencies on the author's `~/.agentic-workflow` installation, global
-memory tools, or private agent personas. Add other host adapters after testing
-the first workflow. Publishing is a separate task from creating a local package.
+Prove the policy first through controlled generated-code experiments, then verify
+automatic delivery through a local development hook. For the initial Codex
+adapter, use SessionStart for startup/resume/clear/compact, concise context, and
+the host's normal hook review/trust flow. This does not need marketplace discovery
+or a distributable plugin manifest. Policy-only experiments establish behavior
+observations; actual host traces establish automatic delivery.
+
+Use a small C# fixture initially. Broaden the same criteria to another language
+and models from different providers before making broad compatibility claims.
+A language/LLM-neutral design and verified support are different evidence.
+
+Marketplace packaging, discovery, installation for others, cache/update/removal
+instructions, and publication are the final milestone, after local behavior,
+code quality, and portability checks. The [implementation plan](IMPLEMENTATION-PLAN.md)
+defines neutral resource/state contracts and the adapter boundary.
 
 ## Evaluation examples
 
@@ -189,9 +202,9 @@ behavioral checks. Test each implemented portion immediately in disposable copie
 outside Mentor and active DoughTracker work. Start with direct/scripted scenarios;
 the full runner follows the usable version. Its intended roles are:
 
-- **Mentor:** A fresh Codex session using the installed plugin and its trusted
-  hook. Use actual hook delivery for integration runs; manually supplying the
-  policy is useful for early prompt experiments but does not test plugin loading.
+- **Mentor:** A fresh coding-agent session receiving the shared core. Begin with
+  policy-only behavior experiments, labeled as such; then exercise the development
+  adapter's real hook for automatic-loading evidence. Codex is the first host.
 - **Simulated junior:** An isolated actor receiving the public task, relevant
   code, and mentor messages. Give it concrete prior knowledge, misconceptions,
   partial attempts, and rules for responding to hints. Do not give it the mentor
@@ -218,8 +231,8 @@ and task while letting subsequent responses depend on the actual interaction.
 
 ### What each layer establishes
 
-1. **Package and lifecycle checks:** Verify the hook output contract and actual
-   delivery in a fresh session. Exercise resume/compaction, disabled or untrusted
+1. **Local delivery and lifecycle checks:** Verify the development adapter's
+   output contract and actual delivery in a fresh session. Exercise resume/compaction, disabled or untrusted
    hooks, and explicit changes to mentoring preferences. A policy-only simulation
    cannot establish these behaviors.
 2. **Mentoring behavior checks:** Check that the mentor invites a relevant
@@ -282,7 +295,7 @@ The remaining scenario ideas are:
 - A new concept and a manually locked level: Does adaptation remain specific to
   the concept and respect the override across resume and compaction?
 
-Measure hook/package behavior, code behavior, and observed mentoring behavior
+Measure hook/adapter behavior, code behavior, and observed mentoring behavior
 separately. Assess learner comprehension using independent explanations,
 predictions, and diagnostic attempts by people; model-generated transcripts alone
 do not establish improved human learning.

@@ -28,7 +28,7 @@ or reviewing; independent defaults to agent implementation with the learner
 directing and reviewing. Explicit requests/project agreements can change that
 allocation. Coaching intensity and who writes code are separate.
 
-The first usable release has manual levels and local per-project preferences.
+The first local usable version has manual levels and local per-project preferences.
 Pausing coaching retains readable-code/documentation expectations and necessary
 checks. Automatic progression follows later, using independent reasoning and
 task performance; respect overrides and allow attempts/self-correction. A single
@@ -40,8 +40,20 @@ the applicable criteria. Keep the full evaluation runner outside the critical
 path to first use. Report pending checks honestly; policy injection alone cannot
 guarantee code readability.
 
-Keep the package independent of personal toolkit paths and private integrations.
+Keep the core independent of any coding language, model, or provider. Host hook schemas,
+roles, environment variables, and skill wrappers belong in thin adapters. C# is
+an initial test case; Python is a possible helper implementation; neither sets
+the learner's coding language. Codex is the first development adapter, not the
+core's LLM requirement.
+
+Prove generated-code behavior, readability, useful comments, and documentation
+before distribution work. Use local development hooks for early integration.
+Marketplace discovery, distributable packaging, public installation, and release
+are the final phase. Record tested language/model/host combinations and avoid
+claiming universal compatibility from a neutral design alone.
+
+Keep the core/adapters independent of personal toolkit paths and private integrations.
 Record upstream attribution when adapting source material. Verify hook delivery
-through the actual host runtime; a manually supplied policy does not prove that
-the plugin loads. Report simulated behavior, code correctness, and observed human
+through the actual development host runtime; manually supplied policy tests core
+behavior but does not prove automatic hook delivery. Report simulated behavior, code correctness, and observed human
 learning separately. Never claim checks or learning outcomes without evidence.
