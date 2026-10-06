@@ -1,7 +1,8 @@
 # Mentor verification plan
 
-Status: Criteria revised; no core, development hooks, fixtures, executable checks,
-or evaluation runs have been implemented. Test each implemented portion immediately.
+Status: M01's core, development adapter, fixture, executable checks, and local runs
+are implemented. [M01 results](evidence/M01.md) cover T01–T05, T12, and T13
+architecture. Later criteria remain pending their milestones.
 Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
 ## Evidence and results
@@ -32,8 +33,9 @@ Start with a tiny C# expense-summary project: records containing a date, categor
 and decimal amount, plus a function that totals matching expenses. No database,
 web server, real user data, or DoughTracker dependency is needed.
 
-Add it during M01 and run from disposable copies outside Mentor. Version the
-starter, public task, scripted learner response cards, and independent checks.
+M01 supplies this fixture under `fixtures/expense-summary/`; run disposable copies
+outside Mentor. Version the starter, public task, scripted learner response cards,
+and independent checks.
 C# is an initial test case, not a core requirement. Record the actual .NET SDK/
 target and model/provider. Restore the starter and a controlled preference
 record before each run. Reuse the domain while changing the task and misconception.
@@ -149,14 +151,22 @@ conversation concentrates on one learning topic.
 5. Record results, failures, and pending checks; update docs to the real status.
 6. Review the slice before calling it complete or advancing its milestone status.
 
-Planned Python command once tests exist:
+Current adapter contract command:
 
 ```sh
 python3 -m unittest discover -s tests -v
 ```
 
-Record the fixture's actual C# check command when M01 creates it; run it against
-the resulting code. No checks above have been performed by writing this plan.
+Run the independent C# checks against a completed generated candidate:
+
+```sh
+python3 fixtures/expense-summary/check.py /absolute/path/to/candidate --reserved
+```
+
+The helper runs a fresh .NET check project with a forced rebuild. See the fixture
+README for the underlying commands and when to use reserved cases. The starter
+is intentionally incomplete and fails. Actual results, corrections, and pending
+coverage are recorded in the M01 evidence report; future criteria are not passes.
 
 ## Human use and later automation
 

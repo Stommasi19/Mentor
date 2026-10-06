@@ -6,10 +6,24 @@ decisions, implementation, debugging, and review.
 
 ## Project status
 
-Planning stage. The core, development adapter, fixtures, and executable checks
-have not been implemented. The first priority is demonstrating useful behavior
-and good generated code locally. Marketplace discovery, packaging for other
-users, and publication are the final phase.
+M01 is implemented and verified locally: a [neutral policy](core/policy.md),
+[Codex development hook](adapters/codex/README.md), and
+[C# fixture with independent checks](fixtures/expense-summary/README.md).
+The [M01 evidence report](docs/evidence/M01.md) records the comparison, actual hook
+delivery, code review, and limitations. The baseline already passed; this sample
+does not establish a code-quality improvement or human learning.
+
+Verified combination: C#/.NET 9, OpenAI `gpt-6.1-sol`, Codex CLI/app-server 0.160.1,
+macOS arm64. Startup, resume, clear, manual compaction, disabled hooks, and changed
+untrusted hooks were exercised. Other languages/providers/hosts remain unverified.
+
+Next is M02: persistent manual levels and per-project preferences. The complete
+first local usable version still requires M02–M04. Marketplace discovery,
+packaging for other users, and publication remain the final phase.
+
+Run the adapter checks with `python3 -m unittest discover -s tests -v`.
+Use the fixture's `check.py` against a completed disposable candidate; the checked-in
+starter is intentionally unfinished and must fail its behavior checks.
 
 ## Intended experience
 
@@ -56,14 +70,17 @@ Readability review examines code/comments/docs. Unaided human exercises assess
 comprehension. A neutral design is not proof that every model or host is supported;
 record the combinations actually tested.
 
-## Planning
+## Project references
 
 - [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
 - [Verification criteria and scenarios](docs/TESTING.md)
 - [Delivery roadmap](docs/ROADMAP.md)
-- [Next task: M01 — readable-code core and local hook](docs/handoffs/M01-readable-code-core.md)
+- [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
+- [Next task: M02 — manual levels and preferences](docs/handoffs/M02-manual-levels-and-preferences.md)
 - [Design](docs/DESIGN.md)
+- [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)
 
-The next slice proves the core and local automatic loading. No marketplace entry,
-distributable plugin manifest, or public installation is needed for that slice.
+For local development setup, follow the adapter README and the host's ordinary
+hook review/trust flow. No marketplace entry, distributable plugin manifest, or
+public installation is included. The test workspace's hook was left disabled.

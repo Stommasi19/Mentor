@@ -1,8 +1,9 @@
 # Mentor — learning through software engineering
 
-Status: Local-use scope confirmed and revised for language/LLM neutrality and
-product-first delivery on 2026-10-06. The plugin has not been
-implemented or installed. [Implementation plan](IMPLEMENTATION-PLAN.md) and
+Status: M01's neutral policy, C# experiment fixture, and Codex development hook
+are implemented and locally verified on 2026-10-06. This is a development
+integration; a distributable plugin and M02–M08 are still planned.
+[M01 evidence](evidence/M01.md), [implementation plan](IMPLEMENTATION-PLAN.md), and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
 DoughTracker discussion and is maintained here independently.

@@ -1,8 +1,9 @@
 # Mentor delivery roadmap
 
-Status: Planning revised; implementation and evaluation have not started.
+Status: M01 implemented and locally verified on 2026-10-06; M02 is next.
 Repository: [Stommasi19/Mentor](https://github.com/Stommasi19/Mentor).
-Current local baseline: `main` at `42bc70c7d66c24ef54592a151c97488bbeb38a76`.
+M01 implementation branch: `feat/m01-readable-code-core`, based on planning
+revision `6e1efc2`. See [evidence and limitations](evidence/M01.md).
 
 Mentor's core is coding-language- and LLM-agnostic. Codex is the first development
 adapter; C# is the first test case. Prove behavior and resulting code locally
@@ -20,7 +21,8 @@ applicable [criteria](TESTING.md) for each portion.
 | [M03 — interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow responds to learner reasoning. | Useful clarification, explicit assumptions, next-step verification, and respected direct-implementation requests. |
 | [M04 — review coaching](handoffs/M04-review-coaching.md) | Neutral review workflow examines real changes and teaches useful comments. | Known defect reported, optional polish separate, corrected-code checks, and concrete review reasoning. |
 
-M01 provides early experiments; M01–M04 form the first local usable version.
+M01's early experiments and local hook verification are complete. M01–M04 form
+the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
 and public installation are not completion criteria here. Automatic progression
 is initially absent.
@@ -47,9 +49,10 @@ requires its own explicit instruction.
 
 ## Current next task
 
-M01 is ready for an implementation request; no implementation has started.
-The planning baseline was committed as “Planning phase”; these revisions update
-that plan. Account for the working tree before an implementation branch.
+[M02](handoffs/M02-manual-levels-and-preferences.md) is ready for an implementation
+request. M01 passed T01–T05, T12, and T13 architecture for its recorded combination.
+Its baseline and policy candidates both passed; broader compatibility and human
+learning remain unproven. No M02 implementation or distribution work is included.
 
 ## Working loop
 
