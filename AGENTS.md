@@ -1,7 +1,10 @@
 # Mentor agent instructions
 
-Use `README.md` and `docs/DESIGN.md` for current scope and status. Read only the
-references relevant to the task. A previous conversation is not required.
+Use `README.md`, `docs/ROADMAP.md`, and the active handoff under `docs/handoffs/`
+for current scope and status. Use `docs/IMPLEMENTATION-PLAN.md` for first-release
+contracts, `docs/TESTING.md` for immediate verification criteria, and
+`docs/DESIGN.md` for the intended experience. Read only relevant references.
+A previous conversation is not required.
 
 Mentor is a standalone project. DoughTracker can inform examples, but do not
 modify its implementation as part of Mentor work. Planning does not itself
@@ -20,9 +23,22 @@ Keep optional polish distinct from actual defects. Do not impose exhaustive
 interviews, mandatory diagram counts, or perfection scores on small tasks.
 
 Support guided, supported, and independent mentoring levels as specified in the
-design. Fade help using observed independent reasoning and task performance;
-respect manual overrides and make room for attempts and self-correction. A single
-mistake does not establish a learner's overall ability.
+design. Guided offers a meaningful coding contribution; supported offers coding
+or reviewing; independent defaults to agent implementation with the learner
+directing and reviewing. Explicit requests/project agreements can change that
+allocation. Coaching intensity and who writes code are separate.
+
+The first usable release has manual levels and local per-project preferences.
+Pausing coaching retains readable-code/documentation expectations and necessary
+checks. Automatic progression follows later, using independent reasoning and
+task performance; respect overrides and allow attempts/self-correction. A single
+mistake does not establish overall ability. Agent-written code alone establishes
+no learning; an independent learner explanation or review can provide evidence.
+
+Implement and verify each requested slice immediately against its handoff and
+the applicable criteria. Keep the full evaluation runner outside the critical
+path to first use. Report pending checks honestly; policy injection alone cannot
+guarantee code readability.
 
 Keep the package independent of personal toolkit paths and private integrations.
 Record upstream attribution when adapting source material. Verify hook delivery

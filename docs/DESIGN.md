@@ -1,6 +1,8 @@
 # Mentor — learning through software engineering
 
-Status: Planning draft. The plugin has not been implemented or installed.
+Status: First-release scope confirmed on 2026-10-06. The plugin has not been
+implemented or installed. [Implementation plan](IMPLEMENTATION-PLAN.md) and
+[verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
 DoughTracker discussion and is maintained here independently.
 
@@ -9,12 +11,22 @@ DoughTracker discussion and is maintained here independently.
 Mentor is an always-on coding-agent plugin that helps junior developers write
 understandable software and practice engineering decisions, implementation,
 debugging, and code review. Its default includes the learner in meaningful
-decisions and coding contributions throughout the work.
+decisions and coding or review contributions throughout the work.
 
 Success means the learner can explain an approach, predict behavior, investigate
 a failure, and justify a review comment. Shipping a working change and learning
 from it are separate outcomes. Neither generated explanations nor passing tests
 establish the learner's understanding.
+
+## Code standards and coaching
+
+Mentor has two concerns: readable, maintainable implementation with useful
+documentation, and coaching that helps the learner practice. Code standards,
+material defect reporting, and necessary verification remain active when coaching
+is paused. Native plugin disabling turns off the whole package.
+
+The hook supplies default instructions; code review and project checks assess
+the resulting change. Instruction delivery is distinct from code quality.
 
 ## Default mentor behavior
 
@@ -25,10 +37,11 @@ establish the learner's understanding.
   and provide a worked explanation when requested or when hints are insufficient.
 - Discuss meaningful alternatives and their consequences. Ask for the learner's
   reasoning; help them choose and identify evidence that could change the choice.
-- Prepare the surrounding implementation and select a useful coding contribution
-  for the learner. Select by purpose, not a fixed number of lines. Review their
-  attempt and verify the combined result. The learner may ask the agent to take
-  over a part or demonstrate it.
+- Offer a useful coding or review contribution according to the selected level
+  and learner preference. Select by purpose, not a fixed number of lines. Prepare
+  surrounding context for an accepted coding part, review the attempt, and verify
+  the combined result. A demonstration/takeover request receives direct help;
+  unaccepted placeholders do not count as a completed change.
 - Write descriptive domain names, traceable control flow, focused methods, and
   comments explaining non-obvious rules. Keep documentation accurate and useful
   for following the changed flow and reproducing verification.
@@ -41,22 +54,29 @@ establish the learner's understanding.
 
 ## Mentoring levels and adaptive support
 
-Levels describe the amount of help on the current concept, not a permanent label
-for the learner. The default for an unfamiliar concept is `guided`, with adaptive
-support enabled. The learner can choose or lock a level, request more or less help,
-disable adaptation, or ask the mentor to demonstrate or take over a part.
+Levels describe coaching intensity, not a permanent label or a coding quota.
+The first usable version defaults to `guided` and supports manual selection,
+local per-project preferences, and coaching pause/resume. Automatic adaptation
+is later scope. The learner can request more/less help, demonstrate/takeover, or
+different implementation ownership without changing the stored level.
 
 | Level | Mentor behavior | Learner responsibility |
 | --- | --- | --- |
-| `guided` | Break the task into understandable steps, prepare surrounding code, explain relevant concepts, and offer focused questions and progressively clearer hints. | Make a meaningful decision, predict a result, and implement a focused contribution with support. |
-| `supported` | Invite an approach before offering one, provide less scaffolding, and respond to the learner's questions or a demonstrated gap. | Propose the approach, implement a larger coherent part, choose useful checks, and explain the result. |
-| `independent` | Give room to plan, implement, and investigate. Act mainly as a reviewer and sounding board, with help available on request. | Lead the change, justify decisions, diagnose failures, and present verification evidence. |
+| `guided` | Explain relevant steps, offer a focused coding part with context, and give progressively useful hints. | Make a decision or prediction and try the accepted coding part; request demonstration/takeover when useful. |
+| `supported` | Invite an approach with less scaffolding, offer coding or reviewing, and help with demonstrated gaps. | Choose the contribution, justify the approach, and explain relevant verification. |
+| `independent` | Implement by default under learner direction, offer concise decision/review checkpoints, and help on request. | Direct the change, review the diff, justify decisions, and understand verification evidence. |
+
+As experience grows, the learner can delegate more implementation and practice
+directing/reviewing agent-written code. Coaching intensity and who types code
+remain separate; explicit user instructions and project agreements override
+these defaults. Independent reasoning can be demonstrated while reviewing code
+the agent wrote.
 
 Readable code, accurate documentation, and necessary verification remain goals
 at every level. Reducing help does not increase PR size automatically or require
 the learner to tackle multiple unfamiliar concepts at once.
 
-### How help fades
+### How help fades — later adaptation
 
 Reduce support gradually, one step at a time, based on repeated independent
 demonstrations of reasoning and behavior. Relevant evidence includes explaining
@@ -64,13 +84,15 @@ why an approach works, implementing it, predicting a related variation, and
 diagnosing a failure. An initially incorrect attempt that the learner investigates
 and repairs independently can provide strong evidence of progress.
 
-For the first prototype, use three successful independent observations across at
+For a later adaptive prototype, use three successful independent observations across at
 least two task variants as a candidate for reducing support. The observations
 should collectively include an explanation and a failure diagnosis; they are not
 a quota of PRs or lines of code. This is a configurable design heuristic to
 evaluate, not a scientifically established threshold or a certificate of mastery.
 Hint-assisted work records practice, while copied or agent-authored answers do
-not count as independent demonstrations.
+not count as independent demonstrations. A learner's independent explanation,
+prediction, or evidence-backed review of agent-written code can provide evidence;
+reasoning supplied by the agent cannot.
 
 Make automatic changes visible with a short explanation of the observations that
 motivated them. Adapt separately by concept: someone may work independently on
@@ -79,11 +101,13 @@ not trigger a global demotion. Add support on the current challenge when repeate
 attempts reveal a gap or stop producing useful new information, and honor requests
 for help immediately.
 
-Keep a minimal local record of the concept, effective support level, observed
-attempts and assistance, reason for the last adjustment, and manual override.
-Scope records to the learner and project; keep them out of public Git history by
-default. Preserve selected levels and overrides across resume and compaction.
-Implementation and persistence details belong in a future scoped handoff.
+First-release preferences store the explicitly selected level and coaching state
+per project outside Git; see the [storage/control contract](IMPLEMENTATION-PLAN.md#local-preferences).
+The later evidence ledger records concept, task variant, observed behavior,
+assistance, outcome, evidence reference, and adjustment reason. Keep it local
+and inspectable/resettable. Preserve levels/overrides across exercised resume and
+compaction. Automatic task-difficulty changes require a separate design; fading
+help does not automatically make the problem harder.
 
 ### Productive struggle
 
@@ -160,9 +184,10 @@ the first workflow. Publishing is a separate task from creating a local package.
 
 ### Test environment and roles
 
-Use a disposable C# fixture project with a small task and runnable behavioral
-checks. Keep the fixture separate from active DoughTracker work. The intended
-test harness has three roles:
+Use the [reusable C# fixture and criteria](TESTING.md) with small tasks and runnable
+behavioral checks. Test each implemented portion immediately in disposable copies
+outside Mentor and active DoughTracker work. Start with direct/scripted scenarios;
+the full runner follows the usable version. Its intended roles are:
 
 - **Mentor:** A fresh Codex session using the installed plugin and its trusted
   hook. Use actual hook delivery for integration runs; manually supplying the
@@ -198,7 +223,7 @@ and task while letting subsequent responses depend on the actual interaction.
    hooks, and explicit changes to mentoring preferences. A policy-only simulation
    cannot establish these behaviors.
 2. **Mentoring behavior checks:** Check that the mentor invites a relevant
-   prediction or decision, leaves a meaningful contribution for the junior,
+   prediction or decision and offers a contribution suited to the selected level,
    responds to the actual mistake, and provides useful hints or a requested
    demonstration. Check observable conduct rather than exact wording, message
    length, or the presence of an insight box.
@@ -264,9 +289,12 @@ do not establish improved human learning.
 
 ## Sources inspected
 
-- Local agentic-workflow sources: `withInterview/SKILL.md`, `review/SKILL.md`,
-  `review/reviewer-prompt.md`, `review/triage-prompt.md`, `archReview/SKILL.md`,
-  and `productReview/SKILL.md` under `/Users/sebastiantommasi/.codex/skills/`.
+- Agentic-workflow sources inspected in the maintainer's installation:
+  `withInterview/SKILL.md`, `review/SKILL.md`, `review/reviewer-prompt.md`,
+  `review/triage-prompt.md`, `archReview/SKILL.md`, and `productReview/SKILL.md`.
+  Record source version, redistribution terms, and attribution before copying;
+  author original instructions when needed. No installation path is a runtime
+  dependency of Mentor.
 - [Anthropic Explanatory plugin](https://github.com/anthropics/claude-code/tree/main/plugins/explanatory-output-style).
 - [Anthropic Learning plugin](https://github.com/anthropics/claude-code/tree/main/plugins/learning-output-style).
 - [OpenAI plugin packaging and hooks](https://developers.openai.com/plugins/build/plugins).
