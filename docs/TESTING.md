@@ -2,7 +2,10 @@
 
 Status: M01's core, development adapter, fixture, executable checks, and local runs
 are implemented. [M01 results](evidence/M01.md) cover T01–T05, T12, and T13
-architecture. Later criteria remain pending their milestones.
+architecture. [M02 results](evidence/M02.md) on 2026-10-06 cover the required manual
+control/preference contracts, native lifecycle/refresh, conduct simulations and
+generated-code checks for the recorded combination. Automatic mid-turn compaction,
+broader compatibility and human learning remain pending.
 Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
 ## Evidence and results
@@ -57,6 +60,10 @@ year-boundary variation selected during implementation. Repeat known cases to
 catch regressions; use the reserved case after stabilizing the policy. Refresh
 reserved cases if their details become tuning input. One memorized conversation
 does not demonstrate generalization.
+
+M01 exercised the fixture's current reserved examples. If M02 changes are tuned
+against those examples, select and record a fresh reserved variation before the
+final conduct/code-quality check; do not label the existing examples unseen.
 
 ## Language, model, and host coverage
 
@@ -114,12 +121,12 @@ samples and disputed observer judgments manually.
 | --- | --- | --- | --- |
 | T01 | M01 | A real local development hook delivers this core automatically to a fresh host session without pasting policy or invoking a skill. Disabled/untrusted hook supplies no such context. | External disposable workspace and supported development hook config; capture core/adapter revision and actual host execution/context evidence. Marketplace not required. |
 | T02 | M01 | Development adapter emits the host's valid event output with nonempty shared policy when invoked from another directory; absent core policy fails visibly. | Execute the real adapter entry point with synthetic event input and missing-resource case. This tests the adapter contract, not actual host delivery. |
-| T03 | M01, M02 | Each exercised startup/resume/clear/compact event reloads policy; stored preferences survive and explicit session choices are not reset by defaults. | Separate host lifecycle observations; handler event coverage alone does not prove runtime lifecycle delivery. |
+| T03 | M01, M02 | Lifecycle reloads policy; M02 also loads project defaults and requires startup/resume/manual compaction/clear with saved settings. Resume/compaction retain session overrides, while clear starts from saved values. | Record each native lifecycle separately. Automatic mid-turn compaction remains separately pending; handler event coverage alone does not prove delivery. |
 | T04 | M01 onward | Generated code is behaviorally correct, readable, maintainable, and appropriately commented/documented in the project language. Comments explain intent/non-obvious rules; public contracts are accurate. | Run S01 independent checks and annotate actual code/comments/docs. Compare baseline/core outputs; record concrete strengths/defects, not just teaching prose or formatter success. |
 | T05 | M01, M02 | A learner coding offer is meaningful and conditional; demonstration/takeover or agent-implements project agreements receive complete work. | S01 with a decision/attempt and takeover variant; check authored contribution and actual completed code. |
 | T06 | M02 | Guided scaffolds/offers coding, supported offers coding or review, independent permits delegation while the learner directs/reviews. | Repeat the same starting task under all three levels with fresh context. Judge conduct, not exact wording or line counts. |
-| T07 | M02 | Explicit preferences persist; two projects remain separate; one repo's subdirectories/worktrees share settings; changing one field preserves the other. | Execute control helper and hook across temporary roots/worktrees plus subsequent fresh host sessions. Check non-Git root behavior. |
-| T08 | M02 | Pause removes compulsory teaching while retaining code standards. Missing state defaults; invalid state warns without overwrite; failed storage does not claim persistence. | Hook/control round trips and coaching-off S01. Include reset of one project only and unavailable/read-only storage. |
+| T07 | M02 | Session controls make no storage changes; explicit project changes persist. Projects remain separate, repo subdirectories/worktrees share settings, and updates preserve the other saved field. Status refresh retains local overrides and shows effective/saved values. | Real temporary roots/worktrees, hook/control round trips, fresh native sessions, and two already-open sessions with/without overrides. Include non-Git roots, symlinks, explicit data locations, and differing hook/tool cwd. |
+| T08 | M02 | Pause removes compulsory teaching while retaining code standards. Missing state defaults; invalid state warns and stays intact until explicit reset. Failed writes/resets apply requested values locally with an unsaved warning. Project reset clears current overrides; other sessions retain their own. | Coaching-off S01 and control round trips with invalid/unsupported/unreadable state and unavailable/read-only storage. Confirm prior-record preservation, effective/saved values, and reset isolation. |
 | T09 | M02, M03 | Mentor responds to the learner's mistake and offers increasingly useful help; a direct help request is honored. | S03 transcript and final behavioral check; no struggle quota or invented proficiency judgment. |
 | T10 | M03 | Focused questions respond to learner reasoning, resolve what the next step needs, and record remaining assumptions. No mandatory rounds/delegation interview. | S02, one settled small task, and a direct-implementation request through the adapted workflow. |
 | T11 | M04 | Actual diff/context read; identified material defect reported with evidence; optional polish separate; learner gets help forming a useful review comment. | S04 and an independent reproduction/check of its defect, plus coaching-off review. |
@@ -139,6 +146,30 @@ A readability review records a concrete example and any necessary correction.
 Do not invent universal method-length limits, comment quotas, or subjective scores
 as release gates. Disclose every identified material defect even when the
 conversation concentrates on one learning topic.
+
+## M02 verification matrix
+
+Use the [preference operation table](IMPLEMENTATION-PLAN.md#preference-precedence-and-lifetime)
+and [M02 handoff](handoffs/M02-manual-levels-and-preferences.md) as the expected
+contract. Every required row has a recorded local pass in [M02 evidence](evidence/M02.md).
+Keep executable checks, native delivery, conduct, and
+code-quality results separate; this matrix is not a new evaluation runner.
+
+| Boundary / criterion | Required observation | Evidence |
+| --- | --- | --- |
+| Control scope and defaults — T07/T08 | Missing record gives guided/on; status and unqualified level/pause/resume create no storage or change an existing record. Explicit project changes save only the requested field, preserving the other saved field even when its session value differs. Invalid actions do not mutate state. | Actual helper/wrapper entry points, real files and readback; current-conversation responses distinguish session/project scope. |
+| Identity and data location — T02/T07 | Repo subdirectories/worktrees and canonical/symlink paths share settings; separate clones/projects do not. Non-Git roots follow documented limits. Hook/control calls agree from different cwd and receive the resolved data root explicitly. Lookup/configuration failures warn rather than select another record. | Real temporary repos/worktrees/non-Git roots and actual adapter/control entry points. |
+| Recovery and atomic writes — T08 | Missing, malformed, unsupported, unreadable, and unavailable/read-only storage follow the contract. Ordinary mutations preserve invalid records; failed writes preserve the prior record and apply locally as unsaved. Explicit reset restores only this project's defaults/current overrides, or reports unsaved local defaults. | Helper/hook/control results, filesystem before/after, and conversation evidence; include actual permission failures. No cross-session merge claim. |
+| Extended hook and control delivery — T01/T02 | The native host delivers valid policy, project defaults/warnings, and usable control guidance. An actual control resolves the same project/root without assuming hook environment variables in ordinary tools. Preference failures retain policy; core-resource failures stay visible. | Native execution/context and control result in an external workspace. Synthetic handler checks cover contracts only; rerun affected disabled/untrusted controls. |
+| Saved-state lifecycle — T03 | Startup loads saved settings; resume/manual compaction reload defaults while retaining a different session override; native clear starts from saved settings without that override. | Separate native runtime traces and effective/saved observations for all four events. Automatic mid-turn compaction is separately pending, not required for M02 completion. |
+| Two open sessions — T07/T08 | A project change in A is adopted in B after status when B has no local override. With B's own override, status reloads/shows the saved change but retains B's effective choice. A session-only change in A does not affect B or disk. Reset in A retains B's override after refresh. | Two actual host conversations sharing a project, controlled state, control results, and turn references; no live-broadcast assumption. |
+| Levels and coaching off — T04/T05/T06/T08 | Repeat S01 from the same starter under guided, supported, independent, and coaching-off. Conduct changes appropriately; code/comments/docs and behavior still meet requirements. Takeover/project ownership agreements get complete verified work. | Fresh contexts/controlled preferences, transcripts, final diff, independent checks, and annotated readability review. Reuse M01's baseline evidence unless a new comparison is warranted. |
+| Mistake and direct help — T05/T09 | Prepare S03's incorrect month-boundary attempt; give a useful hint/escalation and honor direct-help/takeover without changing saved level. Verify the corrected implementation. | Focused S03 transcript and final behavioral checks, with authorship/assistance recorded. No proficiency or human-learning claim from a scripted actor. |
+
+Record session overrides as well as starting saved preferences for each run.
+Keep raw host/conversation evidence outside public Git and add an M02 evidence
+report after implementation. The M01 report stays historical evidence for its
+tested revision; its passes do not verify the extended M02 adapter or controls.
 
 ## Per-slice sequence
 

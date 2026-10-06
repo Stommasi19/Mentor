@@ -1,9 +1,10 @@
 # Mentor — learning through software engineering
 
 Status: M01's neutral policy, C# experiment fixture, and Codex development hook
-are implemented and locally verified on 2026-10-06. This is a development
-integration; a distributable plugin and M02–M08 are still planned.
-[M01 evidence](evidence/M01.md), [implementation plan](IMPLEMENTATION-PLAN.md), and
+and M02's manual controls/preferences are implemented and locally verified on
+2026-10-06. This is a development integration; a distributable plugin and M03–M08
+are still planned. [M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
+[implementation plan](IMPLEMENTATION-PLAN.md), and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
 DoughTracker discussion and is maintained here independently.
@@ -61,7 +62,15 @@ the resulting change. Instruction delivery is distinct from code quality.
 
 Levels describe coaching intensity, not a permanent label or a coding quota.
 The first usable version defaults to `guided` and supports manual selection,
-local per-project preferences, and coaching pause/resume. Automatic adaptation
+local per-project preferences, and coaching pause/resume. Level/pause/resume
+requests change only the current session unless project scope is explicit.
+Session overrides survive resume/manual compaction; clear starts from saved
+project preferences. Status refreshes those preferences while retaining session
+overrides and showing both effective and saved values. Project reset clears the
+current conversation's overrides to guided/on; other sessions retain their own.
+Failed project writes still apply locally with an unsaved warning. These M02
+contracts are locally verified for the [recorded combination](evidence/M02.md).
+Automatic adaptation
 is later scope. The learner can request more/less help, demonstrate/takeover, or
 different implementation ownership without changing the stored level.
 
@@ -106,8 +115,9 @@ not trigger a global demotion. Add support on the current challenge when repeate
 attempts reveal a gap or stop producing useful new information, and honor requests
 for help immediately.
 
-First-release preferences store the explicitly selected level and coaching state
-per project outside Git; see the [storage/control contract](IMPLEMENTATION-PLAN.md#local-preferences).
+First-release preferences store only explicitly requested project-level choices
+of level and coaching state outside Git. Session-only choices do not create or
+modify preference storage; see the [storage/control contract](IMPLEMENTATION-PLAN.md#local-preferences).
 The later evidence ledger records concept, task variant, observed behavior,
 assistance, outcome, evidence reference, and adjustment reason. Keep it local
 and inspectable/resettable. Preserve levels/overrides across exercised resume and

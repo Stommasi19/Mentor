@@ -13,7 +13,7 @@ def main() -> None:
     # interpreter, rather than relying on the session's directory or PATH.
     command = shlex.join([sys.executable, str(handler)])
     configuration = {
-        "description": "Mentor local development policy hook",
+        "description": "Mentor local development policy and preferences hook",
         "hooks": {
             "SessionStart": [
                 {
@@ -23,7 +23,8 @@ def main() -> None:
                             "type": "command",
                             "command": command,
                             "timeout": 10,
-                            "statusMessage": "Loading Mentor policy",
+                            "additionalContextLimit": 5000,
+                            "statusMessage": "Loading Mentor policy and project defaults",
                         }
                     ],
                 }
