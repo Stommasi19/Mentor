@@ -1,8 +1,10 @@
 # Mentor local implementation plan
 
 Status: Revised on 2026-10-06 for language/LLM neutrality and distribution last.
-Implementation has not started.
-Current local baseline: `main` at `42bc70c7d66c24ef54592a151c97488bbeb38a76`.
+M01 is implemented and locally verified; [results](evidence/M01.md) distinguish
+code quality, simulated conduct, and actual host delivery. M02–M08 remain planned.
+M01 was implemented from planning revision `6e1efc2` on
+`feat/m01-readable-code-core`.
 Use [DESIGN.md](DESIGN.md) for the intended experience, [TESTING.md](TESTING.md)
 for observable criteria, and [ROADMAP.md](ROADMAP.md) for delivery status.
 
@@ -34,8 +36,10 @@ discovery, packaging for others, and publication are the final phase.
 | Distribution | Marketplace discovery, other-user packaging/installation, and public release happen after local product validation, in the final phase. |
 
 Explore checked local host and packaging constraints; Plan examined learner
-behavior and scope. Their parallel findings informed this plan. No implementation,
-installation, trust changes, or publication were authorized by this planning task.
+behavior and scope. Their parallel findings informed this plan. The planning
+task did not authorize implementation or publication. The subsequent explicit M01
+implementation request authorized its local code and development-hook verification;
+distribution remains outside this slice.
 
 ## Requirements
 
@@ -57,7 +61,8 @@ installation, trust changes, or publication were authorized by this planning tas
 
 ## Core and development adapters
 
-Proposed layout; these files do not exist yet:
+Layout: M01 supplies the policy, development adapter, fixture, and contract checks.
+Workflows and neutral preference helpers remain later milestones.
 
 ```text
 core/
@@ -69,9 +74,9 @@ core/
 runtime/                  # neutral project-state/control helpers, M02
 adapters/
   codex/
-    hooks.json
+    development_config.py # prints hooks.json for a disposable workspace
     session_start.py
-    skills/               # thin local invocation wrappers if needed
+    skills/               # later thin local invocation wrappers if needed
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
 ```
@@ -244,5 +249,7 @@ Do not advertise universal compatibility; publish a tested-support matrix.
 Complete when the design, roadmap, local handoffs, final distribution boundary,
 and test criteria agree; state
 and failure behavior are specified; documentation links/formatting are checked;
-and implementation/evaluation status remains truthful. Plugin execution and
-learning results are pending implementation, not outcomes of this document.
+and implementation/evaluation status remains truthful. Those planning checks did
+not establish runtime delivery or learning. Subsequent M01 delivery/code results
+are recorded in [the evidence report](evidence/M01.md); human learning remains
+unobserved.

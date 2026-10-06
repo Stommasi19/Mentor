@@ -1,10 +1,11 @@
 # M01 — readable-code core and local hook prototype
 
-Status: Ready for an implementation request; implementation has not started.
+Status: Implemented and locally verified on 2026-10-06. See
+[M01 evidence, corrections, and limitations](../evidence/M01.md).
 Scope: [Local implementation plan](../IMPLEMENTATION-PLAN.md).
 Criteria: [T01–T05, T12, and T13 architecture](../TESTING.md#criteria).
-Current baseline: `main` at `42bc70c7d66c24ef54592a151c97488bbeb38a76`.
-Account for these planning revisions before creating an implementation branch.
+Implementation branch: `feat/m01-readable-code-core`, from planning revision
+`6e1efc2`. Next slice: [M02](M02-manual-levels-and-preferences.md).
 
 ## Before and after
 
@@ -47,23 +48,30 @@ M03/M04. No evidence ledger or full reactive actor runner yet.
 
 ## Immediate acceptance
 
-- [ ] T04 first: independent C# checks pass; an annotated review shows descriptive
+- [x] T04 first: independent C# checks pass; an annotated review shows descriptive
   names, understandable flow, appropriate boundaries, and needed comments/docs
   in the generated code. Teaching chat prose does not replace code documentation.
-- [ ] T12: baseline/core comparison records settings, starting code, actual diff/
+- [x] T12: baseline/core comparison records settings, starting code, actual diff/
   comments, check results, and limitations without invented improvement claims.
-- [ ] T13 architecture: canonical instructions contain no model/vendor API or
+- [x] T13 architecture: canonical instructions contain no model/vendor API or
   target-language default; C#/host specifics are in fixture/adapter.
-- [ ] T02: real adapter entry emits valid host output with shared core from
+- [x] T02: real adapter entry emits valid host output with shared core from
   another directory; missing core fails visibly. No exact-prose snapshots.
-- [ ] T01 required: actual local hook executes and delivers context automatically
+- [x] T01 required: actual local hook executes and delivers context automatically
   in a fresh external host session; disabled/untrusted hook supplies none.
   Handler-only or policy-only tests cannot satisfy this criterion.
-- [ ] T03: record startup and exercised resume/clear/compact separately; retain
+- [x] T03: record startup and exercised resume/clear/compact separately; retain
   explicit session preferences, and mark unexercised events pending.
-- [ ] T05: meaningful conditional learner participation and requested takeover
+- [x] T05: meaningful conditional learner participation and requested takeover
   lead to complete checked work; agent-implements project agreements respected.
-- [ ] README/status reflect only implemented, tested behavior and limitations.
+- [x] README/status reflect only implemented, tested behavior and limitations.
+
+Verified C#/.NET 9 with OpenAI `gpt-6.1-sol` on Codex CLI/app-server 0.160.1,
+macOS arm64. Four generated candidates pass 11 independent cases; baseline
+already meets the quality criteria. Native startup/resume/clear/manual-compaction
+delivery and disabled/changed-untrusted controls pass. Automatic mid-turn
+compaction and human comprehension remain unobserved; persistent controls are M02.
+Private raw evidence stays outside Git. No distribution work was added.
 
 Use Python's standard library for utility/contract checks where chosen. Record
 actual Python/.NET/host/model versions and the real C# check command. Run
