@@ -1,4 +1,4 @@
-# Expense-summary fixture (S01, version 1)
+# Expense-summary fixture (S01 and S03, version 1)
 
 This is a C#/.NET 9 exercise, not the Mentor core's implementation language.
 `starter/` deliberately compiles but throws until the task is implemented.
@@ -36,3 +36,9 @@ API and use independently chosen expected values. The starter must fail them;
 each finished candidate must pass. Read the generated code/comments/README as a
 separate check of readability and documentation. Preserve actual diffs, selected
 cards, settings, commands, and results outside public Git.
+
+For S03, copy the starter and replace its `ExpenseTotals.cs` with
+`scenarios/S03/ExpenseTotals.cs`, a deliberate inclusive-end mistake. Use that
+scenario's task and response card for hint/direct-help behavior. Its incorrect
+candidate must fail the next-month boundary checks; the corrected candidate must
+pass. This simulated accepted contribution does not establish human learning.

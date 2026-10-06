@@ -1,8 +1,11 @@
 # Mentor local implementation plan
 
-Status: Revised on 2026-10-06 for language/LLM neutrality and distribution last.
+Status: Revised on 2026-10-06 for language/LLM neutrality, distribution last,
+and M02's confirmed session-default controls and verification contracts.
 M01 is implemented and locally verified; [results](evidence/M01.md) distinguish
-code quality, simulated conduct, and actual host delivery. M02–M08 remain planned.
+code quality, simulated conduct, and actual host delivery. M02 is also implemented
+and locally verified; [M02 results](evidence/M02.md) record controls, preferences,
+native lifecycle/refresh and conduct/code evidence. M03–M08 remain planned.
 M01 was implemented from planning revision `6e1efc2` on
 `feat/m01-readable-code-core`.
 Use [DESIGN.md](DESIGN.md) for the intended experience, [TESTING.md](TESTING.md)
@@ -29,7 +32,7 @@ discovery, packaging for others, and publication are the final phase.
 | Levels | Manual selection in the first usable release. Automatic progression follows. |
 | Code standards | Descriptive names, understandable flow, appropriate boundaries, useful comments explaining intent/non-obvious rules, accurate documentation, and necessary verification at every level. |
 | Coaching pause | Pause learning prompts while retaining code/documentation expectations and ordinary defect reporting. Native plugin disabling disables the whole package. |
-| Preferences | Local per-project settings outside Git, remembered across sessions. |
+| Preferences | Controls change the current session by default. Explicit project-scope changes save local preferences outside Git for later sessions. |
 | Readability checks | A policy hook, focused review of the actual diff, and existing project checks. The session hook delivers instructions; it cannot certify resulting code quality. |
 | Verification | Test each slice immediately, reuse a small fixture with task variants and fresh contexts, and retain a reserved scenario. |
 | Urgency | “I want it done as soon as possible so that i can start using it.” No fixed delivery date was given. |
@@ -48,7 +51,7 @@ distribution remains outside this slice.
 | R01 | An actual local development hook supplies the shared policy to a fresh host session without pasting it or manually invoking a skill, including exercised lifecycle reloads. | T01–T03 |
 | R02 | Readable, maintainable, appropriately commented code and documentation remain goals when coaching is paused. Respect project agreements and necessary checks. | T04, T05, T08 |
 | R03 | Guided, supported, and independent change coaching intensity and participation defaults; none imposes a coding quota. | T06 |
-| R04 | Explicit level and coaching selections apply to the current conversation and persist for that project. | T07, T08 |
+| R04 | Level and coaching selections apply to the current conversation by default. Only explicit project-scope changes persist; failed saves still apply locally with an unsaved warning. | T03, T07, T08 |
 | R05 | Distinct projects keep separate preferences. Shared worktrees of one repository share its preferences. | T07 |
 | R06 | Demonstration/takeover requests receive direct help; repeated unproductive attempts receive useful escalation. | T05, T09 |
 | R07 | Interview coaching establishes the next useful step through relevant questions and records remaining assumptions. | T10 |
@@ -62,7 +65,8 @@ distribution remains outside this slice.
 ## Core and development adapters
 
 Layout: M01 supplies the policy, development adapter, fixture, and contract checks.
-Workflows and neutral preference helpers remain later milestones.
+M02 supplies the controls workflow and neutral preference helper. Interview and
+review workflows remain M03/M04.
 
 ```text
 core/
@@ -72,10 +76,12 @@ core/
     interview.md          # M03
     review.md             # M04
 runtime/                  # neutral project-state/control helpers, M02
+  preferences.py
 adapters/
   codex/
     development_config.py # prints hooks.json for a disposable workspace
     session_start.py
+    control.py            # thin local tool wrapper, M02
     skills/               # later thin local invocation wrappers if needed
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
@@ -110,17 +116,43 @@ flowchart LR
   Context --> Agent[Coding agent]
   Agent --> Code[Generated code and comments]
   Code --> Check[Behavior checks and readability review]
-  Control[Explicit mentor control] --> State
+  Control[Explicit mentor control] --> Context
+  Control -->|Explicit project scope| State
 ```
 
 A direct policy experiment tests behavior. An actual host trace tests automatic
 delivery. The core's generated code must meet the quality criteria in both.
-Manual controls apply to the current conversation and persist project settings.
+Manual controls apply to the current conversation; only explicit project-scope
+requests persist project settings.
 User instructions and project implementation agreements remain authoritative.
 
 Final M08 packaging can wrap this core for supported hosts, add manifests,
 marketplace/catalog entries, and other-user installation/update/removal flows.
 Do not move those distribution requirements into M01–M04.
+
+### Hook and control delivery
+
+M01 delivered only `core/policy.md`. The implemented M02 hook also delivers the
+neutral controls workflow, saved settings, persistence warnings and pinned control
+guidance. It distinguishes project defaults from retained session choices. Locate resources
+relative to the adapter, independently of the learner's working directory. Supply
+the controls instructions directly or a trusted resource location with enough
+invocation guidance to use them without the author's private skills.
+
+The adapter supplies the resolved workspace/project identity, data root, and
+helper/interpreter locations needed for control execution. Ordinary tool calls
+must not assume hook-only environment variables exist; pass these locations
+explicitly through the thin wrapper. Use the same identity and validation helper
+for hooks and controls, even when a tool starts in another directory. Keep host
+input schemas, instruction roles, environment mapping, and quoting in the adapter.
+Session-only controls need not write storage or create a preference record.
+
+A preference read or storage failure must still deliver the valid code policy,
+with a visible warning and fallback project defaults. Missing/invalid core policy
+retains M01's visible adapter failure; it is not a successful policy load. Record
+actual delivered policy, settings, and control guidance through the native runtime,
+then exercise a control there. Handler JSON or a model acknowledgment alone does
+not prove delivery or working controls. No custom host slash command is assumed.
 
 ## Local preferences
 
@@ -129,7 +161,10 @@ Core helpers receive the data root and project identity explicitly. The local
 adapter uses `MENTOR_DATA_DIR` when configured, otherwise `<user-home>/.mentor`.
 This keeps preferences outside Git and independent of a model/vendor or installed
 plugin cache. A later host wrapper can map its own data directory to this contract;
-shared settings across hosts require the same configured root. No vendor-specific
+shared settings across hosts require the same configured root. Require an absolute
+configured data root and carry its resolved location into control invocation;
+invalid configuration warns and makes persistence unavailable without choosing
+another storage location silently. No vendor-specific
 environment variable belongs in the core schema or policy.
 
 Resolve project identity from the workspace directory supplied by the adapter:
@@ -140,6 +175,10 @@ Resolve project identity from the workspace directory supplied by the adapter:
    start at its root; nested starting directories are distinct in this version.
 3. Hash the canonical identity using SHA-256 for a stable filesystem-safe key.
    Different clones remain different local projects; do not key by remote URL.
+
+Distinguish a non-Git workspace from a failed Git lookup. If identity cannot be
+resolved reliably, warn and keep persistence unavailable rather than accessing
+another project's record. Canonicalization must handle symlinked paths consistently.
 
 Moving a repository can change its identity. Document reset/reselection as the
 first-release recovery; automatic migration and shared learner accounts are later
@@ -156,36 +195,79 @@ Minimal persisted shape:
 ```
 
 Validate the version, exact level enum, and boolean type. Missing records use
-guided/coaching-on defaults and need not create a file until an explicit change.
-Read errors, malformed/unsupported records, or unavailable data storage produce
-a visible warning; retain the core code policy and use guided defaults. Preserve
-unreadable/invalid records until an explicit reset. Failed writes must not claim
-persistence; the requested change may still apply to the current conversation.
+guided/coaching-on project defaults. Do not create storage on reads, status, or
+session-only changes; create a record only for an explicit project mutation.
+Session overrides are separate from this minimal persisted schema.
 
-Share identity resolution and validation between the hook and control helper.
-The adapter can include a concise resolved data location for control execution;
-ordinary tool calls must not assume host-hook environment variables are present.
-Control scripts receive that location explicitly or report it unavailable.
-The control helper validates actions and updates existing valid settings through
-an atomic replacement. Changing one preference preserves the other. First-release
+### Preference precedence and lifetime
+
+For each field, use a current session override when present; otherwise use the
+latest loaded project setting, falling back to guided/on. Session choices are
+retained in conversation context across resume/manual compaction. Hook context
+labels stored settings as project defaults, so reloads do not replace explicit
+session choices. Verify this behavior in the actual host; policy text alone is
+not proof of retention.
+
+| Operation | Current conversation | Saved project preferences |
+| --- | --- | --- |
+| Startup or clear | Load project defaults with no previous conversation overrides. | Read only; missing record defaults to guided/on. |
+| Resume or manual compaction | Reload project defaults and retain session overrides. | Read only. |
+| Unqualified level/pause/resume | Override only the requested field for this session. | No write. |
+| Status or control refresh | Reload project defaults; retain session overrides and show effective/saved values separately when different. | Read only unless a project mutation was explicitly requested. |
+| Successful project level/pause/resume | Apply the requested field and clear its session override; retain any override on the other field. | Atomically update only the requested field; preserve the other saved field. |
+| Failed project level/pause/resume | Apply the requested field as an unsaved session override; retain the other field. | Report failure; do not claim saved success or silently repair an invalid record. |
+| Explicit project reset | Apply guided/on and clear current overrides; if saving fails, retain those defaults as unsaved session overrides. | Restore guided/on for this project only, or report non-persistence. |
+
+Demonstration/takeover, task-specific help, and implementation ownership are
+separate from persisted level/coaching fields. A task-only help adjustment ends
+with that task; unqualified level/coaching changes last for the conversation.
+An explicit request to use project preferences again clears the relevant session
+override without writing storage.
+
+Other open conversations receive no live broadcast. They refresh project defaults
+on an explicit status/control operation or their next lifecycle hook, preserving
+their own overrides. For example, session A's explicit project-level change becomes
+effective in session B after status if B has no level override. B's own level
+override still wins and status reports both values. Clear starts a new conversation
+without these overrides. Existing project ownership agreements remain authoritative.
+
+### Failure and recovery
+
+Read errors, malformed/unsupported records, or unavailable storage warn visibly.
+Use guided/on as fallback project defaults while preserving any session overrides
+and the valid code policy. Keep unreadable/invalid records intact until explicit
+project reset. Ordinary project mutations refuse to overwrite these records,
+apply the requested field locally, and explain that reset is needed before saving.
+Session-only controls remain available without working storage.
+
+The control helper validates actions and uses atomic replacement for successful
+project writes. Changing one field preserves the other saved field, not a temporary
+override from the conversation. A failed write leaves the prior record intact and
+returns a persistence failure separately from the requested conversation change.
+Report requested/effective values, saved values when readable, and the failure;
+never claim a reset recovered storage unless that operation succeeded. First-release
 concurrent writes use last-completed-write semantics; no cross-session merge claim.
-Other already-open conversations refresh on an explicit control/status operation
-or their next lifecycle hook, rather than receiving live broadcasts.
 
 ## Controls and interaction
 
 These are intended neutral natural-language actions, exposed through a thin host
 control wrapper when necessary, not claims about existing host slash commands.
+Unqualified requests change only the session. Persist only when the learner
+explicitly asks for project scope, such as "use independent for this project" or
+"save coaching off as this project's default". Do not ask a persistence question
+for every session control; confirm the scope and actual result when responding.
 
 | Request | Effect |
 | --- | --- |
-| Set guided / supported / independent | Change the active level and persist it for this project. |
-| Show mentor status | Show level, coaching state, project scope, and persistence warnings; refresh from the local record. |
-| Pause coaching / mentoring off | Persist coaching off; continue code standards, required checks, and defect reporting. |
-| Resume coaching | Persist coaching on at the selected level. |
+| Set guided / supported / independent | Change the active level for this session. |
+| Show mentor status | Refresh project defaults; show effective level/coaching, session overrides, saved values or fallback state, project scope, and persistence warnings. |
+| Pause coaching / mentoring off | Pause coaching for this session; continue code standards, required checks, and defect reporting. |
+| Resume coaching | Resume coaching for this session at its effective level. |
+| Set a level or coaching state explicitly for this project | Apply now and save only the requested field; report verified persistence or an unsaved session change. |
+| Use project preferences in this session | Clear the requested session overrides and use refreshed project defaults without writing storage. |
 | Demonstrate / take over this part | Give direct help for the current task without changing the project's level. |
 | More / less help with this part | Adjust assistance locally without recording an automatic level change. |
-| Reset this project's preferences | Restore guided/coaching-on defaults for this project only. |
+| Reset this project's preferences | Restore guided/on for this project and clear current session overrides; report any persistence failure. Other sessions keep their own overrides. |
 
 Guided offers a purposeful coding contribution and enough surrounding context.
 When the learner accepts, pause for their attempt; on a demonstration/takeover

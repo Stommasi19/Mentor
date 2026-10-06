@@ -17,8 +17,11 @@ Verified combination: C#/.NET 9, OpenAI `gpt-6.1-sol`, Codex CLI/app-server 0.16
 macOS arm64. Startup, resume, clear, manual compaction, disabled hooks, and changed
 untrusted hooks were exercised. Other languages/providers/hosts remain unverified.
 
-Next is M02: persistent manual levels and per-project preferences. The complete
-first local usable version still requires M02–M04. Marketplace discovery,
+M02 is implemented and locally verified: session controls, explicit project
+preferences, failure recovery, native lifecycle retention, and two-session refresh.
+The [M02 evidence report](docs/evidence/M02.md) records scope and limitations;
+the [adapter guide](adapters/codex/README.md) explains natural controls and local setup.
+The complete first local usable version still requires M03–M04. Marketplace discovery,
 packaging for other users, and publication remain the final phase.
 
 Run the adapter checks with `python3 -m unittest discover -s tests -v`.
@@ -50,7 +53,14 @@ coaching leaves code standards and necessary verification active.
   decisions and reviewing the result.
 
 The first local version has manual levels and per-project preferences outside
-Git. Greater experience can mean delegating more code while owning decisions and
+Git. Level/pause/resume requests change the session unless project scope is
+explicitly requested. Session overrides survive resume/manual compaction; clear
+starts from saved project preferences. Status shows effective and saved choices;
+failed saves still apply locally with an unsaved warning. Saved fields are updated
+separately, so a temporary session pause cannot become a project default when
+changing the saved level. See [storage contracts](runtime/README.md).
+
+Greater experience can mean delegating more code while owning decisions and
 review. Later evidence can support concept-specific adaptation. Explicit requests
 can change implementation ownership at any level.
 
@@ -76,7 +86,8 @@ record the combinations actually tested.
 - [Verification criteria and scenarios](docs/TESTING.md)
 - [Delivery roadmap](docs/ROADMAP.md)
 - [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
-- [Next task: M02 — manual levels and preferences](docs/handoffs/M02-manual-levels-and-preferences.md)
+- [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
+- [Next task: M03 — interview coaching](docs/handoffs/M03-interview-coaching.md)
 - [Design](docs/DESIGN.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)

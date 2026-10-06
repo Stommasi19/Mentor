@@ -1,4 +1,4 @@
-# M01 authorship and references
+# Mentor authorship and references
 
 The Mentor core policy, adapter, fixture, and checks were authored for this
 project from its agreed design and implementation contracts. M01 does not vendor
@@ -14,3 +14,9 @@ OpenAI Docs and testAudit were development-time aids. No personal toolkit path,
 memory integration, installed skill, or private service is a dependency of the
 policy, adapter, fixture, or checks. Later milestones must record source versions,
 licenses, and required notices before copying or adapting upstream source.
+
+M02's neutral controls workflow, preference helper, Codex control entry, and
+contract checks were also authored from Mentor's agreed contracts. No upstream
+skill source was copied into the runtime or workflow. The official hook reference
+informed the bounded extended context configuration; testAudit's authoring gate
+was used as a development aid. Neither is a runtime dependency.

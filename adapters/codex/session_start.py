@@ -2,8 +2,59 @@
 """Deliver the canonical Mentor policy through Codex's SessionStart contract."""
 
 import json
+import os
 from pathlib import Path
+import shlex
+import subprocess
 import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
+
+
+def preference_context(event: dict, adapter: Path) -> str:
+    """Pin hook locations for ordinary tools, which lack hook-only environment."""
+    warnings = []
+    project_id = None
+    data_root = None
+    try:
+        workspace = event.get("cwd")
+        if not isinstance(workspace, str) or not Path(workspace).is_absolute():
+            raise ValueError("hook workspace must be an absolute directory")
+        project_id = resolve_project(workspace)
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
+        warnings.append(f"Project identity unavailable: {error}")
+    try:
+        configured = os.environ.get("MENTOR_DATA_DIR", str(Path.home() / ".mentor"))
+        data_root = str(resolve_data_root(configured))
+    except (OSError, ValueError, RuntimeError) as error:
+        warnings.append(f"Invalid data configuration: {error}")
+    reason = "; ".join(warnings) or None
+    store = PreferenceStore(data_root, project_id, reason)
+    status = control(store)
+    command = [sys.executable, str(adapter / "control.py")]
+    if reason:
+        command += ["--unavailable-reason", reason]
+    else:
+        command += ["--project-id", project_id, "--data-root", data_root]
+    lifecycle = "Start without session overrides." if event["source"] in ("startup", "clear") else (
+        "Retain the conversation's session object/overrides; reload only project defaults.")
+    return "\n\n".join([
+        "## Mentor project defaults (not session overrides)\n" + json.dumps(status, ensure_ascii=False),
+        f"Lifecycle: {event['source']}. {lifecycle}",
+        "## Codex control invocation\n"
+        f"Trusted workflow: {adapter.parents[1] / 'core' / 'workflows' / 'controls.md'}\n"
+        f"Project ID: {project_id}; absolute data root: {data_root}.\n"
+        f"Base shell command: {shlex.join(command)}\n"
+        "Append --session <shell-quoted JSON of the current session object> and the action. "
+        "Example initial status: append --session '{}' status. "
+        "Use set-level guided|supported|independent, pause, resume, status, use-project "
+        "(optional --field level|coaching_enabled), or --scope project reset. "
+        "Only an explicit project request adds --scope project to set-level/pause/resume. "
+        "Apply effective values and retain the returned session object in conversation context. "
+        "Pass these exact locations even if tools run from another cwd; do not depend on hook environment. "
+        "Report warnings and never claim persisted success unless persisted is true.",
+    ])
 
 
 def main() -> int:
@@ -20,6 +71,10 @@ def main() -> int:
         policy = policy_path.read_text(encoding="utf-8").strip()
         if not policy:
             raise ValueError(f"core policy is empty: {policy_path}")
+        workflow_path = policy_path.parent / "workflows" / "controls.md"
+        workflow = workflow_path.read_text(encoding="utf-8").strip()
+        if not workflow:
+            raise ValueError(f"controls workflow is empty: {workflow_path}")
     except (OSError, UnicodeError, ValueError) as error:
         print(f"Mentor SessionStart failed: {error}", file=sys.stderr)
         return 1
@@ -28,7 +83,9 @@ def main() -> int:
         {
             "hookSpecificOutput": {
                 "hookEventName": "SessionStart",
-                "additionalContext": policy,
+                "additionalContext": "\n\n".join([
+                    policy, workflow, preference_context(event, Path(__file__).resolve().parent),
+                ]),
             }
         },
         sys.stdout,

@@ -1,6 +1,6 @@
 # Mentor delivery roadmap
 
-Status: M01 implemented and locally verified on 2026-10-06; M02 is next.
+Status: M01 and M02 implemented and locally verified on 2026-10-06; M03 is next.
 Repository: [Stommasi19/Mentor](https://github.com/Stommasi19/Mentor).
 M01 implementation branch: `feat/m01-readable-code-core`, based on planning
 revision `6e1efc2`. See [evidence and limitations](evidence/M01.md).
@@ -17,11 +17,13 @@ applicable [criteria](TESTING.md) for each portion.
 | Milestone | Useful result | Immediate evidence |
 | --- | --- | --- |
 | [M01 — readable-code core and local hook](handoffs/M01-readable-code-core.md) | Neutral policy produces readable, maintainable, appropriately commented code; a development hook loads it automatically. | Baseline/core experiments, actual code/comments/docs review, behavioral checks, and local hook traces. |
-| [M02 — manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Three manual levels, neutral local per-project state, and coaching pause/resume. | Different conduct by level, persistence/project isolation, retained code standards, and failure handling. |
+| [M02 — manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Three manual levels and pause/resume default to the session; explicit project changes persist in neutral local state. | Different conduct by level, scope/precedence, persistence/isolation, retained code standards, failure recovery, native lifecycle and two-session refresh. |
 | [M03 — interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow responds to learner reasoning. | Useful clarification, explicit assumptions, next-step verification, and respected direct-implementation requests. |
 | [M04 — review coaching](handoffs/M04-review-coaching.md) | Neutral review workflow examines real changes and teaches useful comments. | Known defect reported, optional polish separate, corrected-code checks, and concrete review reasoning. |
 
-M01's early experiments and local hook verification are complete. M01–M04 form
+M01's early experiments and local hook verification and M02's controls, preferences,
+native lifecycle/refresh and conduct checks are complete for the recorded combination.
+See [M02 evidence](evidence/M02.md). M01–M04 form
 the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
 and public installation are not completion criteria here. Automatic progression
@@ -49,10 +51,14 @@ requires its own explicit instruction.
 
 ## Current next task
 
-[M02](handoffs/M02-manual-levels-and-preferences.md) is ready for an implementation
-request. M01 passed T01–T05, T12, and T13 architecture for its recorded combination.
-Its baseline and policy candidates both passed; broader compatibility and human
-learning remain unproven. No M02 implementation or distribution work is included.
+[M03 — interview coaching](handoffs/M03-interview-coaching.md) is next. M02 passes
+its required local scope: session-default controls, project-only persistence,
+override retention, failed-save recovery, native startup/resume/manual compaction/
+clear, two-session refresh, four S01 conditions and S03 direct help. Its
+[evidence](evidence/M02.md) separates conduct simulation, code checks and host delivery.
+Automatic mid-turn compaction, broader compatibility and human learning remain
+pending. M01's baseline and policy candidates both passed; no new causal quality
+comparison is claimed. Distribution remains the final phase.
 
 ## Working loop
 

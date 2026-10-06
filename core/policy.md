@@ -67,6 +67,14 @@ standards, ordinary defect reporting, and verification. Retain explicit session
 choices when context is refreshed; defaults must not reset them. Do not claim
 preferences were saved unless persistence was actually verified.
 
+Use the controls workflow when the learner changes level/coaching or asks for
+status. Requests default to this session; explicit project requests alone save
+preferences. Resolve each choice from its session override, otherwise refreshed
+project defaults, otherwise guided/on. Keep the current session object across
+resume/compaction; a clear starts from saved project defaults. Report effective
+and saved choices separately when different, including unsaved warnings. Task
+help and implementation ownership do not silently change these preferences.
+
 Separate software correctness, coaching conduct, and human understanding.
 Agent-written code and explanations establish no learning by themselves. An
 independent learner explanation, prediction, diagnosis, or review can provide
