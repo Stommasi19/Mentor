@@ -1,7 +1,7 @@
 # M02 — manual levels and project preferences
 
 Status: Queued; implementation has not started.
-Dependency: [M01 foundation](M01-guided-plugin-foundation.md).
+Dependency: [M01 foundation](M01-readable-code-core.md).
 Contract: [Preferences](../IMPLEMENTATION-PLAN.md#local-preferences) and
 [controls](../IMPLEMENTATION-PLAN.md#controls-and-interaction).
 Criteria: [T01–T09 and T12 as affected](../TESTING.md#criteria).
@@ -15,11 +15,14 @@ projects remain separate. Coaching off retains code standards and defect reporti
 
 ## Implementation
 
-1. Add a small shared state helper and the bundled `mentor` control skill.
+1. Add a neutral shared state helper and `core/workflows/controls.md`, with a
+   thin local host control wrapper only where invocation needs one.
    Keep project resolution, validation, reading, and writing consistent between
    the hook and control path. No external service or private toolkit dependency.
 2. Resolve identity from canonical Git common directory, otherwise canonical
-   workspace root. Hash it for `PLUGIN_DATA/projects/<id>/preferences.json`.
+   workspace root. Hash it for `<data-root>/projects/<id>/preferences.json`.
+   The core accepts explicit data-root inputs; the local adapter maps configured
+   `MENTOR_DATA_DIR` or `<user-home>/.mentor` to that contract.
    Same-repo subdirectories/worktrees share settings; separate clones/projects
    do not. Document non-Git subdirectory and moved-project limits.
 3. Persist only schema version, exact level enum, and coaching boolean. Missing
@@ -31,7 +34,7 @@ projects remain separate. Coaching off retains code standards and defect reporti
    last-completed-write semantics and refresh behavior for already-open sessions.
 5. Hook context includes the effective choices and enough trusted resource/data
    location for the control workflow. A normal tool call cannot assume hook-only
-   environment variables exist. The skill uses the bundled helper, confirms its
+   environment variables exist. The wrapper uses the shared helper, confirms its
    result, and applies the requested change to the current conversation.
 6. Add level defaults: guided offers focused coding, supported offers coding or
    reviewing, independent defaults to agent implementation with learner direction/
@@ -42,7 +45,7 @@ projects remain separate. Coaching off retains code standards and defect reporti
    task under each level and coaching-off. Use fresh contexts and controlled data.
 
 No automatic proficiency assessment, evidence ledger, harder-task selection,
-new host, or full evaluation runner in this slice.
+new host, marketplace/distribution packaging, or full runner in this slice.
 
 ## Immediate acceptance
 
@@ -60,8 +63,8 @@ new host, or full evaluation runner in this slice.
   regardless of level; accepted learner work is verified.
 - [ ] Rerun T01/T02/T04 where hook/policy changes affect them, and T12 for handback.
 
-Use the actual bundled entry points in focused executable checks. Record host
-interaction evidence outside Mentor and update installation/control docs with
+Use the actual local runtime/adapter entry points in focused executable checks. Record host
+interaction evidence outside Mentor and update development-hook/control docs with
 tested invocation forms. Do not invent custom host slash commands.
 
 ## Handback and learning checkpoint

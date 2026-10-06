@@ -1,55 +1,63 @@
 # Mentor delivery roadmap
 
-Status: Planning confirmed; implementation and evaluation have not started.
+Status: Planning revised; implementation and evaluation have not started.
 Repository: [Stommasi19/Mentor](https://github.com/Stommasi19/Mentor).
-Local planning baseline: `main` at `2e422c0035301ab5e9504bff0056d73702c83c40`.
-The planning changes are local and uncommitted.
+Current local baseline: `main` at `42bc70c7d66c24ef54592a151c97488bbeb38a76`.
 
-The first usable release follows the [implementation plan](IMPLEMENTATION-PLAN.md).
-Each slice includes immediate [verification](TESTING.md); a full evaluation
-service is not a prerequisite for everyday use.
+Mentor's core is coding-language- and LLM-agnostic. Codex is the first development
+adapter; C# is the first test case. Prove behavior and resulting code locally
+before preparing other-user installation or marketplace discovery.
 
-## First usable release
+Use the [implementation plan](IMPLEMENTATION-PLAN.md) and immediately run the
+applicable [criteria](TESTING.md) for each portion.
+
+## First local usable version
 
 | Milestone | Useful result | Immediate evidence |
 | --- | --- | --- |
-| [M01 — hook and code foundation](handoffs/M01-guided-plugin-foundation.md) | A locally installable policy hook establishes code standards and guided coaching defaults. | Actual delivery outside Mentor, executable resource/output checks, readable C# result, and takeover interaction. |
-| [M02 — manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Three manual levels, local per-project preferences, and coaching pause/resume. | Different support/participation at each level, project/worktree identity, persistence, retained code standards, and explicit failure behavior. |
-| [M03 — interview coaching](handoffs/M03-interview-coaching.md) | Focused learning-oriented requirements clarification. | Questions respond to reasoning, the next step is sufficiently specified, assumptions remain explicit, and direct-implementation requests are respected. |
-| [M04 — review coaching](handoffs/M04-review-coaching.md) | Evidence-backed local-diff review practice. | Known bug reported, optional polish distinct, review-comment practice useful, and code/verification evidence explicit. |
+| [M01 — readable-code core and local hook](handoffs/M01-readable-code-core.md) | Neutral policy produces readable, maintainable, appropriately commented code; a development hook loads it automatically. | Baseline/core experiments, actual code/comments/docs review, behavioral checks, and local hook traces. |
+| [M02 — manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Three manual levels, neutral local per-project state, and coaching pause/resume. | Different conduct by level, persistence/project isolation, retained code standards, and failure handling. |
+| [M03 — interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow responds to learner reasoning. | Useful clarification, explicit assumptions, next-step verification, and respected direct-implementation requests. |
+| [M04 — review coaching](handoffs/M04-review-coaching.md) | Neutral review workflow examines real changes and teaches useful comments. | Known defect reported, optional polish separate, corrected-code checks, and concrete review reasoning. |
 
-M01 can supply early feedback. M01–M04 together are the first usable version
-agreed in the interview. Test each portion immediately and record failures/pending
-checks before treating it as complete. Automatic progression is initially absent.
+M01 provides early experiments; M01–M04 form the first local usable version.
+Test each portion immediately. A marketplace entry, distributable plugin manifest,
+and public installation are not completion criteria here. Automatic progression
+is initially absent.
 
-## Later milestones
+## Validate and improve the local product
 
 | Milestone | Useful result | Evidence needed |
 | --- | --- | --- |
-| M05 — isolated scenario runner | Automate repeated mentor/junior/observer runs and baseline comparison. | Controlled contexts/access, recorded authorship, actual hook evidence, independent code checks, and criterion-specific observations. |
-| M06 — adaptive support | Gradual concept-specific help changes from a local evidence ledger. | Independent versus assisted reasoning, self-correction, transparent adjustments, manual locks, privacy/reset, and preserved overrides. |
-| M07 — human pilot and release preparation | People try related tasks and a supported local package gets a reproducible demo. | Unaided explanation/diagnosis, feedback separate from synthetic results, attribution, and honest installation/support limits. Publication is separately authorized. |
+| M05 — portability and isolated scenarios | Exercise another coding language and models from different providers; automate controlled comparisons where useful. | Language/model/host matrix, actual code quality, isolated actor inputs, authorship, and criterion-specific observations. |
+| M06 — adaptive support | Gradual concept-specific changes from a neutral local evidence ledger. | Independent/assisted reasoning, self-correction, visible adjustments, manual locks, privacy/reset, and preserved overrides. |
+| M07 — personal real-project trial | Use Mentor in the owner's actual work and refine readability/coaching. | Real diff/comments/docs, necessary checks, unaided explanation/diagnosis, and observed friction. |
 
-Harder-task selection and other host adapters have separate future scope.
-Observations from first use can revise these later handoffs; they do not block
-the manual version.
+Harder-task selection needs a separate experiment. Additional host adapters are
+implemented according to demand; universal host support is not assumed.
+
+## Final phase — distribution
+
+[M08 — package and distribute verified behavior](handoffs/M08-distribution.md)
+comes after local behavior, code quality, and portability have evidence.
+Only here add plugin manifests, marketplace discovery, other-user installation,
+update/removal instructions, release assets, and publication steps. Preserve one
+canonical core and document the combinations actually supported. Public release
+requires its own explicit instruction.
 
 ## Current next task
 
-M01 is prepared for an implementation request; no implementation has started.
-Account for the local planning changes before creating an implementation branch.
-Do not discard existing work or infer installation from these documents.
+M01 is ready for an implementation request; no implementation has started.
+The planning baseline was committed as “Planning phase”; these revisions update
+that plan. Account for the working tree before an implementation branch.
 
 ## Working loop
 
-1. Read the active handoff and applicable criteria; inspect the current baseline.
-2. Implement one coherent behavior with relevant checks and documentation.
-3. Immediately run the slice's executable, interaction, and required host checks.
-4. Review the actual diff; explain an important flow, decision, and failure case.
-   Invite coding/review practice according to preferences and project agreements.
-5. Record runtime/code/readability/conduct/comprehension evidence separately.
-   Unperformed checks stay pending.
-6. Update status after verification and prepare the next small change.
+1. Read the handoff and criteria; implement one coherent local behavior.
+2. Immediately run executable/code checks and inspect generated code/comments/docs.
+3. Exercise the relevant interaction and development hook; distinguish their evidence.
+4. Record failures/pending checks and review learner decisions/understanding.
+5. Update status and proceed after the portion's required criteria are satisfied.
 
-Mistakes and failed runs guide revisions. Optional polish and learning gaps do
-not become invented shipping defects or perfection gates.
+Distribution is the final phase. Optional polish and knowledge gaps do not
+become invented defects or perfection gates.

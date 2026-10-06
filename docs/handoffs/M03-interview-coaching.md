@@ -8,7 +8,7 @@ Criteria: [T09, T10, T12](../TESTING.md#criteria), plus affected hook/code check
 ## Before and after
 
 Before: a general mentor policy and manual controls.
-After: a portable `mentor-interview` workflow helps clarify a useful next step
+After: a neutral interview workflow helps clarify a useful next step
 through learner reasoning, relevant questions, and explicit assumptions.
 
 ## Implementation
@@ -16,8 +16,9 @@ through learner reasoning, relevant questions, and explicit assumptions.
 1. Inspect the upstream withInterview source/version and redistribution terms.
    Record attribution/notices for copied adaptations; write original instructions
    from the agreed requirements if copying is not permitted.
-2. Add `skills/mentor-interview/SKILL.md`, independent of personal paths, memory
-   services, private personas, and unrelated workflow bootstraps.
+2. Add `core/workflows/interview.md`, independent of coding language, model/vendor,
+   personal paths, memory services, and private personas. Add a thin local host
+   invocation wrapper only if required; package/discover it for others in M08.
 3. Start from task, selected level, coaching state, project agreements, and what
    the learner has already said. Ask the highest-value question next; invite a
    learner requirement/prediction or experiment when useful.
@@ -47,9 +48,9 @@ Mentor's runtime adaptation intentionally has different pacing.
 - [ ] T09: a mistaken idea gets a useful hint/investigation; direct help is honored.
 - [ ] T10: paused coaching and direct-implementation requests retain essential
   clarification without forcing a coding/learning assignment.
-- [ ] T12: packaged workflow runs in a fresh external workspace without private
+- [ ] T12/T13 architecture: core workflow runs in a fresh external workspace without private
   toolkit/memory dependencies; transcript observations cite specific turns.
-- [ ] Record actual host discovery/invocation, attribution, affected policy checks,
+- [ ] Record actual local invocation, attribution, affected hook/policy checks,
   and code checks for any scenario implementation produced.
 
 Judge behavior and useful decisions, not exact wording, rounds, insight boxes, or
