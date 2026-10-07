@@ -20,3 +20,12 @@ contract checks were also authored from Mentor's agreed contracts. No upstream
 skill source was copied into the runtime or workflow. The official hook reference
 informed the bounded extended context configuration; testAudit's authoring gate
 was used as a development aid. Neither is a runtime dependency.
+
+M05's optional Serena plan inspected `joi-fairshare/agentic-workflow` revision
+`e0ff305a0f17746858bd63e4752047731edf2282`: `.agents/rules/mcp-servers.md`,
+`.serena/project.yml`, `scripts/serena-docker` and `CLAUDE.md`. The plan is
+originally written; no source code, configuration templates or launcher scripts
+are vendored. Before copying during implementation, verify redistribution terms
+and required notices for the exact sources and pin the tested Serena version.
+Private toolkit paths, memory integrations and the multi-agent messaging bridge
+are not planned dependencies. Implementation and runtime verification are pending.

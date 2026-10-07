@@ -71,7 +71,8 @@ can change implementation ownership at any level.
 2. Verify automatic policy loading with a local development hook.
 3. Add manual levels/preferences, interview coaching, and review coaching; test
    each portion immediately.
-4. Broaden language/model coverage, evaluate adaptation, and try real project work.
+4. Broaden language/model coverage, evaluate optional Serena tooling and adaptation,
+   and try real project work.
 5. Finally package and document the verified behavior for other users, including
    marketplace discovery and installation.
 
@@ -88,6 +89,7 @@ record the combinations actually tested.
 - [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
 - [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
 - [Next task: M03 — interview coaching](docs/handoffs/M03-interview-coaching.md)
+- [Planned M05 — portability and optional Serena tooling](docs/handoffs/M05-portability-and-tooling.md)
 - [Design](docs/DESIGN.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)

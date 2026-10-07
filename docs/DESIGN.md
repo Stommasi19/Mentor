@@ -195,6 +195,16 @@ the host's normal hook review/trust flow. This does not need marketplace discove
 or a distributable plugin manifest. Policy-only experiments establish behavior
 observations; actual host traces establish automatic delivery.
 
+[M05](handoffs/M05-portability-and-tooling.md) plans optional Serena MCP tooling
+through the host adapter, adapting Agentic Workflow's project activation and
+semantic-navigation usage. This improves the agent's available tools without
+changing mentoring levels, implementation ownership, mentee work or full-skill
+activation. Start with read-only navigation and ordinary host edits; keep memory
+and onboarding disabled. Retain ordinary search/read/check tools and a visible
+fallback when Serena is absent or unavailable. Compare efficiency and actual code
+quality before claiming a benefit. The core stays independent of this integration;
+implementation and runtime verification are pending.
+
 Use a small C# fixture initially. Broaden the same criteria to another language
 and models from different providers before making broad compatibility claims.
 A language/LLM-neutral design and verified support are different evidence.

@@ -133,6 +133,7 @@ samples and disputed observer judgments manually.
 | T12 | All | Policy experiment, actual hook delivery, code quality/conduct/comprehension claims have the correct evidence; unperformed checks remain pending. | Inspect handback and cited artifacts. Neither policy-only runs nor synthetic actors prove automatic delivery or human learning. |
 | T13 | M01 architecture; M05 coverage | Core has no target-language/vendor/host assumptions; compatibility claims reflect actual tests. | Inspect core/adapter boundary, then exercise representative languages and providers with the same rubric. Record a support matrix and pending cells. |
 | T14 | M08 only | Verified core is packaged for others; discovery/install, trust, updates/removal, and release docs match supported behavior. | Final clean-environment distribution checks after local product/portability evidence. No early marketplace gate. |
+| T16 | M05 optional tooling | Opt-in Serena semantic navigation works through the actual host, falls back when unavailable, and preserves mentoring/ownership/preferences. Any efficiency or quality claim has controlled evidence. | External workspace activation and symbol/reference calls; no-server/failure cases; same task/model/settings with and without tools; inspect code/comments/docs and available metrics. |
 
 T04 review questions:
 
@@ -170,6 +171,22 @@ Record session overrides as well as starting saved preferences for each run.
 Keep raw host/conversation evidence outside public Git and add an M02 evidence
 report after implementation. The M01 report stays historical evidence for its
 tested revision; its passes do not verify the extended M02 adapter or controls.
+
+## M05 optional-tooling verification
+
+Use the [M05 handoff](handoffs/M05-portability-and-tooling.md). These are future
+criteria, all pending; writing this plan does not verify a Serena installation.
+
+| Boundary | Required observation |
+| --- | --- |
+| Actual host use — T16/T12 | Opt-in MCP connection, correct project activation and semantic symbol/reference calls in an external workspace, including another cwd/worktree. Record Serena/backend/host versions and language prerequisites. Config output alone does not establish tool delivery. |
+| Optionality — T16 | Without Serena, and with an unavailable/disabled server, ordinary tools still support the task and valid Mentor policy remains available. Explain fallback without inventing semantic results. |
+| Mentoring contracts — T05–T08/T16 | Controlled levels, coaching state and ownership agreements are respected with and without Serena. No forced learner work, preference writes, full-skill activation, memory/onboarding or background learner tracking. |
+| Tool choice and code quality — T04/T16 | Semantic navigation serves definitions/references/structure; ordinary search, file reads, host edits and checks serve their relevant purposes. Inspect actual code/comments/docs and run agreed behavior checks. |
+| Efficiency evidence — T12/T16 | Same task/model/preferences/starter with and without tools; record available tokens, calls and time, including startup/indexing overhead. Report missing metrics and unchanged/worse outcomes honestly; no universal benefit or human-learning claim. |
+
+Broader language/provider results and actor-input isolation retain T13/T12 and
+the existing evaluation contract. Add automation only where it helps the comparison.
 
 ## Per-slice sequence
 

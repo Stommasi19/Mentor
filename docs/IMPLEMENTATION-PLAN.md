@@ -37,6 +37,7 @@ discovery, packaging for others, and publication are the final phase.
 | Verification | Test each slice immediately, reuse a small fixture with task variants and fresh contexts, and retain a reserved scenario. |
 | Urgency | “I want it done as soon as possible so that i can start using it.” No fixed delivery date was given. |
 | Distribution | Marketplace discovery, other-user packaging/installation, and public release happen after local product validation, in the final phase. |
+| Optional tooling | M05 adds opt-in Serena semantic navigation through host adapters, adapting Agentic Workflow usage. Tool capability does not change learner work, mentoring preferences or implementation ownership. Mentor works without it. |
 
 Explore checked local host and packaging constraints; Plan examined learner
 behavior and scope. Their parallel findings informed this plan. The planning
@@ -320,7 +321,8 @@ remains an unvalidated heuristic for a later experiment.
 Adapt by concept, visibly and gradually, with manual locks and direct help
 available. Reduced coaching and greater delegation are different from harder
 tasks; automatic challenge selection requires its own design and evaluation.
-After local M01–M04, M05 broadens language/provider coverage and isolated evaluation;
+After local M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens
+language/provider coverage, adds optional Serena tooling and isolated evaluation;
 M06 tests adaptive evidence; M07 records real-project use and comprehension.
 [M08 distribution](handoffs/M08-distribution.md) is the final milestone: manifests,
 marketplace discovery, other-user installation/update/removal, and publication.
