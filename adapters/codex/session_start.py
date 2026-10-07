@@ -12,6 +12,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
 
 
+def interview_context() -> str:
+    """Advertise explicit invocation without delivering the full workflow."""
+    return (
+        "## Codex interview invocation\n"
+        "The full interview runs only on explicit invocation of $mentor-interview, "
+        "registered separately through local development skill discovery. This hook "
+        "does not register skills. Ordinary clarification remains available without "
+        "launching that workflow. Invocation preserves effective/session/saved "
+        "preferences and implementation scope."
+    )
+
+
 def preference_context(event: dict, adapter: Path) -> str:
     """Pin hook locations for ordinary tools, which lack hook-only environment."""
     warnings = []
@@ -75,6 +87,11 @@ def main() -> int:
         workflow = workflow_path.read_text(encoding="utf-8").strip()
         if not workflow:
             raise ValueError(f"controls workflow is empty: {workflow_path}")
+        interview_path = policy_path.parent / "workflows" / "interview.md"
+        # Validate the advertised resource now; never claim a broken checkout
+        # supplies a usable workflow. Load its instructions only when needed.
+        if not interview_path.read_text(encoding="utf-8").strip():
+            raise ValueError(f"interview workflow is empty: {interview_path}")
     except (OSError, UnicodeError, ValueError) as error:
         print(f"Mentor SessionStart failed: {error}", file=sys.stderr)
         return 1
@@ -85,6 +102,7 @@ def main() -> int:
                 "hookEventName": "SessionStart",
                 "additionalContext": "\n\n".join([
                     policy, workflow, preference_context(event, Path(__file__).resolve().parent),
+                    interview_context(),
                 ]),
             }
         },

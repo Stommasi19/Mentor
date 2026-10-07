@@ -1,6 +1,9 @@
 # Mentor delivery roadmap
 
-Status: M01 and M02 implemented and locally verified on 2026-10-06; M03 is next.
+Status: M01/M02 and the original M03 workflow locally verified on 2026-10-06.
+Revised M03 is implemented and locally verified on 2026-10-07;
+[revised evidence](evidence/M03-revised.md) records native invocation and limits.
+M04/M06 planning rewrites are confirmed; M04 is the next implementation slice.
 Repository: [Stommasi19/Mentor](https://github.com/Stommasi19/Mentor).
 M01 implementation branch: `feat/m01-readable-code-core`, based on planning
 revision `6e1efc2`. See [evidence and limitations](evidence/M01.md).
@@ -18,23 +21,26 @@ applicable [criteria](TESTING.md) for each portion.
 | --- | --- | --- |
 | [M01 — readable-code core and local hook](handoffs/M01-readable-code-core.md) | Neutral policy produces readable, maintainable, appropriately commented code; a development hook loads it automatically. | Baseline/core experiments, actual code/comments/docs review, behavioral checks, and local hook traces. |
 | [M02 — manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Three manual levels and pause/resume default to the session; explicit project changes persist in neutral local state. | Different conduct by level, scope/precedence, persistence/isolation, retained code standards, failure recovery, native lifecycle and two-session refresh. |
-| [M03 — interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow responds to learner reasoning. | Useful clarification, explicit assumptions, next-step verification, and respected direct-implementation requests. |
-| [M04 — review coaching](handoffs/M04-review-coaching.md) | Neutral review workflow examines real changes and teaches useful comments. | Known defect reported, optional polish separate, corrected-code checks, and concrete review reasoning. |
+| [M03 — invoked interview skill](handoffs/M03-interview-coaching.md) | Explicit native skill follows upstream interview stages with teaching and primary-agent-only execution. | Actual skill invocation, focused rounds, confirmation, artifacts/handoff, manual-level support and scope preservation. |
+| [M04 — invoked review skill](handoffs/M04-review-coaching.md) | Explicit local/PR review primes the learner, pauses, then discusses evidence-backed findings and saves a report. | Native invocation, level-specific primers, pause/skip/coaching-off, real defect evidence, optional polish and report-only scope. |
 
 M01's early experiments and local hook verification and M02's controls, preferences,
 native lifecycle/refresh and conduct checks are complete for the recorded combination.
-See [M02 evidence](evidence/M02.md). M01–M04 form
-the first local usable version.
+See [M02 evidence](evidence/M02.md).
+The original M03 workflow's invocation, conduct and code checks are recorded in
+[M03 evidence](evidence/M03.md). The revised explicitly invoked teaching skill
+has separate [native/conduct/code evidence](evidence/M03-revised.md).
+M01–M04 form the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
-and public installation are not completion criteria here. Automatic progression
-is initially absent.
+and public installation are not completion criteria here. Levels remain manually
+selected; automatic progression is outside the planned release.
 
 ## Validate and improve the local product
 
 | Milestone | Useful result | Evidence needed |
 | --- | --- | --- |
 | M05 — portability and isolated scenarios | Exercise another coding language and models from different providers; automate controlled comparisons where useful. | Language/model/host matrix, actual code quality, isolated actor inputs, authorship, and criterion-specific observations. |
-| M06 — adaptive support | Gradual concept-specific changes from a neutral local evidence ledger. | Independent/assisted reasoning, self-correction, visible adjustments, manual locks, privacy/reset, and preserved overrides. |
+| [M06 — invoked task feedback](handoffs/M06-task-feedback.md) | Immediate feedback on the task at hand, saved as local Markdown; reflection optional and levels manually selected. | Actual native invocation, evidence-backed feedback, accurate report/checks, unchanged preferences and no background tracking. |
 | M07 — personal real-project trial | Use Mentor in the owner's actual work and refine readability/coaching. | Real diff/comments/docs, necessary checks, unaided explanation/diagnosis, and observed friction. |
 
 Harder-task selection needs a separate experiment. Additional host adapters are
@@ -51,14 +57,19 @@ requires its own explicit instruction.
 
 ## Current next task
 
-[M03 — interview coaching](handoffs/M03-interview-coaching.md) is next. M02 passes
-its required local scope: session-default controls, project-only persistence,
-override retention, failed-save recovery, native startup/resume/manual compaction/
-clear, two-session refresh, four S01 conditions and S03 direct help. Its
-[evidence](evidence/M02.md) separates conduct simulation, code checks and host delivery.
-Automatic mid-turn compaction, broader compatibility and human learning remain
-pending. M01's baseline and policy candidates both passed; no new causal quality
-comparison is claimed. Distribution remains the final phase.
+[Revised M03](handoffs/M03-interview-coaching.md) is implemented and locally verified:
+a native, explicitly invoked teaching-focused interview skill with staged questions,
+confirmation, artifacts and direct execution or skill handoff.
+[Revised evidence](evidence/M03-revised.md) records the tested combination;
+[original M03 evidence](evidence/M03.md) remains historical.
+[M04](handoffs/M04-review-coaching.md) is the next implementation slice.
+M03, [M04](handoffs/M04-review-coaching.md) and [M06](handoffs/M06-task-feedback.md)
+have confirmed planning rewrites, completed one at a time. M04/M06 implementation
+and verification have not started. M06 now provides invoked task feedback rather
+than automatic progression. Levels remain manually switched through M02.
+M01/M02 evidence remains tied to its recorded controls/lifecycle scope. Automatic
+mid-turn compaction, broader compatibility and human learning remain pending.
+Distribution remains the final phase.
 
 ## Working loop
 

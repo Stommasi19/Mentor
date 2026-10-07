@@ -2,8 +2,10 @@
 
 Status: M01's neutral policy, C# experiment fixture, and Codex development hook
 and M02's manual controls/preferences are implemented and locally verified on
-2026-10-06. This is a development integration; a distributable plugin and M03–M08
-are still planned. [M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
+2026-10-06. Revised M03's native interview skill is implemented and locally verified
+on 2026-10-07; [revised evidence](evidence/M03-revised.md) separates runtime,
+scripted conduct, code checks, and pending human-learning evidence. This remains a development integration; public plugin
+packaging and M04–M08 are planned. [M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
 [implementation plan](IMPLEMENTATION-PLAN.md), and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
@@ -58,7 +60,7 @@ the resulting change. Instruction delivery is distinct from code quality.
   default does not override an agreement that agents implement a complete change.
   Non-coding requests do not acquire a mandatory mentoring exercise.
 
-## Mentoring levels and adaptive support
+## Mentoring levels and task support
 
 Levels describe coaching intensity, not a permanent label or a coding quota.
 The first usable version defaults to `guided` and supports manual selection,
@@ -70,9 +72,10 @@ overrides and showing both effective and saved values. Project reset clears the
 current conversation's overrides to guided/on; other sessions retain their own.
 Failed project writes still apply locally with an unsaved warning. These M02
 contracts are locally verified for the [recorded combination](evidence/M02.md).
-Automatic adaptation
-is later scope. The learner can request more/less help, demonstrate/takeover, or
-different implementation ownership without changing the stored level.
+Levels remain manually selected throughout the planned release. The learner can
+request more/less help, demonstrate/takeover or different implementation ownership
+without changing the stored level. M06's invoked task feedback does not infer or
+switch levels.
 
 | Level | Mentor behavior | Learner responsibility |
 | --- | --- | --- |
@@ -90,39 +93,31 @@ Readable code, accurate documentation, and necessary verification remain goals
 at every level. Reducing help does not increase PR size automatically or require
 the learner to tackle multiple unfamiliar concepts at once.
 
-### How help fades — later adaptation
+### Invoked feedback on the task at hand
 
-Reduce support gradually, one step at a time, based on repeated independent
-demonstrations of reasoning and behavior. Relevant evidence includes explaining
-why an approach works, implementing it, predicting a related variation, and
-diagnosing a failure. An initially incorrect attempt that the learner investigates
-and repairs independently can provide strong evidence of progress.
+[M06's confirmed contract](handoffs/M06-task-feedback.md) provides feedback only
+when invoked. Use the current task and available requirements, actual changes,
+comments/docs, supplied observations and check results. Give concrete strengths,
+improvements and an optional next step immediately; reflection can follow but
+is not a prerequisite. Do not silently launch another interview or review skill.
 
-For a later adaptive prototype, use three successful independent observations across at
-least two task variants as a candidate for reducing support. The observations
-should collectively include an explanation and a failure diagnosis; they are not
-a quota of PRs or lines of code. This is a configurable design heuristic to
-evaluate, not a scientifically established threshold or a certificate of mastery.
-Hint-assisted work records practice, while copied or agent-authored answers do
-not count as independent demonstrations. A learner's independent explanation,
-prediction, or evidence-backed review of agent-written code can provide evidence;
-reasoning supplied by the agent cannot.
+Match the manual level: guided explains examples/reasoning, supported connects
+evidence and tradeoffs, independent gives concise observations/actions. Coaching-off
+retains direct requested feedback without added reflection prompts. Local help can
+respond to uncertainty or a direct request without changing the selected level.
 
-Make automatic changes visible with a short explanation of the observations that
-motivated them. Adapt separately by concept: someone may work independently on
-HTTP endpoints and still need guided support on concurrency. A single error does
-not trigger a global demotion. Add support on the current challenge when repeated
-attempts reveal a gap or stop producing useful new information, and honor requests
-for help immediately.
+Save a local Markdown report with task/scope, evidence, feedback, checks and
+limitations in the neutral project data location, outside public Git by default.
+Use a task-specific directory; report failed saves honestly and avoid silent
+overwrite. Do not store a full transcript, background evidence ledger or proficiency
+profile. Feedback-only does not change code or publish findings.
 
-First-release preferences store only explicitly requested project-level choices
-of level and coaching state outside Git. Session-only choices do not create or
-modify preference storage; see the [storage/control contract](IMPLEMENTATION-PLAN.md#local-preferences).
-The later evidence ledger records concept, task variant, observed behavior,
-assistance, outcome, evidence reference, and adjustment reason. Keep it local
-and inspectable/resettable. Preserve levels/overrides across exercised resume and
-compaction. Automatic task-difficulty changes require a separate design; fading
-help does not automatically make the problem harder.
+Agent-authored work and passing checks alone establish no learner comprehension.
+Discuss independently supplied reasoning only where observed; identify assistance
+and keep missing observations unknown. A mistake does not establish overall ability.
+Levels and coaching state change through explicit M02 controls only. Automatic
+progression thresholds, learner scoring and background tracking are removed from
+the planned release; there is no automatic task-difficulty adjustment.
 
 ### Productive struggle
 
@@ -137,7 +132,7 @@ This design draws on problem-solving-before-instruction approaches explored in
 [introductory programming research](https://arxiv.org/abs/2411.11227). That small
 study reported stronger delayed performance on similar tasks, with no difference
 in initial outcomes. It motivates evaluation of this design; it does not establish
-that Mentor's levels, thresholds, or adaptive policy improve learning.
+that Mentor's levels or teaching workflows improve learning.
 
 ## Adapt the agentic-workflow skills
 
@@ -147,17 +142,34 @@ before copying material into the standalone package.
 
 | Source | Keep | Mentor adaptation |
 | --- | --- | --- |
-| `withInterview` | Clarifying goals, surfacing assumptions, discussing constraints | Ask the learner to propose requirements, identify uncertainty, and choose a useful next experiment. Remove the minimum three rounds, mandatory delegation interview, and claim that all ambiguities must disappear. Stop when the next small step is sufficiently understood; record open assumptions. |
-| `review` | Reading the actual diff and surrounding code, checking evidence, locating findings, explaining consequences | Invite the learner to review one relevant flow first. Compare their reasoning with an evidence-backed review, provide hints, and help them write a useful comment. Support local diffs and small changes as well as PRs. Use additional reviewers when they serve a concrete concern. |
+| `withInterview` | Target/setup, focused high-level and drill-down rounds, summary/confirmation, interview/plan artifacts, execution or skill handoff | Explicit native skill invocation only. Follow the sequence closely; replace subagent strategy with primary-agent teaching/participation preferences. Explain choices and examples at the selected manual level, reuse settled answers, honor skip requests, and record assumptions without learner assessment. |
+| `review` | Target/context/evidence, relevant concerns, review, saved findings and report | Explicit native skill for local changes or PRs. The primary agent primes the learner at the manual level, pauses for their review, then discusses their observations alongside evidence-backed findings. Report only; no automatic fixes, posting, grades or level changes. |
 | `archReview` | Tracing boundaries, dependencies, data flow, and failure propagation | Explore one relevant boundary or failure scenario at a time. Ask the learner to sketch or explain the flow; add a diagram when it helps. Replace mandatory diagram counts, exhaustive matrices, and scores with reasoned choices and checks proportional to the task. |
 | `productReview` | Asking who needs the behavior, challenging assumptions, considering scope | Let the learner explain the user need, choose the smallest useful behavior, and propose how to test an assumption. Remove forced feature cuts, concern quotas, arbitrary delivery deadlines, and default growth/scale analysis for small learning tasks. |
 
-The first version should adapt `withInterview` and `review`. Architecture and
-product questions can be used as relevant teaching lenses; separate full skills
-can follow after the basic mentor workflow has been exercised.
+The first version should adapt `withInterview` and `review`. M03's revised
+interview skill follows the [confirmed staged contract](handoffs/M03-interview-coaching.md):
+substantial interviews retain the three-stage rhythm, while settled tasks do not
+acquire invented questions. Confirmation approves the concrete plan; execution
+then continues work already authorized, with requirements-only requests stopping
+at their artifacts. Teaching explains requirements/tradeoffs without quizzes,
+grades or inferred level changes. Paused coaching retains clarification and task
+artifacts without teaching prompts. M04's [confirmed review contract](handoffs/M04-review-coaching.md)
+adds a level-specific primer and learner pause before ordinary findings, followed
+by discussion and a local report. Its implementation remains pending. Architecture
+and product lenses can follow after the basic workflow is exercised.
 
 ## Review feedback
 
+The full M04 review skill starts only when invoked, for local changes or a PR.
+Read the actual diff/context and relevant evidence first. Prime the learner with
+what changed, intended behavior and useful things to inspect: guided gets a
+walkthrough/examples, supported a flow map/prompts, independent a brief checklist.
+With coaching on, pause for observations or a request to see findings; silence
+is not an attempted review. Direct-findings requests skip the wait, and coaching-off
+provides a direct report. Disclose serious defects already identified immediately.
+
+Then discuss the learner's observations alongside the evidence-backed review.
 Keep correctness and learning feedback distinct:
 
 - **Required corrections:** Actual defects or required verification gaps, with
@@ -172,9 +184,13 @@ A coaching conversation can focus on one or two learning topics while the review
 still reports every material defect it identifies. Unknown behavior stays unknown
 until checked. Do not mark required checks passed when they were not performed.
 
-Finish with brief notes on what the learner explained independently, what they
-investigated, and what still needs practice. A learning gap does not by itself
-make a correct product change defective.
+Save a local report with target/revision, inspected scope, findings/evidence,
+checks, optional refinements and limitations. Refresh affected context if the diff
+changes during the pause. Relate discussion to observations the learner actually
+supplied without scoring ability or writing a proficiency ledger. Report-only
+scope does not edit code or post comments; those require separate requests.
+Ordinary defect reporting remains available outside the full skill. A learning
+gap does not by itself make a correct product change defective.
 
 ## Plugin architecture
 
@@ -185,8 +201,12 @@ or vendor-specific defaults on the learner's work.
 
 Thin adapters map supported host hooks, instruction roles, working directory,
 state location, and invocation forms to this shared core. A host's hook schema
-and skill wrapper belong in its adapter, not in the canonical policy. Python
-may implement development helpers without restricting the target coding language.
+and skill wrapper belong in its adapter, not in the canonical policy. Revised M03
+and M04 require native explicit skill registration through supported local development
+facilities, so the workflows fit the eventual Mentor plugin without depending on
+Agentic Workflow's installation. Actual invocation must be verified in that host;
+a file-read recipe alone does not establish it. Python may implement development
+helpers without restricting the target coding language.
 
 Prove the policy first through controlled generated-code experiments, then verify
 automatic delivery through a local development hook. For the initial Codex
@@ -295,16 +315,16 @@ The remaining scenario ideas are:
   Does it respect that instruction?
 - A resumed or compacted session: Does mentoring context return while preserving
   the learner's explicit preferences?
-- Repeated independent success across task variants: Does support fade one step,
-  with an evidence-backed explanation of the change?
+- Invoked feedback on a current task: Does the report cite concrete evidence,
+  leave levels unchanged and offer an optional next step without requiring reflection?
 - Correct answers that required hints or were supplied by the agent: Does the
   mentor avoid falsely counting them as independent demonstrations?
 - An incorrect attempt repaired independently: Does the mentor recognize the
   learner's investigation without treating the first mistake as a demotion?
 - Repeated attempts without a new hypothesis, or a direct request for help: Does
   support increase usefully instead of leaving the learner stuck?
-- A new concept and a manually locked level: Does adaptation remain specific to
-  the concept and respect the override across resume and compaction?
+- A new concept and a manually selected level: Does useful help preserve the
+  selected level and session/project overrides across resume and compaction?
 
 Measure hook/adapter behavior, code behavior, and observed mentoring behavior
 separately. Assess learner comprehension using independent explanations,
