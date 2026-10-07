@@ -26,15 +26,15 @@ native lifecycle/refresh and conduct checks are complete for the recorded combin
 See [M02 evidence](evidence/M02.md). M01–M04 form
 the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
-and public installation are not completion criteria here. Automatic progression
-is initially absent.
+and public installation are not completion criteria here. Levels remain manually
+selected; optional feedback/self-checks do not switch them.
 
 ## Validate and improve the local product
 
 | Milestone | Useful result | Evidence needed |
 | --- | --- | --- |
 | [M05 — portability, optional tooling and isolated scenarios](handoffs/M05-portability-and-tooling.md) | Broaden language/provider coverage; include repository-owned optional Serena setup and reuse existing connections; automate controlled comparisons where useful. | Tested combinations, actual semantic tool use/fallback, efficiency and code quality, unchanged mentoring contracts, isolated actor inputs and authorship. |
-| M06 — adaptive support | Gradual concept-specific changes from a neutral local evidence ledger. | Independent/assisted reasoning, self-correction, visible adjustments, manual locks, privacy/reset, and preserved overrides. |
+| [M06 — invoked feedback and PR understanding checks](handoffs/M06-task-feedback.md) | Immediate task feedback, plus a separate invoked PR-link self-check with questions and explanations from actual code/tests; local Markdown reports and manually selected levels. | Real PR retrieval, question/answer evidence, independent/assisted/unattempted distinctions, honest reports and unchanged preferences. |
 | M07 — personal real-project trial | Use Mentor in the owner's actual work and refine readability/coaching. | Real diff/comments/docs, necessary checks, unaided explanation/diagnosis, and observed friction. |
 
 Harder-task selection needs a separate experiment. Additional host adapters are

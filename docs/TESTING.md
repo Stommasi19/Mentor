@@ -133,7 +133,9 @@ samples and disputed observer judgments manually.
 | T12 | All | Policy experiment, actual hook delivery, code quality/conduct/comprehension claims have the correct evidence; unperformed checks remain pending. | Inspect handback and cited artifacts. Neither policy-only runs nor synthetic actors prove automatic delivery or human learning. |
 | T13 | M01 architecture; M05 coverage | Core has no target-language/vendor/host assumptions; compatibility claims reflect actual tests. | Inspect core/adapter boundary, then exercise representative languages and providers with the same rubric. Record a support matrix and pending cells. |
 | T14 | M08 only | Verified core is packaged for others; discovery/install, trust, updates/removal, and release docs match supported behavior. | Final clean-environment distribution checks after local product/portability evidence. No early marketplace gate. |
+| T15 | M06 task feedback | Explicit feedback uses available current-task evidence immediately and saves local Markdown. Reflection optional; manual preferences unchanged and no background tracking. | Actual native invocation, controlled levels/coaching-off, missing-observation/work-in-progress cases, report checks and feedback-only scope. |
 | T16 | M05 optional tooling | Opt-in Serena semantic navigation works through the actual host, falls back when unavailable, and preserves mentoring/ownership/preferences. Any efficiency or quality claim has controlled evidence. | External workspace activation and symbol/reference calls; no-server/failure cases; same task/model/settings with and without tools; inspect code/comments/docs and available metrics. |
+| T17 | M06 PR self-check | Explicit PR-link skill reads actual diff/context/tests, asks grounded understanding questions, waits for answers and explains with evidence. Manual preferences unchanged; local Markdown and no automatic PR edits. | Native invocation/PR retrieval, correct/mistaken/assisted/unattempted answers, hint/skip/stop, changing PR, report failures and honest evidence claims. |
 
 T04 review questions:
 
@@ -189,6 +191,23 @@ criteria, all pending; writing this plan does not verify a Serena installation.
 Broader language/provider results and actor-input isolation retain T13/T12 and
 the existing evaluation contract. Add automation only where it helps the comparison.
 
+## M06 verification matrix
+
+Use the [M06 handoff](handoffs/M06-task-feedback.md). Both skills are planned;
+implementation and every runtime observation below remain pending.
+
+| Boundary | Required observation |
+| --- | --- |
+| Task feedback — T15/T12 | Native explicit invocation reuses the current task and available evidence immediately, without a reflection/quiz prerequisite. Markdown accurately describes strengths, improvements, optional next step, scope and pending checks. Missing learner observations stay unknown. |
+| PR target and questions — T17/T12/T13 | Native explicit skill resolves a supplied GitHub PR and reads actual diff/context/tests at a recorded revision. Questions have concrete answer evidence for behavior/decisions/boundaries/verification. Invalid or inaccessible links do not generate invented content. |
+| Attempts and teaching — T17 | Explanations wait for an attempt or explicit help request. Guided/supported/independent vary support. Correct, mistaken and valid alternative answers receive code-backed discussion; hints, direct answers, skip and stop work. Unattempted/assisted answers remain distinct from independent reasoning; serious defects are disclosed immediately. |
+| Preferences and scope — T15/T17 | Effective/saved manual preferences remain unchanged, including differing overrides and coaching-paused self-check invocation. Ordinary tasks/feedback/review do not launch quizzes. Neither skill edits code, posts/approves/merges, invokes fixes, grades ability or writes a background ledger. |
+| Reports and evidence — T12/T15/T17 | Local Markdown records task/PR/revision, actual evidence/answers and assistance. Changed PRs refresh affected context or state the recorded-revision limit. Report collisions/failures are accurate. Scripted conduct and correct software are separate from observed human understanding; no mastery claim. |
+
+Ground behavior checks in known PR changes and responses, not exact generated
+question wording or a universal quiz score. Keep live PR retrieval and native tool
+use separate from simulated actor responses and any later human trial.
+
 ## Per-slice sequence
 
 1. Read the handoff and select applicable T criteria before implementing.
@@ -227,7 +246,7 @@ instructions assign implementation to the agent.
 
 Marketplace packaging/other-user installation is final M08 and does not substitute
 for these local product checks. Later, automate the same scenario/evidence contract
-with isolated actors and an observer. Test adaptive evidence separately from code authorship: agent-written
+with isolated actors and an observer. Keep task/self-check evidence separate from code authorship: agent-written
 code can be independently reviewed by a human, while copied explanations cannot
 establish independent reasoning. Larger pilots, delayed recall, and public
 learning claims require their own scoped plan.

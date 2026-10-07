@@ -9,7 +9,8 @@ each supported adapter.
 ## Before and after
 
 Before: Mentor works locally with a neutral core, verified development hooks,
-manual/adaptive coaching behavior, and recorded language/model/host coverage.
+manual levels, invoked coaching/feedback/self-check workflows and recorded
+language/model/host coverage.
 After: other users can discover, install, configure, update, and remove a package
 whose supported behavior is documented and tested.
 

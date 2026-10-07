@@ -29,7 +29,7 @@ discovery, packaging for others, and publication are the final phase.
 | First user | The owner learning through real projects; neutral core, initial Codex development adapter and C# test case. |
 | Neutrality | No model/vendor APIs, host hook schemas, or target-language defaults in canonical policy/workflows/state. Host specifics live in adapters; record actual tested combinations. |
 | Participation | Guided offers a focused coding part; supported offers coding or reviewing; independent defaults to agent implementation with the learner directing and reviewing. Requests can change that allocation at any level. |
-| Levels | Manual selection in the first usable release. Automatic progression follows. |
+| Levels | Manual selection through controls; feedback and optional PR self-checks do not infer/switch levels or write preferences. |
 | Code standards | Descriptive names, understandable flow, appropriate boundaries, useful comments explaining intent/non-obvious rules, accurate documentation, and necessary verification at every level. |
 | Coaching pause | Pause learning prompts while retaining code/documentation expectations and ordinary defect reporting. Native plugin disabling disables the whole package. |
 | Preferences | Controls change the current session by default. Explicit project-scope changes save local preferences outside Git for later sessions. |
@@ -62,6 +62,8 @@ distribution remains outside this slice.
 | R11 | Runtime delivery, correctness, readability/comments, mentoring conduct, and human comprehension are separate outcomes. | T12 and every evidence report |
 | R12 | Core behavior is language/LLM-neutral; compatibility claims identify tested language, model/provider, and host combinations. | T13 |
 | R13 | Distribution/discovery requirements are evaluated in the final milestone after local behavior and quality evidence. | T14 |
+| R14 | Explicit current-task feedback uses available evidence immediately and saves local Markdown, with optional reflection and unchanged manual preferences. | T15 |
+| R15 | A separate explicitly invoked PR-link self-check reads actual code/tests, asks focused understanding questions, waits for answers and provides evidence-backed explanations and local Markdown, with no automatic level changes or PR edits. | T17 |
 
 ## Core and development adapters
 
@@ -305,29 +307,29 @@ required notices. Author original instructions when redistribution terms do not
 permit copying. Source material is inspiration; packaged skills cannot depend on
 private integrations. Update status/docs after each implemented slice.
 
-## Later evidence and adaptation
+## Later feedback and PR understanding checks
 
-Keep future observations separate from explicit preferences. A candidate local
-`evidence.jsonl` entry records concept, task variant, observed behavior, assistance,
-outcome, a specific evidence reference, and the reason for any proposed adjustment.
-Store minimal observations outside public Git, with a way to inspect/reset them.
-Do not store full conversations by default or infer mastery from passing tests.
+[M06](handoffs/M06-task-feedback.md) provides two explicitly invoked mentoring
+skills. Task feedback uses available evidence immediately and saves a local
+Markdown report; reflection is optional. The separate PR understanding-check
+skill accepts a GitHub PR link, reads actual diff/context/tests and asks focused
+questions about behavior, decisions, edge cases and verification. It waits for
+answers before revealing code-backed explanations, with hints/skip/stop available.
+A quiz is never a prerequisite for ordinary feedback or review.
 
-Independently explaining or reviewing agent-written code can provide evidence;
-the agent's answer itself cannot. Mark reasoning following a supplied answer or
-hint as assisted. Independent self-correction is useful evidence. A candidate
-threshold of three independent observations across at least two task variants
-remains an unvalidated heuristic for a later experiment.
+Use the effective manual level for support style, preserving session/project
+preferences. Reports identify inspected scope/revision, actual answers and assistance;
+unattempted or explained answers do not establish independent reasoning. A changing
+PR requires refreshed evidence or an explicit recorded-revision limitation. No
+proficiency grades, automatic progression, background ledger, compulsory practice
+or automatic code/PR changes. Store reports outside public Git with honest failure
+handling; correct agent-written code alone establishes no learner comprehension.
 
-Adapt by concept, visibly and gradually, with manual locks and direct help
-available. Reduced coaching and greater delegation are different from harder
-tasks; automatic challenge selection requires its own design and evaluation.
-After local M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens
-language/provider coverage, adds optional Serena tooling and isolated evaluation;
-M06 tests adaptive evidence; M07 records real-project use and comprehension.
-[M08 distribution](handoffs/M08-distribution.md) is the final milestone: manifests,
-marketplace discovery, other-user installation/update/removal, and publication.
-Do not advertise universal compatibility; publish a tested-support matrix.
+After M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens language/provider
+coverage, adds optional Serena tooling and isolated evaluation; M06 adds feedback
+and self-checks; M07 observes real-project use separately. M08 remains final for
+public packaging/discovery/installation and publication. Test actual native use
+and report simulated conduct, software correctness and human understanding separately.
 
 ## Definition of this planning change
 

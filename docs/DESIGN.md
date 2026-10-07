@@ -58,7 +58,7 @@ the resulting change. Instruction delivery is distinct from code quality.
   default does not override an agreement that agents implement a complete change.
   Non-coding requests do not acquire a mandatory mentoring exercise.
 
-## Mentoring levels and adaptive support
+## Mentoring levels and task support
 
 Levels describe coaching intensity, not a permanent label or a coding quota.
 The first usable version defaults to `guided` and supports manual selection,
@@ -70,9 +70,9 @@ overrides and showing both effective and saved values. Project reset clears the
 current conversation's overrides to guided/on; other sessions retain their own.
 Failed project writes still apply locally with an unsaved warning. These M02
 contracts are locally verified for the [recorded combination](evidence/M02.md).
-Automatic adaptation
-is later scope. The learner can request more/less help, demonstrate/takeover, or
-different implementation ownership without changing the stored level.
+Levels remain manually selected; M06 feedback and self-checks do not switch them.
+The learner can request more/less help, demonstrate/takeover or different
+implementation ownership without changing the stored level.
 
 | Level | Mentor behavior | Learner responsibility |
 | --- | --- | --- |
@@ -90,39 +90,27 @@ Readable code, accurate documentation, and necessary verification remain goals
 at every level. Reducing help does not increase PR size automatically or require
 the learner to tackle multiple unfamiliar concepts at once.
 
-### How help fades — later adaptation
+### Invoked task feedback and PR understanding checks
 
-Reduce support gradually, one step at a time, based on repeated independent
-demonstrations of reasoning and behavior. Relevant evidence includes explaining
-why an approach works, implementing it, predicting a related variation, and
-diagnosing a failure. An initially incorrect attempt that the learner investigates
-and repairs independently can provide strong evidence of progress.
+[M06](handoffs/M06-task-feedback.md) provides immediate feedback on the task at
+hand, saved as local Markdown. It uses available evidence without requiring
+reflection first. A separate optional understanding-check skill accepts a PR link,
+reads the real change and asks useful questions: why the approach was chosen,
+how an input flows through it, what happens at a boundary, and what tests prove.
 
-For a later adaptive prototype, use three successful independent observations across at
-least two task variants as a candidate for reducing support. The observations
-should collectively include an explanation and a failure diagnosis; they are not
-a quota of PRs or lines of code. This is a configurable design heuristic to
-evaluate, not a scientifically established threshold or a certificate of mastery.
-Hint-assisted work records practice, while copied or agent-authored answers do
-not count as independent demonstrations. A learner's independent explanation,
-prediction, or evidence-backed review of agent-written code can provide evidence;
-reasoning supplied by the agent cannot.
+Wait for the learner's answers before explanations; offer hints, direct help,
+skip and stop. Match scaffolding to the manual level, without altering the expected
+behavior or assigning a proficiency grade. Explicitly requesting the self-check
+permits its questions while coaching is paused without resuming global coaching.
+Ordinary feedback and review have no quiz requirement.
 
-Make automatic changes visible with a short explanation of the observations that
-motivated them. Adapt separately by concept: someone may work independently on
-HTTP endpoints and still need guided support on concurrency. A single error does
-not trigger a global demotion. Add support on the current challenge when repeated
-attempts reveal a gap or stop producing useful new information, and honor requests
-for help immediately.
-
-First-release preferences store only explicitly requested project-level choices
-of level and coaching state outside Git. Session-only choices do not create or
-modify preference storage; see the [storage/control contract](IMPLEMENTATION-PLAN.md#local-preferences).
-The later evidence ledger records concept, task variant, observed behavior,
-assistance, outcome, evidence reference, and adjustment reason. Keep it local
-and inspectable/resettable. Preserve levels/overrides across exercised resume and
-compaction. Automatic task-difficulty changes require a separate design; fading
-help does not automatically make the problem harder.
+Discuss answers using actual code/test evidence and save local Markdown with
+PR/revision, questions/answers, assistance and uncertain/unattempted areas. Refresh
+stale context if the PR changes. Respect valid alternative reasoning, disclose
+serious defects immediately and do not edit/post/approve/merge as part of a check.
+No automatic level switch, progression threshold or background learner profile.
+Agent-written code and supplied explanations alone establish no human understanding;
+a self-check provides limited evidence about this inspected change, not mastery.
 
 ### Productive struggle
 
@@ -137,7 +125,7 @@ This design draws on problem-solving-before-instruction approaches explored in
 [introductory programming research](https://arxiv.org/abs/2411.11227). That small
 study reported stronger delayed performance on similar tasks, with no difference
 in initial outcomes. It motivates evaluation of this design; it does not establish
-that Mentor's levels, thresholds, or adaptive policy improve learning.
+that Mentor's levels or teaching workflows improve learning.
 
 ## Adapt the agentic-workflow skills
 
@@ -309,16 +297,16 @@ The remaining scenario ideas are:
   Does it respect that instruction?
 - A resumed or compacted session: Does mentoring context return while preserving
   the learner's explicit preferences?
-- Repeated independent success across task variants: Does support fade one step,
-  with an evidence-backed explanation of the change?
+- An invoked PR understanding check: Are questions grounded in the actual change,
+  with explanations after attempts and independent/assisted answers distinguished?
 - Correct answers that required hints or were supplied by the agent: Does the
   mentor avoid falsely counting them as independent demonstrations?
 - An incorrect attempt repaired independently: Does the mentor recognize the
   learner's investigation without treating the first mistake as a demotion?
 - Repeated attempts without a new hypothesis, or a direct request for help: Does
   support increase usefully instead of leaving the learner stuck?
-- A new concept and a manually locked level: Does adaptation remain specific to
-  the concept and respect the override across resume and compaction?
+- A new concept and a manually selected level: Does useful feedback preserve the
+  selected level and session/project overrides across resume and compaction?
 
 Measure hook/adapter behavior, code behavior, and observed mentoring behavior
 separately. Assess learner comprehension using independent explanations,

@@ -30,10 +30,13 @@ allocation. Coaching intensity and who writes code are separate.
 
 The first local usable version has manual levels and local per-project preferences.
 Pausing coaching retains readable-code/documentation expectations and necessary
-checks. Automatic progression follows later, using independent reasoning and
-task performance; respect overrides and allow attempts/self-correction. A single
-mistake does not establish overall ability. Agent-written code alone establishes
-no learning; an independent learner explanation or review can provide evidence.
+checks. Levels remain manually selected. M06 provides explicitly invoked task
+feedback and a separate optional PR-link understanding check; ordinary feedback
+has no quiz prerequisite. Self-check questions follow actual code/test evidence,
+wait for answers and honor hints, explanations, skip and stop. Do not infer/switch
+levels, grade proficiency or collect a background learner ledger. A single mistake
+does not establish overall ability. Agent-written code alone establishes no learning;
+independent learner reasoning can provide limited evidence on the inspected task.
 
 Implement and verify each requested slice immediately against its handoff and
 the applicable criteria. Keep the full evaluation runner outside the critical
