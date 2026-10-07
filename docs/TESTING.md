@@ -5,9 +5,12 @@ are implemented. [M01 results](evidence/M01.md) cover T01–T05, T12, and T13
 architecture. [M02 results](evidence/M02.md) on 2026-10-06 cover the required manual
 control/preference contracts, native lifecycle/refresh, conduct simulations and
 generated-code checks for the recorded combination. [M03 results](evidence/M03.md)
-cover focused requirements, workflow invocation, mistake/direct-help and paused
-conduct with independent generated-code checks. Automatic mid-turn compaction,
-broader compatibility and human learning remain pending.
+cover the original workflow's requirements, invocation, mistake/direct-help and
+paused conduct with independent generated-code checks.
+[Revised M03 results](evidence/M03-revised.md) cover native explicit invocation,
+stages/confirmation/artifacts, manual levels, scope/failure cases, and C# checks.
+M04/M06 native skills remain pending.
+Automatic mid-turn compaction, broader compatibility and human learning remain pending.
 Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
 ## Evidence and results
@@ -52,7 +55,7 @@ S02's task and observer response cards alongside the existing S01/S03 scenarios.
 | S01 — small implementation | Total a category; clarify matching semantics and document the chosen public contract. | Correct/readable code, useful comments/docs in the code, decision/prediction, conditional coding offer, takeover respected. |
 | S02 — requirements | “Show spending for this month and category,” with month boundaries and refund behavior open. | Learner reasoning informs focused clarification; chosen rules and unresolved assumptions are recorded. |
 | S03 — incorrect attempt | Learner includes an expense at the next month's boundary in the current month. | Mentor responds to the actual error with a useful investigation/hint, then verifies the agreed interval. |
-| S04 — review | A diff includes that boundary defect plus a harmless naming/style refinement. | Material defect reported with location/consequence; optional polish distinct; learner practices a supported review comment. |
+| S04 — review | A diff includes that boundary defect plus a harmless naming/style refinement. | Level-specific primer, pause for learner review, then evidence-backed discussion and complete findings; optional polish distinct; no automatic fixes/posting. |
 
 The public specification fixes agreed rules before code checks run: inclusive
 start and exclusive end for the selected month, decimal arithmetic, and the
@@ -131,12 +134,13 @@ samples and disputed observer judgments manually.
 | T06 | M02 | Guided scaffolds/offers coding, supported offers coding or review, independent permits delegation while the learner directs/reviews. | Repeat the same starting task under all three levels with fresh context. Judge conduct, not exact wording or line counts. |
 | T07 | M02 | Session controls make no storage changes; explicit project changes persist. Projects remain separate, repo subdirectories/worktrees share settings, and updates preserve the other saved field. Status refresh retains local overrides and shows effective/saved values. | Real temporary roots/worktrees, hook/control round trips, fresh native sessions, and two already-open sessions with/without overrides. Include non-Git roots, symlinks, explicit data locations, and differing hook/tool cwd. |
 | T08 | M02 | Pause removes compulsory teaching while retaining code standards. Missing state defaults; invalid state warns and stays intact until explicit reset. Failed writes/resets apply requested values locally with an unsaved warning. Project reset clears current overrides; other sessions retain their own. | Coaching-off S01 and control round trips with invalid/unsupported/unreadable state and unavailable/read-only storage. Confirm prior-record preservation, effective/saved values, and reset isolation. |
-| T09 | M02, M03 | Mentor responds to the learner's mistake and offers increasingly useful help; a direct help request is honored. | S03 transcript and final behavioral check; no struggle quota or invented proficiency judgment. |
-| T10 | M03 | Focused questions respond to learner reasoning, resolve what the next step needs, and record remaining assumptions. No mandatory rounds/delegation interview. | S02, one settled small task, and a direct-implementation request through the adapted workflow. |
-| T11 | M04 | Actual diff/context read; identified material defect reported with evidence; optional polish separate; learner gets help forming a useful review comment. | S04 and an independent reproduction/check of its defect, plus coaching-off review. |
+| T09 | M02 | Mentor responds to the learner's mistake and offers increasingly useful help; a direct help request is honored. | S03 transcript and final behavioral check; no struggle quota or invented proficiency judgment. |
+| T10 | Revised M03 | Native explicitly invoked interview follows setup, focused rounds, teaching preferences, summary/confirmation, artifacts and scoped execution/handoff. No subagents or automatic full interview; manual levels shape explanations. | Actual host invocation; S02, all three levels, ordinary-task negative control, settled/skip/paused cases, requirements-only and confirmed execution/handoff. |
+| T11 | Revised M04 | Explicit native local/PR review reads the actual change, primes at the manual level, pauses for learner review, then discusses observations and reports material findings with evidence. Optional polish separate; report-only. | Actual host invocation for both targets, S04 reproduction/check, all primers, pause/skip/coaching-off, saved report/revision accuracy and unchanged preferences. |
 | T12 | All | Policy experiment, actual hook delivery, code quality/conduct/comprehension claims have the correct evidence; unperformed checks remain pending. | Inspect handback and cited artifacts. Neither policy-only runs nor synthetic actors prove automatic delivery or human learning. |
 | T13 | M01 architecture; M05 coverage | Core has no target-language/vendor/host assumptions; compatibility claims reflect actual tests. | Inspect core/adapter boundary, then exercise representative languages and providers with the same rubric. Record a support matrix and pending cells. |
 | T14 | M08 only | Verified core is packaged for others; discovery/install, trust, updates/removal, and release docs match supported behavior. | Final clean-environment distribution checks after local product/portability evidence. No early marketplace gate. |
+| T15 | Revised M06 | Explicit feedback uses available current-task evidence immediately and saves a local Markdown report. Reflection optional, levels manually selected, no background tracking or automatic fixes. | Actual native invocation, all three levels/coaching-off, ordinary-task negative control, work-in-progress/missing-observation cases, report evidence/storage checks and unchanged preferences. |
 
 T04 review questions:
 
@@ -177,23 +181,62 @@ tested revision; its passes do not verify the extended M02 adapter or controls.
 
 ## M03 verification matrix
 
-Use the [M03 handoff](handoffs/M03-interview-coaching.md) for the focused scope.
-Invoke the interview through the trusted hook guidance in an external workspace;
-keep observer cards, independent checks, and other transcripts outside it.
+Use the [revised M03 handoff](handoffs/M03-interview-coaching.md) as the contract.
+[Revised M03 results](evidence/M03-revised.md) record the local results below.
+[Original M03 results](evidence/M03.md) verify the earlier workflow only. Use actual native skill invocation in an external
+workspace; keep observer inputs and independent checks outside the learner workspace.
 
 | Boundary / criterion | Required observation |
 | --- | --- |
-| Local invocation — T02/T12/T13 architecture | Actual host receipt and model-visible guidance, followed by reading the canonical workflow from the pinned path. Execute guidance after checkout relocation/from another cwd; missing/empty/invalid resources fail visibly. No private toolkit or memory service is required. |
-| Requirements — T10 | S02 questions follow uncertainty and scripted reasoning; month/refund/matching choices are recorded before code checks. Requirements-only requests do not edit code. Remaining assumptions and next-step verification stay visible. |
-| Proportionate pacing — T10 | A fully specified small task proceeds without a compulsory interview or exercise, including on explicit invocation. Exercise the level-specific invitations without forcing code ownership. |
-| Mistake/direct help — T09 | S03 inspects the actual boundary error, gives a useful hint, then honors requested direct help/takeover. Incorrect and corrected code are checked independently. |
-| Paused/direct implementation — T08/T10 | Essential unresolved decisions are clarified while learning prompts are paused; a settled direct request receives complete checked code without an assignment. Effective/saved preferences stay distinct and unchanged unless explicitly requested. |
-| Resulting code and evidence — T04/T12 | Review actual code/comments/docs, run independent checks, cite concrete transcript turns, and separate simulation, host delivery, software correctness, and observed human learning. |
+| Native invocation — T10/T12/T13 | Registered host skill explicitly invoked, with actual runtime evidence of the canonical workflow loading. Ordinary tasks do not launch the full interview; essential clarification still works. Local setup survives relocation/another cwd without private services. Record affected resource failures. |
+| Staged process — T10 | S02 retains target/request/time box, high-level questions, primary-agent teaching preferences, drill-down and concrete summary. Reuse supplied answers. No subagent offers, spawning or orchestration. |
+| Teaching and preferences — T06/T10 | Same essential task under guided, supported and independent demonstrates examples/framing, approach/tradeoff support and concise decisions respectively. Effective/saved choices remain unchanged even when different. No exercises, grading or inferred level changes. |
+| Pacing and pause — T08/T10 | Substantial interviews use the upstream-like stages; settled tasks and skip requests avoid invented questions. Paused coaching retains clarification, confirmation and artifacts without teaching prompts or changing preferences. |
+| Confirmation and scope — T10 | No execution before concrete-plan approval. Requirements-only leaves code untouched. Confirmed already-authorized work continues without a second blanket gate and receives its relevant checks. A planning task does not authorize implementation. |
+| Artifacts and handoff — T10/T12 | Interview and plan contain the confirmed request, target, constraints, answers, approach, assumptions and checks. An available target receives original request, constraints and artifact references. Check unavailable target, persistence failure and task-directory collision handling. |
+| Resulting code and evidence — T04/T12 | Inspect actual code/comments/docs and independent checks when execution produces code. Record native invocation, simulated conduct, software correctness and observed human learning separately; no historical pass is attributed to this revision. |
 
-Do not turn workflow prose into exact-wording tests. Existing process-boundary
-adapter cases own invocation/quoting/resource failures; recorded conversations
-assess conduct. Existing fixture checks own the agreed calculation contract.
-Broader language/provider coverage and automatic adaptation remain later work.
+Do not turn workflow prose into exact-wording tests. Meaningful process-boundary
+checks cover registration/resource/artifact failures; recorded conversations assess
+stages and teaching. Existing fixture checks own the agreed calculation contract.
+M02 retains its mistake/direct-help checks under T09; M03 does not acquire a
+separate learner knowledge checkpoint. Broader portability and invoked task feedback follow later.
+
+## M04 verification matrix
+
+Use the [confirmed M04 handoff](handoffs/M04-review-coaching.md). All rows remain
+pending; no M04 implementation or native invocation has been verified.
+
+| Boundary / criterion | Required observation |
+| --- | --- |
+| Native invocation and target — T11/T12/T13 | Actual host skill invocation works for local changes and a PR without private paths/services. Record base/revision and staged/unstaged/untracked scope. Ordinary tasks do not launch the full skill; normal defect reporting remains available. |
+| Primer and pause — T06/T11 | Guided walkthrough/examples, supported flow map/prompts and independent scope/checklist precede ordinary findings. Coaching-on waits for supplied observations or a direct-findings request; silence does not count as a review. |
+| Evidence and discussion — T11/T12 | S04's diff/context is read; its defect has a location, consequence and independent reproduction/check. Discuss supplied observations with supporting/correcting evidence; report every identified material defect, optional polish separate and serious findings immediately. No grade or level inference. |
+| Skip, coaching and preferences — T08/T11 | Direct-findings requests skip the wait; coaching-off gives a direct report. Effective/saved preferences remain unchanged, including different session overrides and project defaults. |
+| Report and revision — T11/T12 | Local report records target/revision, inspected scope, findings/evidence, checks and limitations. Changes during the pause refresh affected context. Missing context, persistence failure and directory collisions are reported accurately; no full learner transcript or proficiency ledger is saved by default. |
+| Report-only scope — T11/T12 | No automatic code fixes, PR creation, comment posting or fixing-skill invocation. Any separately requested correction has its own scope and real checks; findings alone do not establish corrected software or passing tests. |
+
+Review behavior is assessed through concrete transcript turns and code/check
+evidence, not exact prose, finding quotas or inferred comprehension. Artifact and
+host entry checks should protect meaningful boundaries. Keep actual host delivery,
+simulation, software correctness and human learning as separate claims.
+
+## M06 verification matrix
+
+Use the [confirmed M06 handoff](handoffs/M06-task-feedback.md). Implementation
+and every runtime row below remain pending; planning checks are not skill evidence.
+
+| Boundary / criterion | Required observation |
+| --- | --- |
+| Invocation and scope — T15/T12/T13 | Actual registered host skill is explicitly invoked and reuses the task at hand. Ordinary work creates no feedback report or learner ledger. No private paths/services or automatic full interview/review activation. |
+| Immediate evidence-backed feedback — T15/T12 | Concrete strengths, improvements and optional next step cite the inspected task evidence. No reflection prerequisite or quiz; missing observations/checks and work in progress stay unknown/pending. Material defects and verification gaps are separate from optional refinements. |
+| Manual levels and coaching — T06/T08/T15 | Guided examples/reasoning, supported evidence/tradeoffs and independent concise actions follow controlled manual settings. Coaching-off gives direct feedback. Effective/saved preferences remain unchanged, including differing session overrides; explicit level changes use M02 controls. |
+| Local Markdown — T15/T12 | Report contains task/scope, evidence, feedback, checks and limitations outside public Git. Check directory collisions and failed saves. No full transcript, proficiency profile, ongoing ledger or fabricated saved artifact. |
+| Authorship and scope limits — T15/T12 | Agent-written work or passed checks alone causes no human-learning claim; supplied reasoning is identified accurately. No automatic progression/grades, fixes, posting or compulsory practice. Optional reflection remains available. |
+
+Use existing task scenarios and reports where suitable; do not create an evaluation
+runner or proficiency threshold to satisfy this slice. Process checks protect real
+invocation/storage boundaries; transcript/report evidence assesses useful feedback.
 
 ## Per-slice sequence
 
@@ -233,7 +276,9 @@ instructions assign implementation to the agent.
 
 Marketplace packaging/other-user installation is final M08 and does not substitute
 for these local product checks. Later, automate the same scenario/evidence contract
-with isolated actors and an observer. Test adaptive evidence separately from code authorship: agent-written
+with isolated actors and an observer. This evaluation automation is separate from
+M06's invoked task feedback; it does not collect a runtime learner ledger or switch
+levels. Separate software authorship from evidence of human reasoning: agent-written
 code can be independently reviewed by a human, while copied explanations cannot
-establish independent reasoning. Larger pilots, delayed recall, and public
-learning claims require their own scoped plan.
+establish independent reasoning. Larger pilots, delayed recall and public learning
+claims require their own scoped plan.

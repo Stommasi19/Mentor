@@ -22,12 +22,25 @@ preferences, failure recovery, native lifecycle retention, and two-session refre
 The [M02 evidence report](docs/evidence/M02.md) records scope and limitations;
 the [adapter guide](adapters/codex/README.md) explains natural controls and local setup.
 
-M03 is implemented and locally verified: focused interview coaching, natural
-local invocation, explicit assumptions/verification, and respected direct-help
-and paused-coaching requests. [M03 evidence](docs/evidence/M03.md) separates native
-delivery, simulated conduct, resulting code, and pending human-learning evidence.
-The complete first local usable version still requires M04. Marketplace discovery,
-packaging for other users, and publication remain the final phase.
+Revised M03 is implemented and locally verified: the explicit-only native
+`$mentor-interview` skill follows staged clarification, concrete-plan confirmation,
+local interview/plan artifacts, and primary-agent execution or skill handoff.
+[Revised M03 evidence](docs/evidence/M03-revised.md) records native invocation,
+manual levels, scope, failure recovery, and generated-code checks;
+[original M03 evidence](docs/evidence/M03.md) remains historical.
+M04 completes the first local usable version. Packaging for others and publication remain final.
+
+[M04's revised plan](docs/handoffs/M04-review-coaching.md) specifies an explicitly
+invoked review skill for local changes or PRs: prime the learner at the selected
+level, pause for their review, then discuss evidence-backed findings and save a
+report. It reports findings; fixing and posting require separate requests.
+Implementation and verification have not started.
+
+[M06's confirmed plan](docs/handoffs/M06-task-feedback.md) replaces automatic
+progression with feedback explicitly invoked for the task at hand. It uses
+available evidence immediately and saves a local Markdown report, with reflection
+optional afterward. Levels remain manually switched. Implementation and verification
+are pending; all three requested planning rewrites are complete.
 
 Run the adapter checks with `python3 -m unittest discover -s tests -v`.
 Use the fixture's `check.py` against a completed disposable candidate; the checked-in
@@ -66,17 +79,18 @@ separately, so a temporary session pause cannot become a project default when
 changing the saved level. See [storage contracts](runtime/README.md).
 
 Greater experience can mean delegating more code while owning decisions and
-review. Later evidence can support concept-specific adaptation. Explicit requests
-can change implementation ownership at any level.
+review. Task feedback can explain concrete strengths, improvements and an optional
+next step; it does not switch levels or track proficiency. Explicit requests can
+change implementation ownership at any level.
 
 ## Build and prove locally
 
 1. Write the neutral policy and test generated code, comments, and documentation
    against a small C# case and controlled baseline.
 2. Verify automatic policy loading with a local development hook.
-3. Add manual levels/preferences, interview coaching, and review coaching; test
-   each portion immediately.
-4. Broaden language/model coverage, evaluate adaptation, and try real project work.
+3. Add manual levels/preferences and invoked interview/review skills; test each
+   portion immediately.
+4. Broaden language/model coverage, add invoked task feedback, and try real project work.
 5. Finally package and document the verified behavior for other users, including
    marketplace discovery and installation.
 
@@ -92,8 +106,9 @@ record the combinations actually tested.
 - [Delivery roadmap](docs/ROADMAP.md)
 - [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
 - [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
-- [Completed M03 handoff](docs/handoffs/M03-interview-coaching.md)
-- [Next task: M04 — review coaching](docs/handoffs/M04-review-coaching.md)
+- [M03 — invoked interview skill, locally verified](docs/handoffs/M03-interview-coaching.md)
+- [Next implementation: M04 invoked review skill](docs/handoffs/M04-review-coaching.md)
+- [M06 — invoked task feedback, confirmed plan](docs/handoffs/M06-task-feedback.md)
 - [Design](docs/DESIGN.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)

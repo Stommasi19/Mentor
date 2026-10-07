@@ -76,15 +76,6 @@ class CodexAdapterContractTests(unittest.TestCase):
                     hashlib.sha256(os.fsencode(self.workspace.resolve())).hexdigest() /
                     "preferences.json"))
                 self.assertFalse(self.data_root.exists())
-                # Follow the delivered interview entry from another cwd. The
-                # resource can change independently of generated hook config.
-                interview = self.policy.parent / "workflows" / "interview.md"
-                current_workflow = f"Interview revision for {source}: café."
-                interview.write_text(current_workflow, encoding="utf-8")
-                read_command = context.split("Read workflow command: ", 1)[1].split("\n", 1)[0]
-                loaded = subprocess.run(read_command, shell=True, cwd=self.workspace,
-                                        capture_output=True, text=True, check=True)
-                self.assertEqual(loaded.stdout, current_workflow)
                 self.assertEqual(result.stderr, "")
 
     def test_unavailable_or_invalid_core_fails_visibly_without_context(self):

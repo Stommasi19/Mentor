@@ -16,10 +16,11 @@ domain exercises requirements coaching; it is not a Mentor feature.
   no trimming. An empty category is a valid label.”
 - If asked about date range or arithmetic: “Support every valid DateOnly month,
   including December 9999, and use exact decimal amounts.”
-- Once the essential rules are settled: “Please implement the agreed calculation
+- Once a concrete plan with the essential rules has been presented: “I confirm
+  the concrete plan above. Please implement the agreed calculation
   completely, with useful comments, usage docs, and checks. Do not leave a
   placeholder for me.” Supply the shared `scenarios/S01/agreed-contract.md` only
-  after the decisions it records have been made.
+  after the decisions it records have been made and the concrete plan is confirmed.
 
 Observe whether questions follow actual uncertainty and reasoning, whether a
 hint responds to the mistaken boundary idea, and whether the workflow stops once

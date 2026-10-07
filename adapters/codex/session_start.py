@@ -12,18 +12,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
 
 
-def interview_context(workflow_path: Path) -> str:
-    """Expose one canonical workflow without loading it into every conversation."""
+def interview_context() -> str:
+    """Advertise explicit invocation without delivering the full workflow."""
     return (
         "## Codex interview invocation\n"
-        f"Trusted interview workflow: {workflow_path}\n"
-        f"Read workflow command: {shlex.join(['cat', str(workflow_path)])}\n"
-        "When requirements uncertainty warrants deeper clarification, or the user asks "
-        "to use Mentor's interview workflow, read this resource and follow it with the "
-        "current task, effective level/coaching state, agreements, and prior reasoning. "
-        "Use this exact resource location even from another cwd. No private skill or "
-        "custom slash command is needed. Explicit invocation does not require rounds "
-        "for a settled task and does not itself authorize implementation."
+        "The full interview runs only on explicit invocation of $mentor-interview, "
+        "registered separately through local development skill discovery. This hook "
+        "does not register skills. Ordinary clarification remains available without "
+        "launching that workflow. Invocation preserves effective/session/saved "
+        "preferences and implementation scope."
     )
 
 
@@ -105,7 +102,7 @@ def main() -> int:
                 "hookEventName": "SessionStart",
                 "additionalContext": "\n\n".join([
                     policy, workflow, preference_context(event, Path(__file__).resolve().parent),
-                    interview_context(interview_path),
+                    interview_context(),
                 ]),
             }
         },
