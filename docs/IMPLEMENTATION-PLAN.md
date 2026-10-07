@@ -37,7 +37,7 @@ discovery, packaging for others, and publication are the final phase.
 | Verification | Test each slice immediately, reuse a small fixture with task variants and fresh contexts, and retain a reserved scenario. |
 | Urgency | “I want it done as soon as possible so that i can start using it.” No fixed delivery date was given. |
 | Distribution | Marketplace discovery, other-user packaging/installation, and public release happen after local product validation, in the final phase. |
-| Optional tooling | M05 adds opt-in Serena semantic navigation through host adapters, adapting Agentic Workflow usage. Tool capability does not change learner work, mentoring preferences or implementation ownership. Mentor works without it. |
+| Optional tooling | M05 includes repository-owned Serena setup/configuration/docs and verification under a thin host adapter. Reuse a compatible existing MCP connection; provide opt-in setup when missing. Tool capability does not change mentee work, preferences or implementation ownership. |
 
 Explore checked local host and packaging constraints; Plan examined learner
 behavior and scope. Their parallel findings informed this plan. The planning
@@ -84,6 +84,7 @@ adapters/
     session_start.py
     control.py            # thin local tool wrapper, M02
     skills/               # later thin local invocation wrappers if needed
+    serena/               # M05 planned setup/configuration/usage, not implemented
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
 ```

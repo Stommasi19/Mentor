@@ -179,6 +179,7 @@ criteria, all pending; writing this plan does not verify a Serena installation.
 
 | Boundary | Required observation |
 | --- | --- |
+| Repository setup and reuse — T16 | Setup/launch helpers, configuration examples, README and meaningful checks exist in the repository. Exercise documented setup from a fresh checkout and reuse of an existing compatible host connection; no private toolkit dependency, duplicate registration or silent overwrite. |
 | Actual host use — T16/T12 | Opt-in MCP connection, correct project activation and semantic symbol/reference calls in an external workspace, including another cwd/worktree. Record Serena/backend/host versions and language prerequisites. Config output alone does not establish tool delivery. |
 | Optionality — T16 | Without Serena, and with an unavailable/disabled server, ordinary tools still support the task and valid Mentor policy remains available. Explain fallback without inventing semantic results. |
 | Mentoring contracts — T05–T08/T16 | Controlled levels, coaching state and ownership agreements are respected with and without Serena. No forced learner work, preference writes, full-skill activation, memory/onboarding or background learner tracking. |

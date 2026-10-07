@@ -33,7 +33,7 @@ is initially absent.
 
 | Milestone | Useful result | Evidence needed |
 | --- | --- | --- |
-| [M05 — portability, optional tooling and isolated scenarios](handoffs/M05-portability-and-tooling.md) | Broaden language/provider coverage; optionally use Serena to improve agent code navigation; automate controlled comparisons where useful. | Tested combinations, actual semantic tool use/fallback, efficiency and code quality, unchanged mentoring contracts, isolated actor inputs and authorship. |
+| [M05 — portability, optional tooling and isolated scenarios](handoffs/M05-portability-and-tooling.md) | Broaden language/provider coverage; include repository-owned optional Serena setup and reuse existing connections; automate controlled comparisons where useful. | Tested combinations, actual semantic tool use/fallback, efficiency and code quality, unchanged mentoring contracts, isolated actor inputs and authorship. |
 | M06 — adaptive support | Gradual concept-specific changes from a neutral local evidence ledger. | Independent/assisted reasoning, self-correction, visible adjustments, manual locks, privacy/reset, and preserved overrides. |
 | M07 — personal real-project trial | Use Mentor in the owner's actual work and refine readability/coaching. | Real diff/comments/docs, necessary checks, unaided explanation/diagnosis, and observed friction. |
 

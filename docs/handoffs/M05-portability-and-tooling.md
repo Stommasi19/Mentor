@@ -16,6 +16,9 @@ teaching, pauses and skill activation retain their agreed contracts.
 
 Mentor remains usable without Serena. Its neutral core has no Serena, LSP, Docker,
 host or provider dependency; concrete registration/configuration belongs in adapters.
+M05 must include the setup/configuration, usage documentation and verification in
+this repository so the integration can be inspected and reproduced independently
+of the author's existing Agentic Workflow installation.
 
 ## Planned slices
 
@@ -30,13 +33,18 @@ host or provider dependency; concrete registration/configuration belongs in adap
    ordinary search/read tools for text or complete context. Adapt source only after
    verifying redistribution terms and required notices; otherwise author original
    configuration and guidance. Do not copy its full toolkit installer.
-3. Add an opt-in Serena MCP connection through the development host's supported
-   configuration. Keep workspace identity, launch/context options and language
-   prerequisites in a thin adapter. Start with the upstream's read-only navigation
-   pattern; the agent continues editing with the host's ordinary tools. Evaluate
-   a Docker wrapper only if useful for the tested environment; it is not a core
-   requirement. Verify exact tool names and capabilities against the installed
-   Serena version instead of copying stale aliases.
+3. Add repository-owned setup under `adapters/codex/serena/`: opt-in setup/launch
+   helpers, configuration examples and a README covering prerequisites, project
+   activation, tool usage, fallback and troubleshooting. Keep workspace identity,
+   launch/context options and language prerequisites in this thin adapter. Reuse
+   an existing compatible Serena MCP connection in the same host/session; offer
+   setup when missing without duplicating the server or overwriting existing
+   configuration. The repository still contains the setup deliverables even when
+   the author's existing connection is reused. Start with the upstream's read-only
+   navigation pattern; the agent continues editing with ordinary host tools.
+   Evaluate a Docker wrapper only if useful for the tested environment; it is not
+   a core requirement. Verify tool names/capabilities against the installed Serena
+   version instead of copying stale aliases.
 4. Guide the agent to use semantic tools for definitions, references and file
    structure, while retaining `rg`, file reads, diff inspection and real checks
    where appropriate. Optional tooling improves agent capability across coding
@@ -67,6 +75,11 @@ The full evaluation runner remains outside the critical path to first local use.
 
 - [ ] Portability results identify the actual language/model/host combinations,
   code-quality evidence and pending coverage.
+- [ ] Setup/launch helpers, configuration examples, README and meaningful
+  integration checks are committed in the Mentor repository. A fresh checkout
+  can follow the documented local setup without private toolkit dependencies.
+  Existing compatible connections are reused, with no duplicate registration or
+  silent replacement of user configuration.
 - [ ] Opt-in Serena works through the real host in an external workspace, with
   correct project activation and observed semantic tool calls. Private toolkit
   paths and global toolkit installation are unnecessary.

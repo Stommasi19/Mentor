@@ -203,7 +203,11 @@ activation. Start with read-only navigation and ordinary host edits; keep memory
 and onboarding disabled. Retain ordinary search/read/check tools and a visible
 fallback when Serena is absent or unavailable. Compare efficiency and actual code
 quality before claiming a benefit. The core stays independent of this integration;
-implementation and runtime verification are pending.
+implementation and runtime verification are pending. M05 includes repository-owned
+setup/launch helpers, configuration examples and usage documentation under
+`adapters/codex/serena/`, with integration checks. Reuse an existing compatible
+connection in the same host/session, and offer opt-in setup when one is missing;
+do not duplicate registration or silently replace user configuration.
 
 Use a small C# fixture initially. Broaden the same criteria to another language
 and models from different providers before making broad compatibility claims.
