@@ -113,6 +113,7 @@ record the combinations actually tested.
 - [Planned M05 — portability and optional Serena tooling](docs/handoffs/M05-portability-and-tooling.md)
 - [Planned M06 — invoked feedback and PR understanding checks](docs/handoffs/M06-task-feedback.md)
 - [Design](docs/DESIGN.md)
+- [Upstream migration assessment and proposed steps](docs/UPSTREAM-MIGRATION.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)
 
