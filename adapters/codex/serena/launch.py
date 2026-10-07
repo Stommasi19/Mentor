@@ -40,8 +40,14 @@ def main() -> int:
             print(json.dumps({'available': True, 'version': version.stdout.strip(), 'command': command,
                               'semantic_delivery_verified': False}))
             return 0
+        environment = os.environ.copy()
+        if Path(executable).name == 'uvx':
+            # Serena's language servers invoke uv/uvx themselves. A locally
+            # bootstrapped runner must be discoverable by those child processes,
+            # without changing the user's shell or global PATH.
+            environment['PATH'] = str(Path(executable).parent) + os.pathsep + environment.get('PATH', '')
         # Preserve stdio for the MCP host; diagnostics go to stderr.
-        os.execv(executable, command)
+        os.execve(executable, command, environment)
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         message = f'Serena unavailable: {error}. Use rg, source reads, diffs and ordinary checks.'
         print(message, file=sys.stderr)

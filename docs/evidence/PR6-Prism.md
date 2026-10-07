@@ -1,5 +1,9 @@
 # PR #6 — optional Prism continuity and existing-server reuse
 
+Historical reuse receipts: the later request to set up missing tools and keep
+Mentor memory separate supersedes the shared-backend default described below.
+See [dedicated setup evidence](PR6-MCP-setup.md) for current behavior and checks.
+
 Follow-up requested on 2026-10-07 after the original M04–M07 delivery: use Prism
 as Agentic Workflow does, preferring the existing native connection, and reuse
 already available Serena/Prism rather than starting another instance/port.

@@ -6,9 +6,10 @@ Selected native conduct, direct/host Serena calls and the disposable pinned-SDK
 build/HTTP checks passed; full verification remains incomplete. M01–M03 evidence remains the historical verified baseline.
 Scope: one continuous local-product delivery, with checks after each component.
 M08 packaging/publication stays separate. Implementation was explicitly requested.
-The user subsequently requested Workflow coexistence and optional Prism reuse
-(§7a) in PR #6. The adapter addition and focused host checks are recorded in
-[Prism integration evidence](evidence/PR6-Prism.md).
+The user subsequently requested Workflow coexistence, missing-tool setup and
+separate Mentor Prism memory (§7a) in PR #6. The adapter checks are recorded in
+[original Prism evidence](evidence/PR6-Prism.md) and
+[dedicated setup evidence](evidence/PR6-MCP-setup.md).
 
 ## M04–M07 execution plan
 
@@ -25,7 +26,7 @@ handles the workflows. Use existing OpenAI access, with other providers pending.
 | 5 | Add `core/workflows/review.md` | 2–4 | S04 defect, target clarification, primers/pause/skip and evidence accuracy |
 | 6 | Add `core/workflows/feedback.md` and `pr-understanding.md` | 2–4 | Immediate feedback; grounded questions/answers, hint/skip/stop and report-only behavior |
 | 7 | Add three native skill wrappers and `adapters/codex/reports.py`; update hook guidance | 3–6 | Native discovery/invocation, ordinary-task control, session overrides and resource failures |
-| 7a | Preserve existing Workflow integration and document optional Prism reuse in the Codex adapter | 7 | Actual host coexistence, one reused Prism connection, project isolation and standalone/failure fallback |
+| 7a | Preserve Workflow; reuse compatible MCP connections, provision requested missing tools and separate Mentor Prism memory | 7 | Native config preservation, dedicated database readback/shared negative control, real Serena navigation and unavailable fallback |
 | 8 | Add `adapters/codex/serena/` setup/launch/examples/README | 2, 7 | Real connection reuse/activation/navigation and no-server fallback |
 | 9 | Add independent Python fixture and run combined verification | 2–8 | Behavior/code-quality checks, workflow/host matrix and bounded tool comparison |
 | 10 | Build a DoughTracker slice in a disposable copy | 2, 7, 9 | Generated behavior/help, readable code/comments/docs, completed-slice checks and unchanged original project |
@@ -280,13 +281,18 @@ actual installed hooks. Investigate conflicts before proposing a minimal adapter
 or configuration change; do not patch private toolkit code or introduce new time
 limits as a workaround.
 
-Offer opt-in reuse of a compatible Prism MCP connection already exposed by the
-host. Inspect its actual registration/version and verify available tools instead
-of hardcoding a personal path or port. Do not start a second Prism server or
-overwrite an existing registration. Keep this support in the Codex adapter with
-repository-owned usage guidance; Prism and Workflow are optional integrations,
-not core dependencies. Absent, incompatible, disabled or failing Prism must leave
-ordinary Mentor help and explicit workflows usable with a clear fallback.
+Offer opt-in use of a dedicated Mentor Prism database, separate from Workflow.
+Inspect actual registrations/tools and reuse a compatible dedicated connection,
+including verified aliases/plugins. Preserve shared Workflow connections. If no
+compatible connection exists, requested setup builds the pinned repository Docker
+image and registers a stdio launcher with a dedicated volume, no published port,
+no host memory mounts, no cloud credentials and no network. Never silently fall
+back to shared storage. Provision missing Serena with an installed runner or
+pinned local uv/Serena cache and register through Codex's native writer. Preview
+is read-only; apply preserves other settings and reports partial failure. Hooks
+themselves install/start nothing. Reload and verify actual tools after setup.
+Keep host schemas/launchers in the thin Codex adapter. Absent, incompatible,
+disabled or failing services leave ordinary help and explicit workflows usable.
 
 Use Prism only for project context, such as decisions and handoff notes, with
 explicit opt-in and explicit requests to save. Respect project boundaries and
@@ -298,12 +304,15 @@ local storage; Prism does not infer levels or change coaching/code ownership.
 
 Verification: record actual development-host hook delivery and explicit skill
 invocation with Workflow retained, unchanged existing registrations/settings,
-and reuse without a duplicate Prism process/registration. Exercise project-context
-retrieval and an explicitly requested save/readback, project isolation, unchanged
+and compatible reuse without a duplicate registration or arbitrary host port.
+Exercise missing setup/idempotence, actual fresh Serena file/symbol reads and
+dedicated Prism save/readback with an empty shared-backend result for the same
+project key. Bind requests to the selected server namespace. Verify unchanged
 Mentor preferences, no implicit writes, and standalone/unavailable-tool fallback.
 Record tested host/tool versions and pending observations; standalone Prism startup
 does not establish Mentor integration. Implementation of this follow-up was
-subsequently requested in PR #6; use its [separate evidence](evidence/PR6-Prism.md)
+subsequently requested in PR #6; use its [original evidence](evidence/PR6-Prism.md)
+and [setup/isolation evidence](evidence/PR6-MCP-setup.md)
 for actual outcomes rather than treating this planning text as verification.
 
 ### 8. Optional Serena setup and navigation
@@ -449,12 +458,14 @@ Unchecked rows retain newly planned, unauthorized integration scope. Check again
   failures. Effective/saved preferences remain unchanged on these workflows.
 - [x] Repository-owned Serena setup/reuse and fallback are exercised; actual semantic
   use is claimed only with host evidence. Efficiency metrics stay evidence-based.
-- [x] Mentor works with Workflow retained and standalone. Optional Prism reuses one
-  existing connection without overwriting host setup; actual host delivery,
-  project-context isolation, explicit saves, unchanged preferences and unavailable
+- [x] Mentor works with Workflow retained and standalone. Optional Prism uses
+  separate Mentor memory and reuses compatible dedicated connections. Requested
+  missing-tool setup preserves existing host settings; actual MCP reads,
+  database isolation, explicit saves, unchanged preferences and unavailable
   fallback are verified. No learner tracking or implicit writes are introduced.
   This row was completed under the subsequent PR #6 integration request; its
-  [focused evidence and limits](evidence/PR6-Prism.md) remain separate from the
+  [original evidence](evidence/PR6-Prism.md) and
+  [setup evidence and limits](evidence/PR6-MCP-setup.md) remain separate from the
   original M04–M07 audit. No broad host/provider or human-learning claim is made.
 - [x] C# and Python results identify the exercised OpenAI model/host combination.
   Cross-provider coverage is explicitly pending and requires no new paid account.

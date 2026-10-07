@@ -23,7 +23,9 @@ Serena model navigation and the matched build comparison also have actual calls
 and checked results. [Acceptance audit](docs/evidence/M04-M07-acceptance.md) identifies
 the original scope and limits. Human understanding remains unobserved. The
 subsequently requested [Prism adapter integration](adapters/codex/prism/README.md)
-has [separate checks](docs/evidence/PR6-Prism.md); M08 distribution remains future work.
+has [original checks](docs/evidence/PR6-Prism.md) and
+[missing-tool setup/dedicated-memory checks](docs/evidence/PR6-MCP-setup.md);
+Mentor's default Prism database is separate from Workflow. M08 distribution remains future work.
 
 M01 is implemented and verified locally: a [neutral policy](core/policy.md),
 [Codex development hook](adapters/codex/README.md), and

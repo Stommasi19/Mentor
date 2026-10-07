@@ -62,8 +62,11 @@ are the final phase. Record tested language/model/host combinations and avoid
 claiming universal compatibility from a neutral design alone.
 
 Keep the core/adapters independent of personal toolkit paths and private integrations.
-Reuse already exposed Serena/Prism MCP connections for optional navigation/project
-context; do not start a duplicate server or select another port. Prism loading
+Reuse already exposed Serena and verified dedicated Mentor Prism MCP connections
+for optional navigation/project context. Preserve Workflow's shared Prism; Mentor
+defaults to separate Docker-volume memory with no published host port. Set up
+requested missing compatible connections through the repository adapter; never
+silently fall back to shared memory or overwrite an existing registration. Prism loading
 requires project opt-in and saving requires a request; keep learner data and
 preferences in Mentor's existing local storage. Use the adapter guide and retain
 ordinary-tool/local-document fallback.

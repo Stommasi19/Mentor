@@ -13,6 +13,8 @@ HANDLER = Path(__file__).resolve().parents[1] / 'adapters/codex/prism/context.py
 
 class PrismContextTests(unittest.TestCase):
     def invoke(self, workspace, *arguments, record=None, env=None):
+        if arguments and arguments[0] == 'load':
+            arguments = (*arguments, '--server-name', 'mentor-memory-connection')
         return subprocess.run([sys.executable, str(HANDLER), '--workspace', str(workspace), *arguments],
                               input=json.dumps(record) if record is not None else None,
                               capture_output=True, text=True, cwd=workspace.parent, env=env)
@@ -23,13 +25,16 @@ class PrismContextTests(unittest.TestCase):
             config = root / 'config.toml'
             original = ('[mcp_servers.project_memory]\ncommand="npx"\n'
                         'args=["-y","prism-mcp-server@20.21.17"]\nenabled=false\n'
-                        '[mcp_servers.project_memory.env]\nAPI_SECRET="not-for-output"\n')
+                        '[mcp_servers.project_memory.env]\nAPI_SECRET="not-for-output"\n'
+                        '[mcp_servers.learning_memory]\ncommand="python3"\nargs=['
+                        + json.dumps(str(HANDLER.with_name('launch.py')))
+                        + ',"--volume","mentor-private-data"]\n')
             config.write_text(original)
             for options in (['--config', str(config)], []):
                 result = self.invoke(root, 'inspect', *options, env={**os.environ, 'CODEX_HOME': str(root)})
                 self.assertEqual(result.returncode, 0, result.stderr)
                 inspected = json.loads(result.stdout)
-                self.assertEqual(inspected['registered_names'], ['project_memory'])
+                self.assertEqual(inspected['registered_names'], ['learning_memory', 'project_memory'])
                 self.assertEqual(inspected['action'], 'inspect-and-reuse')
                 self.assertFalse(inspected['registrations'][0]['enabled'])
                 self.assertFalse(inspected['live_connection_verified'])
@@ -62,6 +67,7 @@ class PrismContextTests(unittest.TestCase):
             prepared = json.loads(loaded.stdout)
             request = prepared['requests'][0]
             self.assertEqual(request['tool'], 'session_load_context')
+            self.assertEqual(request['server'], 'mentor-memory-connection')
             self.assertEqual(request['arguments']['project'], 'owner-current-project')
             self.assertEqual(request['arguments']['conversation_id'], 'session-a')
             self.assertNotIn('level', request['arguments'])
@@ -79,6 +85,7 @@ class PrismContextTests(unittest.TestCase):
                 self.assertEqual(ledger['tool'], 'session_save_ledger')
                 self.assertEqual(handoff['tool'], 'session_save_handoff')
                 for call in (ledger, handoff):
+                    self.assertEqual(call['server'], 'mentor-memory-connection')
                     self.assertEqual(call['arguments']['project'], 'owner-current-project')
                     self.assertEqual(call['arguments']['conversation_id'], 'session-a')
                 self.assertEqual(handoff['arguments']['open_todos'], ['Check failures.'])
@@ -100,6 +107,8 @@ class PrismContextTests(unittest.TestCase):
             loaded = self.invoke(root, 'load', '--project', 'owner-project', '--conversation-id', 'session-b')
             session = json.loads(loaded.stdout)['session']
             cases = [(session, {'summary': 'Work checked.'}),
+                     ({key: value for key, value in {**session, 'expected_version': 1}.items()
+                       if key != 'server_name'}, {'summary': 'Work checked.'}),
                      ({**session, 'expected_version': True}, {'summary': 'Work checked.'}),
                      ({**session, 'expected_version': -1}, {'summary': 'Work checked.'}),
                      ({**session, 'expected_version': 1}, {'summary': 'Work checked.', 'learner_grade': 'senior'}),

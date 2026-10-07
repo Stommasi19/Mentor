@@ -9,7 +9,8 @@ and a [requirement audit](evidence/M04-M07-acceptance.md), including native cond
 model Serena navigation/comparison and disposable DoughTracker pinned-SDK checks.
 Broader compatibility, human learning and distribution remain separate; no universal
 conduct or efficiency claim is made. The subsequently requested §7a adapter
-addition is recorded in [Prism integration evidence](evidence/PR6-Prism.md).
+addition is recorded in [Prism integration evidence](evidence/PR6-Prism.md), with
+subsequently requested [missing-tool setup and separate memory](evidence/PR6-MCP-setup.md).
 M04's confirmed decisions
 are retained alongside M05 tooling, M06 feedback/self-checks and M07's two real-use cases.
 M04's [technical implementation plan](handoffs/M04-review-coaching.md#implementation-plan)

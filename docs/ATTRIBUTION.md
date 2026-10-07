@@ -125,7 +125,15 @@ No upstream source text, templates or implementation are copied. Unlike that
 upstream workflow, unavailable Prism does not stop ordinary Mentor work, and
 project saves require an explicit request. Native tool schemas and installed
 `prism-mcp-server@20.21.17` behavior were inspected; actual host calls verify the
-recorded subset. Prism itself is not vendored or installed by Mentor. Its
+recorded subset. Prism itself is not vendored. Its
 [upstream documentation](https://github.com/dcostenco/prism-coder) describes setup
-and transport. Reusing the host connection introduces no private toolkit path,
-new paid model account or second registration into Mentor.
+and transport. The subsequent missing-tool/separate-memory request adds a
+repository-authored Dockerfile and stdio launcher that install pinned Prism
+`20.21.17` into a dedicated image/volume. The installed upstream storage source
+was inspected to identify `/root/.prism-mcp` as the actual memory directory;
+configuration/metrics path overrides alone do not isolate memory. No upstream
+implementation is copied. Serena provisioning follows its official `uvx --from`
+CLI pattern at commit `3b99f8b024dafd58c962ea6e74f37c8a730ef532`, with `uv==0.12.23`
+bootstrapped locally when needed. No private toolkit path or paid model is required.
+Actual installed-version checks are recorded in
+[dedicated setup evidence](evidence/PR6-MCP-setup.md).

@@ -2,7 +2,8 @@
 
 Mentor works with ordinary source reads, rg, diffs, edits and checks. Serena is
 opt-in semantic navigation, independent of coaching profile and code ownership.
-These helpers do not install packages, edit user configuration or create memories.
+Preview and launch checks do not install packages or edit user configuration.
+Requested `--apply` provisions a missing connection; no path creates memories.
 
 Inspect the host's live MCP inventory first, including plugin-provided connections.
 Reuse a running server and activate the requested project rather than starting a
@@ -25,10 +26,18 @@ onboarding and editing tools are unavailable for this integration. If the existi
 connection cannot meet those constraints, use ordinary tools and document the
 incompatibility; do not silently register a duplicate or overwrite configuration.
 
-When absent, setup prints a snippet pointing to this checkout's launcher. Install
-Serena separately using its [official setup](https://oraios.github.io/serena/02-usage/020_running.html)
-and select a version. Review the printed host configuration before using it.
-The default launcher requires an installed `serena` command:
+When absent, preview prints a snippet pointing to this checkout's launcher.
+To provision Serena locally and register it through Codex's native writer:
+
+```sh
+python3 adapters/codex/serena/setup.py --workspace /absolute/project --apply
+```
+
+The [MCP setup guide](../MCP-SETUP.md) explains the pinned local runner/cache,
+existing-connection preservation and reload/live verification. Alternatively use
+Serena's [official setup](https://oraios.github.io/serena/02-usage/020_running.html)
+and supply your installed runner. The default launcher requires an installed
+`serena` command:
 
 ```sh
 python3 adapters/codex/serena/launch.py --workspace "/absolute/project" --check
