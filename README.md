@@ -79,9 +79,10 @@ separately, so a temporary session pause cannot become a project default when
 changing the saved level. See [storage contracts](runtime/README.md).
 
 Greater experience can mean delegating more code while owning decisions and
-review. Task feedback can explain concrete strengths, improvements and an optional
-next step; it does not switch levels or track proficiency. Explicit requests can
-change implementation ownership at any level.
+review. Invoked task feedback explains concrete strengths, improvements and an
+optional next step; a separate optional PR understanding check supports practice.
+Neither switches levels or tracks proficiency. Explicit requests can change
+implementation ownership at any level.
 
 ## Build and prove locally
 
@@ -90,7 +91,8 @@ change implementation ownership at any level.
 2. Verify automatic policy loading with a local development hook.
 3. Add manual levels/preferences and invoked interview/review skills; test each
    portion immediately.
-4. Broaden language/model coverage, add invoked task feedback, and try real project work.
+4. Broaden language/model coverage, evaluate optional Serena tooling, add invoked
+   task feedback and PR understanding checks, and try real project work.
 5. Finally package and document the verified behavior for other users, including
    marketplace discovery and installation.
 
@@ -108,8 +110,10 @@ record the combinations actually tested.
 - [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
 - [M03 — invoked interview skill, locally verified](docs/handoffs/M03-interview-coaching.md)
 - [Next implementation: M04 invoked review skill](docs/handoffs/M04-review-coaching.md)
-- [M06 — invoked task feedback, confirmed plan](docs/handoffs/M06-task-feedback.md)
+- [Planned M05 — portability and optional Serena tooling](docs/handoffs/M05-portability-and-tooling.md)
+- [Planned M06 — invoked feedback and PR understanding checks](docs/handoffs/M06-task-feedback.md)
 - [Design](docs/DESIGN.md)
+- [Upstream migration assessment and proposed steps](docs/UPSTREAM-MIGRATION.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)
 

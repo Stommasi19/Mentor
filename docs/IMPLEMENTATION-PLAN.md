@@ -36,7 +36,7 @@ discovery, packaging for others, and publication are the final phase.
 | First user | The owner learning through real projects; neutral core, initial Codex development adapter and C# test case. |
 | Neutrality | No model/vendor APIs, host hook schemas, or target-language defaults in canonical policy/workflows/state. Host specifics live in adapters; record actual tested combinations. |
 | Participation | Guided offers a focused coding part; supported offers coding or reviewing; independent defaults to agent implementation with the learner directing and reviewing. Requests can change that allocation at any level. |
-| Levels | Manual selection through controls; feedback does not infer/switch levels or change preferences. No automatic progression in the planned release. |
+| Levels | Manual selection through controls; feedback and optional PR self-checks do not infer/switch levels or change preferences. No automatic progression in the planned release. |
 | Code standards | Descriptive names, understandable flow, appropriate boundaries, useful comments explaining intent/non-obvious rules, accurate documentation, and necessary verification at every level. |
 | Coaching pause | Pause learning prompts while retaining code/documentation expectations and ordinary defect reporting. Native plugin disabling disables the whole package. |
 | Preferences | Controls change the current session by default. Explicit project-scope changes save local preferences outside Git for later sessions. |
@@ -44,6 +44,7 @@ discovery, packaging for others, and publication are the final phase.
 | Verification | Test each slice immediately, reuse a small fixture with task variants and fresh contexts, and retain a reserved scenario. |
 | Urgency | “I want it done as soon as possible so that i can start using it.” No fixed delivery date was given. |
 | Distribution | Marketplace discovery, other-user packaging/installation, and public release happen after local product validation, in the final phase. |
+| Optional tooling | M05 includes repository-owned Serena setup/configuration/docs and verification under a thin host adapter. Reuse a compatible existing MCP connection; provide opt-in setup when missing. Tool capability does not change mentee work, preferences or implementation ownership. |
 
 Explore checked local host and packaging constraints; Plan examined learner
 behavior and scope. Their parallel findings informed this plan. The planning
@@ -69,6 +70,7 @@ distribution remains outside this slice.
 | R12 | Core behavior is language/LLM-neutral; compatibility claims identify tested language, model/provider, and host combinations. | T13 |
 | R13 | Distribution/discovery requirements are evaluated in the final milestone after local behavior and quality evidence. | T14 |
 | R14 | Explicitly invoked feedback uses available current-task evidence immediately and saves local Markdown, with optional reflection, unchanged manual preferences and no background learner tracking. | T15 |
+| R15 | A separate explicitly invoked PR-link self-check reads actual code/tests, asks focused understanding questions, waits for answers and provides evidence-backed explanations and local Markdown, with no automatic level changes or PR edits. | T17 |
 
 ## Core and development adapters
 
@@ -98,6 +100,7 @@ adapters/
     skills/
       mentor-interview/    # explicit-only native wrapper, M03
                           # M04/M06 wrappers pending
+    serena/               # M05 planned setup/configuration/usage, not implemented
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
 ```
@@ -336,7 +339,7 @@ required notices. Author original instructions when redistribution terms do not
 permit copying. Source material is inspiration; packaged skills cannot depend on
 private integrations. Update status/docs after each implemented slice.
 
-## Later task feedback and evidence limits
+## Later feedback and PR understanding checks
 
 [M06](handoffs/M06-task-feedback.md) is an explicitly invoked task-feedback skill.
 Reuse the task at hand and available evidence; give concrete strengths, improvements
@@ -357,10 +360,26 @@ reasoning can support limited observations on the current task; record assistanc
 where relevant. No full conversation or learner profile is persisted by default.
 Feedback-only does not edit code, post findings or invoke fixes.
 
-After local M01–M04, M05 broadens language/provider coverage and isolated evaluation;
-M06 adds task feedback; M07 records real-project use and comprehension separately.
-[M08 distribution](handoffs/M08-distribution.md) remains final: manifests, discovery,
-other-user installation/update/removal and publication. Document tested support.
+The separate explicitly invoked PR understanding-check skill accepts a GitHub PR
+link, reads actual diff/context/tests and asks focused questions about behavior,
+decisions, edge cases and verification. It waits for answers before revealing
+code-backed explanations, with hints, direct explanations, skip and stop available.
+A quiz is never a prerequisite for ordinary feedback or review. Explicit self-check
+invocation permits its questions while coaching is paused without resuming coaching.
+
+Self-check reports identify the PR, inspected scope/revision, actual answers and
+assistance. Unattempted or explained answers do not establish independent reasoning.
+A changing PR requires refreshed evidence or an explicit recorded-revision limitation.
+The self-check preserves manual preferences, uses neutral local report handling and
+does not edit code, post findings, approve/merge or invoke fixes. It supplies limited
+evidence about the inspected change, not a proficiency grade or mastery claim.
+
+After local M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens
+language/provider coverage, adds optional Serena tooling and isolated evaluation;
+M06 adds task feedback and self-checks; M07 records real-project use and comprehension
+separately. [M08 distribution](handoffs/M08-distribution.md) remains final: manifests,
+discovery, other-user installation/update/removal and publication. Document tested
+support and distinguish native delivery, simulation, software checks and human learning.
 
 ## Definition of this planning change
 

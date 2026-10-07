@@ -33,14 +33,15 @@ has separate [native/conduct/code evidence](evidence/M03-revised.md).
 M01–M04 form the first local usable version.
 Test each portion immediately. A marketplace entry, distributable plugin manifest,
 and public installation are not completion criteria here. Levels remain manually
-selected; automatic progression is outside the planned release.
+selected; optional feedback/self-checks do not switch them. Automatic progression
+is outside the planned release.
 
 ## Validate and improve the local product
 
 | Milestone | Useful result | Evidence needed |
 | --- | --- | --- |
-| M05 — portability and isolated scenarios | Exercise another coding language and models from different providers; automate controlled comparisons where useful. | Language/model/host matrix, actual code quality, isolated actor inputs, authorship, and criterion-specific observations. |
-| [M06 — invoked task feedback](handoffs/M06-task-feedback.md) | Immediate feedback on the task at hand, saved as local Markdown; reflection optional and levels manually selected. | Actual native invocation, evidence-backed feedback, accurate report/checks, unchanged preferences and no background tracking. |
+| [M05 — portability, optional tooling and isolated scenarios](handoffs/M05-portability-and-tooling.md) | Broaden language/provider coverage; include repository-owned optional Serena setup and reuse existing connections; automate controlled comparisons where useful. | Tested combinations, actual semantic tool use/fallback, efficiency and code quality, unchanged mentoring contracts, isolated actor inputs and authorship. |
+| [M06 — invoked feedback and PR understanding checks](handoffs/M06-task-feedback.md) | Immediate task feedback, plus a separate invoked PR-link self-check with questions and explanations from actual code/tests; local Markdown reports and manually selected levels. | Real PR retrieval, question/answer evidence, independent/assisted/unattempted distinctions, honest reports and unchanged preferences. |
 | M07 — personal real-project trial | Use Mentor in the owner's actual work and refine readability/coaching. | Real diff/comments/docs, necessary checks, unaided explanation/diagnosis, and observed friction. |
 
 Harder-task selection needs a separate experiment. Additional host adapters are
@@ -65,8 +66,9 @@ confirmation, artifacts and direct execution or skill handoff.
 [M04](handoffs/M04-review-coaching.md) is the next implementation slice.
 M03, [M04](handoffs/M04-review-coaching.md) and [M06](handoffs/M06-task-feedback.md)
 have confirmed planning rewrites, completed one at a time. M04/M06 implementation
-and verification have not started. M06 now provides invoked task feedback rather
-than automatic progression. Levels remain manually switched through M02.
+and verification have not started. M06 provides invoked task feedback and a
+separate optional PR understanding check rather than automatic progression. Levels
+remain manually switched through M02.
 M01/M02 evidence remains tied to its recorded controls/lifecycle scope. Automatic
 mid-turn compaction, broader compatibility and human learning remain pending.
 Distribution remains the final phase.

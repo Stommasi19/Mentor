@@ -74,8 +74,8 @@ Failed project writes still apply locally with an unsaved warning. These M02
 contracts are locally verified for the [recorded combination](evidence/M02.md).
 Levels remain manually selected throughout the planned release. The learner can
 request more/less help, demonstrate/takeover or different implementation ownership
-without changing the stored level. M06's invoked task feedback does not infer or
-switch levels.
+without changing the stored level. M06's invoked task feedback and optional PR
+self-check do not infer or switch levels.
 
 | Level | Mentor behavior | Learner responsibility |
 | --- | --- | --- |
@@ -118,6 +118,27 @@ and keep missing observations unknown. A mistake does not establish overall abil
 Levels and coaching state change through explicit M02 controls only. Automatic
 progression thresholds, learner scoring and background tracking are removed from
 the planned release; there is no automatic task-difficulty adjustment.
+
+### Optional PR understanding check
+
+A separate explicitly invoked skill accepts a PR link, reads the real change and
+asks useful questions: why the approach was chosen, how an input flows through it,
+what happens at a boundary, and what tests prove. Ordinary feedback and review
+have no quiz requirement.
+
+Wait for the learner's answers before explanations; offer hints, direct help,
+skip and stop. Match scaffolding to the manual level, without altering the expected
+behavior or assigning a proficiency grade. Explicitly requesting the self-check
+permits its questions while coaching is paused without resuming global coaching.
+
+Discuss answers using actual code/test evidence and save local Markdown with
+PR/revision, questions/answers, assistance and uncertain/unattempted areas. Refresh
+stale context if the PR changes, or explicitly limit the check to the recorded
+revision. Respect valid alternative reasoning, disclose serious defects immediately
+and do not edit/post/approve/merge as part of a check. No automatic level switch,
+progression threshold or background learner profile. Agent-written code and supplied
+explanations alone establish no human understanding; a self-check provides limited
+evidence about this inspected change, not mastery.
 
 ### Productive struggle
 
@@ -214,6 +235,20 @@ adapter, use SessionStart for startup/resume/clear/compact, concise context, and
 the host's normal hook review/trust flow. This does not need marketplace discovery
 or a distributable plugin manifest. Policy-only experiments establish behavior
 observations; actual host traces establish automatic delivery.
+
+[M05](handoffs/M05-portability-and-tooling.md) plans optional Serena MCP tooling
+through the host adapter, adapting Agentic Workflow's project activation and
+semantic-navigation usage. This improves the agent's available tools without
+changing mentoring levels, implementation ownership, mentee work or full-skill
+activation. Start with read-only navigation and ordinary host edits; keep memory
+and onboarding disabled. Retain ordinary search/read/check tools and a visible
+fallback when Serena is absent or unavailable. Compare efficiency and actual code
+quality before claiming a benefit. The core stays independent of this integration;
+implementation and runtime verification are pending. M05 includes repository-owned
+setup/launch helpers, configuration examples and usage documentation under
+`adapters/codex/serena/`, with integration checks. Reuse an existing compatible
+connection in the same host/session, and offer opt-in setup when one is missing;
+do not duplicate registration or silently replace user configuration.
 
 Use a small C# fixture initially. Broaden the same criteria to another language
 and models from different providers before making broad compatibility claims.
@@ -317,6 +352,8 @@ The remaining scenario ideas are:
   the learner's explicit preferences?
 - Invoked feedback on a current task: Does the report cite concrete evidence,
   leave levels unchanged and offer an optional next step without requiring reflection?
+- An invoked PR understanding check: Are questions grounded in the actual change,
+  with explanations after attempts and independent/assisted answers distinguished?
 - Correct answers that required hints or were supplied by the agent: Does the
   mentor avoid falsely counting them as independent demonstrations?
 - An incorrect attempt repaired independently: Does the mentor recognize the

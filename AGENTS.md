@@ -30,15 +30,17 @@ allocation. Coaching intensity and who writes code are separate.
 
 Levels remain manually selected, with local per-project preferences. Pausing
 coaching retains readable-code/documentation expectations and necessary checks.
-The full interview, review and task-feedback skills run only when explicitly
-invoked, with the primary agent handling their workflows. Ordinary clarification,
-help and material-defect reporting remain available without those skills.
-M06 provides immediate feedback on the task at hand and a local Markdown report;
-reflection is optional. Do not infer/switch levels, collect a background learner
-ledger or grade proficiency. Respect overrides and allow attempts/self-correction.
-A single mistake does not establish overall ability. Agent-written code alone
-establishes no learning; independently supplied learner reasoning can provide
-limited evidence on that task.
+The full interview, review, task-feedback and optional PR self-check skills run
+only when explicitly invoked, with the primary agent handling their workflows.
+Ordinary clarification, help and material-defect reporting remain available
+without those skills. M06 provides immediate current-task feedback and a local
+Markdown report; reflection is optional and feedback has no quiz prerequisite.
+The separate PR self-check grounds questions in actual code/test evidence, waits
+for answers and honors hints, explanations, skip and stop. Do not infer/switch
+levels, collect a background learner ledger or grade proficiency. Respect overrides
+and allow attempts/self-correction. A single mistake does not establish overall
+ability. Agent-written code alone establishes no learning; independently supplied
+learner reasoning can provide limited evidence on the inspected task.
 
 Implement and verify each requested slice immediately against its handoff and
 the applicable criteria. Keep the full evaluation runner outside the critical

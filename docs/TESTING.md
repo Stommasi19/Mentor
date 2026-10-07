@@ -141,6 +141,8 @@ samples and disputed observer judgments manually.
 | T13 | M01 architecture; M05 coverage | Core has no target-language/vendor/host assumptions; compatibility claims reflect actual tests. | Inspect core/adapter boundary, then exercise representative languages and providers with the same rubric. Record a support matrix and pending cells. |
 | T14 | M08 only | Verified core is packaged for others; discovery/install, trust, updates/removal, and release docs match supported behavior. | Final clean-environment distribution checks after local product/portability evidence. No early marketplace gate. |
 | T15 | Revised M06 | Explicit feedback uses available current-task evidence immediately and saves a local Markdown report. Reflection optional, levels manually selected, no background tracking or automatic fixes. | Actual native invocation, all three levels/coaching-off, ordinary-task negative control, work-in-progress/missing-observation cases, report evidence/storage checks and unchanged preferences. |
+| T16 | M05 optional tooling | Opt-in Serena semantic navigation works through the actual host, falls back when unavailable, and preserves mentoring/ownership/preferences. Any efficiency or quality claim has controlled evidence. | External workspace activation and symbol/reference calls; no-server/failure cases; same task/model/settings with and without tools; inspect code/comments/docs and available metrics. |
+| T17 | M06 PR self-check | Explicit PR-link skill reads actual diff/context/tests, asks grounded understanding questions, waits for answers and explains with evidence. Manual preferences unchanged; local Markdown and no automatic PR edits. | Native invocation/PR retrieval, correct/mistaken/assisted/unattempted answers, hint/skip/stop, changing PR, report failures and honest evidence claims. |
 
 T04 review questions:
 
@@ -221,10 +223,28 @@ evidence, not exact prose, finding quotas or inferred comprehension. Artifact an
 host entry checks should protect meaningful boundaries. Keep actual host delivery,
 simulation, software correctness and human learning as separate claims.
 
+## M05 optional-tooling verification
+
+Use the [M05 handoff](handoffs/M05-portability-and-tooling.md). These are future
+criteria, all pending; writing this plan does not verify a Serena installation.
+
+| Boundary | Required observation |
+| --- | --- |
+| Repository setup and reuse — T16 | Setup/launch helpers, configuration examples, README and meaningful checks exist in the repository. Exercise documented setup from a fresh checkout and reuse of an existing compatible host connection; no private toolkit dependency, duplicate registration or silent overwrite. |
+| Actual host use — T16/T12 | Opt-in MCP connection, correct project activation and semantic symbol/reference calls in an external workspace, including another cwd/worktree. Record Serena/backend/host versions and language prerequisites. Config output alone does not establish tool delivery. |
+| Optionality — T16 | Without Serena, and with an unavailable/disabled server, ordinary tools still support the task and valid Mentor policy remains available. Explain fallback without inventing semantic results. |
+| Mentoring contracts — T05–T08/T16 | Controlled levels, coaching state and ownership agreements are respected with and without Serena. No forced learner work, preference writes, full-skill activation, memory/onboarding or background learner tracking. |
+| Tool choice and code quality — T04/T16 | Semantic navigation serves definitions/references/structure; ordinary search, file reads, host edits and checks serve their relevant purposes. Inspect actual code/comments/docs and run agreed behavior checks. |
+| Efficiency evidence — T12/T16 | Same task/model/preferences/starter with and without tools; record available tokens, calls and time, including startup/indexing overhead. Report missing metrics and unchanged/worse outcomes honestly; no universal benefit or human-learning claim. |
+
+Broader language/provider results and actor-input isolation retain T13/T12 and
+the existing evaluation contract. Add automation only where it helps the comparison.
+
 ## M06 verification matrix
 
-Use the [confirmed M06 handoff](handoffs/M06-task-feedback.md). Implementation
-and every runtime row below remain pending; planning checks are not skill evidence.
+Use the [M06 handoff](handoffs/M06-task-feedback.md). Both feedback and PR
+self-check skills are planned; implementation and every runtime row below remain
+pending. Planning checks are not skill evidence.
 
 | Boundary / criterion | Required observation |
 | --- | --- |
@@ -233,10 +253,18 @@ and every runtime row below remain pending; planning checks are not skill eviden
 | Manual levels and coaching — T06/T08/T15 | Guided examples/reasoning, supported evidence/tradeoffs and independent concise actions follow controlled manual settings. Coaching-off gives direct feedback. Effective/saved preferences remain unchanged, including differing session overrides; explicit level changes use M02 controls. |
 | Local Markdown — T15/T12 | Report contains task/scope, evidence, feedback, checks and limitations outside public Git. Check directory collisions and failed saves. No full transcript, proficiency profile, ongoing ledger or fabricated saved artifact. |
 | Authorship and scope limits — T15/T12 | Agent-written work or passed checks alone causes no human-learning claim; supplied reasoning is identified accurately. No automatic progression/grades, fixes, posting or compulsory practice. Optional reflection remains available. |
+| PR target and questions — T17/T12/T13 | Native explicit skill resolves a supplied GitHub PR and reads actual diff/context/tests at a recorded revision. Questions have concrete answer evidence for behavior/decisions/boundaries/verification. Invalid or inaccessible links do not generate invented content. |
+| Attempts and teaching — T17 | Explanations wait for an attempt or explicit help request. Guided/supported/independent vary support. Correct, mistaken and valid alternative answers receive code-backed discussion; hints, direct answers, skip and stop work. Unattempted/assisted answers remain distinct from independent reasoning; serious defects are disclosed immediately. |
+| Self-check preferences and scope — T17 | Effective/saved manual preferences remain unchanged, including differing overrides and coaching-paused self-check invocation. Ordinary tasks/feedback/review do not launch quizzes. Self-check-only does not edit code, post/approve/merge, invoke fixes, grade ability or write a background ledger. |
+| Self-check report and evidence — T12/T17 | Local Markdown records PR/revision, actual questions/answers, assistance and limitations. Changed PRs refresh affected context or state the recorded-revision limit. Report collisions/failures are accurate. Scripted conduct and correct software are separate from observed human understanding; no mastery claim. |
 
 Use existing task scenarios and reports where suitable; do not create an evaluation
 runner or proficiency threshold to satisfy this slice. Process checks protect real
 invocation/storage boundaries; transcript/report evidence assesses useful feedback.
+
+Ground PR self-check behavior in known changes and responses, not exact generated
+question wording or a universal quiz score. Keep live PR retrieval and native tool
+use separate from simulated actor responses and any later human trial.
 
 ## Per-slice sequence
 
@@ -277,8 +305,8 @@ instructions assign implementation to the agent.
 Marketplace packaging/other-user installation is final M08 and does not substitute
 for these local product checks. Later, automate the same scenario/evidence contract
 with isolated actors and an observer. This evaluation automation is separate from
-M06's invoked task feedback; it does not collect a runtime learner ledger or switch
-levels. Separate software authorship from evidence of human reasoning: agent-written
+M06's invoked task feedback and PR self-check; it does not collect a runtime learner
+ledger or switch levels. Separate software authorship from evidence of human reasoning: agent-written
 code can be independently reviewed by a human, while copied explanations cannot
 establish independent reasoning. Larger pilots, delayed recall and public learning
 claims require their own scoped plan.
