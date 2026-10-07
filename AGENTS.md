@@ -62,6 +62,11 @@ are the final phase. Record tested language/model/host combinations and avoid
 claiming universal compatibility from a neutral design alone.
 
 Keep the core/adapters independent of personal toolkit paths and private integrations.
+Reuse already exposed Serena/Prism MCP connections for optional navigation/project
+context; do not start a duplicate server or select another port. Prism loading
+requires project opt-in and saving requires a request; keep learner data and
+preferences in Mentor's existing local storage. Use the adapter guide and retain
+ordinary-tool/local-document fallback.
 Record upstream attribution when adapting source material. Verify hook delivery
 through the actual development host runtime; manually supplied policy tests core
 behavior but does not prove automatic hook delivery. Report simulated behavior, code correctness, and observed human

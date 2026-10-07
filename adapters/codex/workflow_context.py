@@ -11,6 +11,7 @@ import sys
 REPOSITORY = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPOSITORY))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
+from adapters.codex.prism.context import guidance_paths
 
 WORKFLOWS = {
     'review': 'review.md',
@@ -56,6 +57,7 @@ def main(kind: str) -> int:
             'control_command': shlex.join([sys.executable, str(adapter / 'control.py'), *locations]),
             'report_command': shlex.join([sys.executable, str(adapter / 'reports.py'), *locations, '--kind', kind]),
             'target_command': shlex.join([sys.executable, str(adapter / 'review_target.py')]),
+            **guidance_paths(args.workspace),
         }
     except (OSError, UnicodeError, ValueError, TypeError, KeyError, RuntimeError,
             subprocess.SubprocessError) as error:

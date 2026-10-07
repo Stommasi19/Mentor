@@ -5,8 +5,9 @@ Status: Original approved delivery implemented and locally verified on 2026-10-0
 [evidence/limits](../evidence/M04-M07.md) identify the recorded combination.
 This handoff identifies the scope; the sequence is in
 [IMPLEMENTATION-PLAN.md](../IMPLEMENTATION-PLAN.md#m04m07-execution-plan).
-Additional Workflow/Prism integration guidance is newly planned for this PR;
-its implementation remains pending. The original installed-hook coexistence check
+Additional Workflow/Prism integration was subsequently requested for PR #6;
+its adapter, reuse/fallback and focused checks are in
+[separate integration evidence](../evidence/PR6-Prism.md). The original installed-hook coexistence check
 now has bounded native observations and recorded conflicts in the evidence.
 
 ## Active implementation plan

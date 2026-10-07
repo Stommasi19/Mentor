@@ -7,8 +7,9 @@ M04–M07 now share one [local-product implementation plan](IMPLEMENTATION-PLAN.
 The original approved implementation has [local evidence](evidence/M04-M07.md)
 and a [requirement audit](evidence/M04-M07-acceptance.md), including native conduct,
 model Serena navigation/comparison and disposable DoughTracker pinned-SDK checks.
-Broader compatibility, human learning, the later §7a addition and distribution
-remain separate; no universal conduct or efficiency claim is made.
+Broader compatibility, human learning and distribution remain separate; no universal
+conduct or efficiency claim is made. The subsequently requested §7a adapter
+addition is recorded in [Prism integration evidence](evidence/PR6-Prism.md).
 M04's confirmed decisions
 are retained alongside M05 tooling, M06 feedback/self-checks and M07's two real-use cases.
 M04's [technical implementation plan](handoffs/M04-review-coaching.md#implementation-plan)
@@ -100,7 +101,8 @@ self-checks, optional Serena, focused verification and both real-project trials.
 Runtime implementation is present. Boundary tests, generated fixture checks and
 source trials, native PR review/answer/change conduct and actual model semantic
 navigation/comparison are recorded. Original delivery acceptance is complete;
-broader compatibility, human learning and the later §7a integration are pending.
+broader compatibility and human learning remain pending. The later requested §7a
+integration has separate [adapter/host evidence](evidence/PR6-Prism.md).
 Levels remain manually switched through M02. Human trial and compatibility claims
 follow actual observations rather than the combined delivery label.
 M01/M02 evidence remains tied to its recorded controls/lifecycle scope. Automatic

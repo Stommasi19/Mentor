@@ -6,8 +6,9 @@ Selected native conduct, direct/host Serena calls and the disposable pinned-SDK
 build/HTTP checks passed; full verification remains incomplete. M01–M03 evidence remains the historical verified baseline.
 Scope: one continuous local-product delivery, with checks after each component.
 M08 packaging/publication stays separate. Implementation was explicitly requested.
-Workflow coexistence and optional Prism reuse (§7a) are a planned addition to the
-ongoing PR; implementation and host verification for that addition remain pending.
+The user subsequently requested Workflow coexistence and optional Prism reuse
+(§7a) in PR #6. The adapter addition and focused host checks are recorded in
+[Prism integration evidence](evidence/PR6-Prism.md).
 
 ## M04–M07 execution plan
 
@@ -301,8 +302,9 @@ and reuse without a duplicate Prism process/registration. Exercise project-conte
 retrieval and an explicitly requested save/readback, project isolation, unchanged
 Mentor preferences, no implicit writes, and standalone/unavailable-tool fallback.
 Record tested host/tool versions and pending observations; standalone Prism startup
-does not establish Mentor integration. This section adds scope to the plan only;
-it does not authorize implementation or claim these checks have passed.
+does not establish Mentor integration. Implementation of this follow-up was
+subsequently requested in PR #6; use its [separate evidence](evidence/PR6-Prism.md)
+for actual outcomes rather than treating this planning text as verification.
 
 ### 8. Optional Serena setup and navigation
 
@@ -405,7 +407,9 @@ The planned implementation files are:
 | Evidence and usage | `docs/evidence/M04.md` through `M07.md`, runtime/adapter READMEs |
 
 The runtime paths above are implemented; evidence/usage documents record actual results.
-The additional Workflow/Prism adapter guidance and integration in §7a remain planned.
+The requested §7a follow-up adds `adapters/codex/prism/context.py`, its usage guide,
+hook/wrapper discovery and focused checks. It reuses existing host tools without
+starting servers; Serena setup also handles alias/plugin registrations.
 Update runtime/README.md and adapters/codex/README.md with actual controls, skill
 invocation, report locations, setup/fallback and creation/existing-code examples.
 Add implementation evidence reports after running checks and trials, linking actual
@@ -445,12 +449,13 @@ Unchecked rows retain newly planned, unauthorized integration scope. Check again
   failures. Effective/saved preferences remain unchanged on these workflows.
 - [x] Repository-owned Serena setup/reuse and fallback are exercised; actual semantic
   use is claimed only with host evidence. Efficiency metrics stay evidence-based.
-- [ ] Mentor works with Workflow retained and standalone. Optional Prism reuses one
+- [x] Mentor works with Workflow retained and standalone. Optional Prism reuses one
   existing connection without overwriting host setup; actual host delivery,
   project-context isolation, explicit saves, unchanged preferences and unavailable
   fallback are verified. No learner tracking or implicit writes are introduced.
-  This row includes the §7a planning addition and remains outside the original
-  implementation authorization; original installed-hook observations are recorded separately.
+  This row was completed under the subsequent PR #6 integration request; its
+  [focused evidence and limits](evidence/PR6-Prism.md) remain separate from the
+  original M04–M07 audit. No broad host/provider or human-learning claim is made.
 - [x] C# and Python results identify the exercised OpenAI model/host combination.
   Cross-provider coverage is explicitly pending and requires no new paid account.
 - [x] DoughTracker creation and Stafr understanding trials record actual inspected

@@ -115,3 +115,17 @@ and [memory disabling guide](https://oraios.github.io/serena/02-usage/045_memori
 on 2026-10-07. These references describe API/configuration usage; installed-server
 version/acceptance is unverified. Code identifiers and configuration keys do not
 represent vendored source. See [actual evidence](evidence/M04-M07.md) for limits.
+
+## PR #6 Prism follow-up
+
+Original adapter request preparation and instructions adapt the session-load,
+project-work ledger and versioned handoff pattern inspected in Agentic Workflow's
+[`skills/_preamble.md`](https://github.com/joi-fairshare/agentic-workflow/blob/e0ff305a0f17746858bd63e4752047731edf2282/skills/_preamble.md).
+No upstream source text, templates or implementation are copied. Unlike that
+upstream workflow, unavailable Prism does not stop ordinary Mentor work, and
+project saves require an explicit request. Native tool schemas and installed
+`prism-mcp-server@20.21.17` behavior were inspected; actual host calls verify the
+recorded subset. Prism itself is not vendored or installed by Mentor. Its
+[upstream documentation](https://github.com/dcostenco/prism-coder) describes setup
+and transport. Reusing the host connection introduces no private toolkit path,
+new paid model account or second registration into Mentor.

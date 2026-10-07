@@ -9,7 +9,8 @@ packaging remains deferred. M04–M07 implementation, selected native/navigation
 checks and the disposable pinned-SDK build/HTTP result are recorded in
 [combined evidence](evidence/M04-M07.md) and the original-delivery
 [acceptance audit](evidence/M04-M07-acceptance.md). Broader compatibility, human
-learning and the later §7a integration remain separate. M08 remains planned.
+learning remain separate. The subsequently requested §7a adapter integration has
+[separate evidence](evidence/PR6-Prism.md). M08 remains planned.
 [M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
 [implementation plan](IMPLEMENTATION-PLAN.md), and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.

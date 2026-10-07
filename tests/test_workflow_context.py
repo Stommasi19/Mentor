@@ -43,6 +43,10 @@ class WorkflowContextTests(unittest.TestCase):
                     self.assertEqual(context['status']['session'], session)
                     self.assertEqual(context['status']['saved']['level'], 'junior')
                     self.assertEqual(Path(context['workflow_path']), checkout / 'core/workflows' / filename)
+                    prism = subprocess.run(shlex.split(context['prism_command']) + ['inspect',
+                        '--config', str(root / 'no-mcp.toml')], cwd=root, capture_output=True, text=True)
+                    self.assertEqual(prism.returncode, 0, prism.stderr)
+                    self.assertEqual(json.loads(prism.stdout)['action'], 'ordinary-tool-fallback')
                     created = subprocess.run(shlex.split(context['report_command']) + ['create', '--task', 'Native context'],
                                              cwd=root, capture_output=True, text=True)
                     self.assertEqual(created.returncode, 0, created.stderr)

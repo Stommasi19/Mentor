@@ -1,5 +1,9 @@
 # Approved M04–M07 delivery acceptance — 2026-10-07
 
+Historical original-delivery audit. The user subsequently requested the §7a
+Prism integration in PR #6; its implementation and checks are recorded separately
+in [PR #6 integration evidence](PR6-Prism.md).
+
 The original combined implementation is complete for the recorded local
 development combination. This audit covers the approved execution tasks 1–11,
 their named artifacts and applicable T criteria. It does not approve or implement

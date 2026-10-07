@@ -4,6 +4,15 @@ Mentor works with ordinary source reads, rg, diffs, edits and checks. Serena is
 opt-in semantic navigation, independent of coaching profile and code ownership.
 These helpers do not install packages, edit user configuration or create memories.
 
+Inspect the host's live MCP inventory first, including plugin-provided connections.
+Reuse a running server and activate the requested project rather than starting a
+second server on another port. A config file alone may omit a live connection.
+Pass `--connected-server NAME` to setup after observing that connection in the
+host; this suppresses a new registration even when the file has no Serena entry.
+Setup also recognizes aliases whose launcher/arguments identify Serena and uses
+the current `CODEX_HOME` configuration when set. Disabled or incompatible existing
+registrations require inspection or ordinary-tool fallback, never duplication.
+
 First inspect/reuse an existing registration:
 
 ```sh

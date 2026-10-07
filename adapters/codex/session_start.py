@@ -10,6 +10,21 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
+from adapters.codex.prism.context import guidance_paths
+
+
+def prism_context(event: dict) -> str:
+    """Advertise optional continuity without connecting or saving at startup."""
+    locations = guidance_paths(event.get('cwd'))
+    return (
+        '## Optional Prism project context\n' + json.dumps(locations, ensure_ascii=False) + '\n'
+        'Only use Prism after explicit project-context opt-in; read the adapter guide then. '
+        'Reuse an already exposed MCP connection and the selected project. Never start '
+        'a duplicate server or choose another port for Prism or Serena. Save project '
+        'summaries/handoffs only when requested; never save learner transcripts/grades '
+        'or change Mentor preferences. Continue with local docs if unavailable. '
+        'This hook performs no Prism load/save or server launch.'
+    )
 
 
 def interview_context() -> str:
@@ -104,7 +119,7 @@ def main() -> int:
                 "hookEventName": "SessionStart",
                 "additionalContext": "\n\n".join([
                     policy, workflow, preference_context(event, Path(__file__).resolve().parent),
-                    interview_context(),
+                    interview_context(), prism_context(event),
                 ]),
             }
         },

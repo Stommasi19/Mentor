@@ -46,7 +46,17 @@ else:
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(json.loads(result.stdout)['action'], 'inspect-and-reuse')
             self.assertEqual(configuration.read_text(), original)
+            alias = '[mcp_servers.symbols]\ncommand="serena"\nargs=["start-mcp-server"]\nenabled=false\n'
+            configuration.write_text(alias)
+            aliased = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(aliased.returncode, 0, aliased.stderr)
+            self.assertEqual(json.loads(aliased.stdout)['registered_names'], ['symbols'])
+            self.assertEqual(configuration.read_text(), alias)
             configuration.unlink()
+            connected = subprocess.run(command + ['--connected-server', 'plugin-symbols'], capture_output=True, text=True)
+            self.assertEqual(connected.returncode, 0, connected.stderr)
+            self.assertEqual(json.loads(connected.stdout)['action'], 'inspect-and-reuse')
+            self.assertFalse(configuration.exists())
             new = subprocess.run(command, capture_output=True, text=True)
             self.assertEqual(new.returncode, 0, new.stderr)
             server = tomllib.loads(new.stdout)['mcp_servers']['mentor_serena']

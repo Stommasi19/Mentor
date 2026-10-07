@@ -240,6 +240,16 @@ help/ownership overrides remain active. Ordinary creation/explanations need no
 full skill, diff, quiz or report.
 
 [Optional Serena setup](serena/README.md) keeps ordinary-tool fallback available.
+[Optional Prism continuity](prism/README.md) reuses an existing host MCP connection
+for explicitly selected project context and requested summary/handoff saves.
+The hook and all four workflow context helpers supply its pinned command/guide;
+startup performs no Prism calls or writes. The adapter prepares requests for the
+primary agent to execute through exposed tools, never a second MCP process.
+Inspect live host inventory before setup: reuse Serena/Prism, including aliases
+or plugin-provided connections, rather than choosing another port. Existing
+native Prism needs no Docker migration. Missing/incompatible services retain
+ordinary tools and local docs. [PR #6 integration evidence](../../docs/evidence/PR6-Prism.md)
+records real save/readback and updated hook coexistence checks.
 [Current evidence](../../docs/evidence/M04-M07.md) records successful native skill
 discovery, selected waits/reports, manual compaction, ordinary Python coding and
 executable checks. Direct and native-host Serena source calls and the disposable
