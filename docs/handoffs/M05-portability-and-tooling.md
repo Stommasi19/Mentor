@@ -1,15 +1,19 @@
 # M05 — portability, optional Serena tooling and isolated scenarios
 
-Status: Planned; implementation and verification have not started.
-Dependency: Local M01–M04 behavior and code-quality evidence.
+Status: Implemented with [fixture/setup/fallback evidence](../evidence/M05.md).
+Actual Serena version, host/model semantic calls and bounded comparison are recorded;
+broader compatibility and efficiency gains are not established.
+Dependency: Working M01–M03 baseline and applicable M04/shared-infrastructure checks.
+Delivery: [Combined M04–M07 implementation plan](../IMPLEMENTATION-PLAN.md#m04m07-execution-plan).
+Unavailable cross-provider coverage does not block the combined local build.
 Scope: Broader coverage plus an optional tool integration for the coding agent.
 Criteria: [T13, T16, T12](../TESTING.md#criteria), with existing code-quality,
 participation and preference criteria where affected.
 
 ## Useful result
 
-Exercise Mentor with another coding language and models from different providers,
-then add optional Serena tools to help the agent understand and navigate code more
+For this delivery, exercise C# and a standalone Python fixture using existing
+OpenAI access, leaving other providers explicitly unverified/pending. Add optional Serena tools to help the agent understand and navigate code more
 efficiently. Better tools can support better implementation; they do not determine
 what work the mentee receives. Selected mentoring levels, implementation ownership,
 teaching, pauses and skill activation retain their agreed contracts.
@@ -24,7 +28,8 @@ of the author's existing Agentic Workflow installation.
 
 ### Portability and optional tooling
 
-1. Extend the tested language/model/host matrix using the existing rubric. Record
+1. Extend the tested language/model/host matrix using the existing rubric and
+   available OpenAI access; require no new paid model accounts. Record
    actual code behavior, readability, comments/docs and conduct for each combination.
    A neutral design alone does not establish compatibility.
 2. Inspect Agentic Workflow's Serena usage at the pinned revision listed below.

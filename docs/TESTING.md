@@ -9,7 +9,16 @@ cover the original workflow's requirements, invocation, mistake/direct-help and
 paused conduct with independent generated-code checks.
 [Revised M03 results](evidence/M03-revised.md) cover native explicit invocation,
 stages/confirmation/artifacts, manual levels, scope/failure cases, and C# checks.
-M04/M06 native skills remain pending.
+The [combined M04–M07 implementation plan](IMPLEMENTATION-PLAN.md#m04m07-execution-plan)
+includes both ordinary core uses, review/feedback/PR self-check skills, optional
+Serena and creation/existing-code trials. [Current evidence](evidence/M04-M07.md)
+records 26 passing boundary tests, generated fixture results and source trials.
+Selected native conduct/navigation and disposable pinned-SDK build/HTTP checks pass;
+remaining observations are identified in the evidence, not assigned blanket passes.
+Junior/Mid-level/Senior profiles and legacy-state compatibility are part of that
+delivery. Historical M02/M03 results cover Guided/Supported/Independent, not these
+new profiles. Readable code, useful comments and documentation remain required
+at every level and with coaching paused.
 Automatic mid-turn compaction, broader compatibility and human learning remain pending.
 Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
@@ -82,6 +91,10 @@ from learners.
 M01 records initial C#/model/host results. M05 repeats equivalent scenarios in a
 second coding language and with models from at least two providers where access
 exists. Apply the same quality/conduct criteria with language-appropriate checks.
+For the combined delivery, use a standalone Python fixture alongside C# and
+existing OpenAI access. Other providers remain unverified/pending; require no
+new paid model accounts. Stafr's TypeScript source trial records its own inspected
+scope and check results without implying equivalent full fixture coverage.
 Record each actual language/model/provider/host combination, policy revision,
 result, and pending limitations. Lack of access is pending, not compatibility
 proof. Representative coverage does not establish support for every combination.
@@ -131,7 +144,7 @@ samples and disputed observer judgments manually.
 | T03 | M01, M02 | Lifecycle reloads policy; M02 also loads project defaults and requires startup/resume/manual compaction/clear with saved settings. Resume/compaction retain session overrides, while clear starts from saved values. | Record each native lifecycle separately. Automatic mid-turn compaction remains separately pending; handler event coverage alone does not prove delivery. |
 | T04 | M01 onward | Generated code is behaviorally correct, readable, maintainable, and appropriately commented/documented in the project language. Comments explain intent/non-obvious rules; public contracts are accurate. | Run S01 independent checks and annotate actual code/comments/docs. Compare baseline/core outputs; record concrete strengths/defects, not just teaching prose or formatter success. |
 | T05 | M01, M02 | A learner coding offer is meaningful and conditional; demonstration/takeover or agent-implements project agreements receive complete work. | S01 with a decision/attempt and takeover variant; check authored contribution and actual completed code. |
-| T06 | M02 | Guided scaffolds/offers coding, supported offers coding or review, independent permits delegation while the learner directs/reviews. | Repeat the same starting task under all three levels with fresh context. Judge conduct, not exact wording or line counts. |
+| T06 | M02 baseline; M04–M07 profiles | Junior focuses on code understanding/safe changes, Mid-level on feature ownership/design, Senior on engineering judgment/tradeoffs. All retain readable code, useful comments/docs and requested direct help; ownership is separately overridable. Historical M02 conduct uses legacy names. | Repeat the same task under all three profiles with fresh context. Observe different task-relevant concerns, not just verbosity. Inspect resulting code/comments/docs; verify ownership/topic-help overrides do not change levels. |
 | T07 | M02 | Session controls make no storage changes; explicit project changes persist. Projects remain separate, repo subdirectories/worktrees share settings, and updates preserve the other saved field. Status refresh retains local overrides and shows effective/saved values. | Real temporary roots/worktrees, hook/control round trips, fresh native sessions, and two already-open sessions with/without overrides. Include non-Git roots, symlinks, explicit data locations, and differing hook/tool cwd. |
 | T08 | M02 | Pause removes compulsory teaching while retaining code standards. Missing state defaults; invalid state warns and stays intact until explicit reset. Failed writes/resets apply requested values locally with an unsaved warning. Project reset clears current overrides; other sessions retain their own. | Coaching-off S01 and control round trips with invalid/unsupported/unreadable state and unavailable/read-only storage. Confirm prior-record preservation, effective/saved values, and reset isolation. |
 | T09 | M02 | Mentor responds to the learner's mistake and offers increasingly useful help; a direct help request is honored. | S03 transcript and final behavioral check; no struggle quota or invented proficiency judgment. |
@@ -141,8 +154,9 @@ samples and disputed observer judgments manually.
 | T13 | M01 architecture; M05 coverage | Core has no target-language/vendor/host assumptions; compatibility claims reflect actual tests. | Inspect core/adapter boundary, then exercise representative languages and providers with the same rubric. Record a support matrix and pending cells. |
 | T14 | M08 only | Verified core is packaged for others; discovery/install, trust, updates/removal, and release docs match supported behavior. | Final clean-environment distribution checks after local product/portability evidence. No early marketplace gate. |
 | T15 | Revised M06 | Explicit feedback uses available current-task evidence immediately and saves a local Markdown report. Reflection optional, levels manually selected, no background tracking or automatic fixes. | Actual native invocation, all three levels/coaching-off, ordinary-task negative control, work-in-progress/missing-observation cases, report evidence/storage checks and unchanged preferences. |
-| T16 | M05 optional tooling | Opt-in Serena semantic navigation works through the actual host, falls back when unavailable, and preserves mentoring/ownership/preferences. Any efficiency or quality claim has controlled evidence. | External workspace activation and symbol/reference calls; no-server/failure cases; same task/model/settings with and without tools; inspect code/comments/docs and available metrics. |
-| T17 | M06 PR self-check | Explicit PR-link skill reads actual diff/context/tests, asks grounded understanding questions, waits for answers and explains with evidence. Manual preferences unchanged; local Markdown and no automatic PR edits. | Native invocation/PR retrieval, correct/mistaken/assisted/unattempted answers, hint/skip/stop, changing PR, report failures and honest evidence claims. |
+| T16 | M05 optional tooling | Opt-in Serena semantic navigation works through the actual host, falls back when unavailable, and preserves mentoring/ownership/preferences. Efficiency or quality claims require controlled evidence. | External workspace activation and symbol/reference calls, no-server/failure cases and a bounded same-task comparison; inspect code/comments/docs and available metrics. |
+| T17 | M06 PR self-check | Explicit GitHub PR skill reads actual diff/context/tests, asks grounded questions, waits for supplied answers or help requests, and explains with evidence. Preferences unchanged; local Markdown and no code/PR mutations. | Native invocation/retrieval, correct/mistaken/assisted/unattempted answers, hint/skip/stop, changing PR, report failures and honest evidence claims. |
+| T18 | Core/M07 existing-project understanding | Ordinary help explains actual existing source/flow and verification limits without requiring a diff, PR, full skill, quiz or report. | Stafr/Crew Workforce source-grounded walkthrough at manual support levels, concrete locations, actual failure/check evidence where available and accurately labeled uninspected scope. Human understanding is observed separately. |
 
 T04 review questions:
 
@@ -206,65 +220,89 @@ separate learner knowledge checkpoint. Broader portability and invoked task feed
 
 ## M04 verification matrix
 
-Use the [confirmed M04 handoff](handoffs/M04-review-coaching.md). All rows remain
-pending; no M04 implementation or native invocation has been verified.
+Use the [M04 implementation plan confirmed on 2026-10-07](handoffs/M04-review-coaching.md#implementation-plan),
+including its adopted evidence contract. Implementation and selected native
+observations are recorded in [current evidence](evidence/M04-M07.md); the matrix
+below remains the required coverage, not a claim that every row has passed.
 
 | Boundary / criterion | Required observation |
 | --- | --- |
-| Native invocation and target — T11/T12/T13 | Actual host skill invocation works for local changes and a PR without private paths/services. Record base/revision and staged/unstaged/untracked scope. Ordinary tasks do not launch the full skill; normal defect reporting remains available. |
-| Primer and pause — T06/T11 | Guided walkthrough/examples, supported flow map/prompts and independent scope/checklist precede ordinary findings. Coaching-on waits for supplied observations or a direct-findings request; silence does not count as a review. |
+| Native invocation and target — T11/T12/T13 | Actual host skill invocation works for local changes and a PR without private paths/services. With no target, ask what to review rather than assuming a scope. Reuse explicit targets and resolve ambiguity. Record repository/base/head or local base/revision and agreed staged/unstaged/untracked scope. Ordinary tasks do not launch the full skill; normal defect reporting remains available. |
+| Primer and pause — T06/T11 | Junior code-flow/correctness/test examples, Mid-level boundary/contract/failure prompts and Senior assumptions/tradeoffs/change-risk primers precede ordinary findings. All inspect readability/comments/docs and correctness. Coaching-on waits for supplied observations or a direct-findings request; silence does not count as a review. |
 | Evidence and discussion — T11/T12 | S04's diff/context is read; its defect has a location, consequence and independent reproduction/check. Discuss supplied observations with supporting/correcting evidence; report every identified material defect, optional polish separate and serious findings immediately. No grade or level inference. |
 | Skip, coaching and preferences — T08/T11 | Direct-findings requests skip the wait; coaching-off gives a direct report. Effective/saved preferences remain unchanged, including different session overrides and project defaults. |
 | Report and revision — T11/T12 | Local report records target/revision, inspected scope, findings/evidence, checks and limitations. Changes during the pause refresh affected context. Missing context, persistence failure and directory collisions are reported accurately; no full learner transcript or proficiency ledger is saved by default. |
+| Focused checks and coverage — T11/T12 | Run relevant existing checks when practical in an appropriate isolated copy/checkout, preserving the source checkout. Record command, result, snapshot and covered behavior. Inspect supplied results; a general build PASS does not prove an unexercised flow. Non-UI changes acquire no screenshot or upstream evidence-format requirement. |
+| Evidence relevance and freshness — T11/T12 | Matching scope/snapshot supports the claimed check result. Newest-but-unrelated evidence is not reused as proof. Stale and unknown-provenance results remain labeled accurately. A change during the learner pause refreshes affected context/checks and, when necessary, the primer; valid unrelated evidence remains usable. |
+| Dirty/staged snapshot identity — T11/T12/T13 | Equal HEADs with different included dirty content have distinct snapshot identities. Capture the agreed staged/unstaged/untracked scope, including relevant modes and renames/deletions. Staged-only checks use the index content rather than attributing a different worktree result to it. PR checks identify the actual base/head and checked revision. |
+| Defects versus verification gaps — T11/T12 | A reproduced defect records location, trigger, consequence and evidence. A missing required check records uncovered behavior, why it matters and a concrete next check; missing proof does not become an invented code defect. Optional polish and unrelated missing evidence packs are not blockers. |
+| Report persistence boundaries — T11/T12 | Separate review directories preserve earlier reports. Invalid identity/root, wrong-project paths, collisions and actual failed/partial writes remain visible. No silent overwrite, fallback root, preference write or successful save claim without readback. |
 | Report-only scope — T11/T12 | No automatic code fixes, PR creation, comment posting or fixing-skill invocation. Any separately requested correction has its own scope and real checks; findings alone do not establish corrected software or passing tests. |
+| Combined native hooks — T01/T02/T06/T11/T12 | Actual development-host receipts show invocation under the current installed hooks; ordinary tasks stay ordinary and intentional learner waits remain waits. Preserve hook configuration and report observed conflicts. Rerun affected disabled/untrusted delivery controls when hook behavior changes. |
 
 Review behavior is assessed through concrete transcript turns and code/check
 evidence, not exact prose, finding quotas or inferred comprehension. Artifact and
 host entry checks should protect meaningful boundaries. Keep actual host delivery,
 simulation, software correctness and human learning as separate claims.
 
-## M05 optional-tooling verification
+## M05 verification matrix
 
-Use the [M05 handoff](handoffs/M05-portability-and-tooling.md). These are future
-criteria, all pending; writing this plan does not verify a Serena installation.
+Use the [M05 contract](handoffs/M05-portability-and-tooling.md) within the combined
+delivery. [Current evidence](evidence/M04-M07.md) records actual navigation,
+portability and fallback checks, actual read-only model calls and a bounded
+same-task build comparison. Its time/token observations establish no efficiency benefit.
 
-| Boundary | Required observation |
+| Boundary / criterion | Required observation |
 | --- | --- |
-| Repository setup and reuse — T16 | Setup/launch helpers, configuration examples, README and meaningful checks exist in the repository. Exercise documented setup from a fresh checkout and reuse of an existing compatible host connection; no private toolkit dependency, duplicate registration or silent overwrite. |
-| Actual host use — T16/T12 | Opt-in MCP connection, correct project activation and semantic symbol/reference calls in an external workspace, including another cwd/worktree. Record Serena/backend/host versions and language prerequisites. Config output alone does not establish tool delivery. |
-| Optionality — T16 | Without Serena, and with an unavailable/disabled server, ordinary tools still support the task and valid Mentor policy remains available. Explain fallback without inventing semantic results. |
-| Mentoring contracts — T05–T08/T16 | Controlled levels, coaching state and ownership agreements are respected with and without Serena. No forced learner work, preference writes, full-skill activation, memory/onboarding or background learner tracking. |
-| Tool choice and code quality — T04/T16 | Semantic navigation serves definitions/references/structure; ordinary search, file reads, host edits and checks serve their relevant purposes. Inspect actual code/comments/docs and run agreed behavior checks. |
-| Efficiency evidence — T12/T16 | Same task/model/preferences/starter with and without tools; record available tokens, calls and time, including startup/indexing overhead. Report missing metrics and unchanged/worse outcomes honestly; no universal benefit or human-learning claim. |
-
-Broader language/provider results and actor-input isolation retain T13/T12 and
-the existing evaluation contract. Add automation only where it helps the comparison.
+| Repository setup and reuse — T16 | Repository-owned helpers/examples/README support opt-in setup without private toolkit paths. Reuse a compatible existing host connection; no duplicate registration or silent overwrite. Configuration presence does not prove live tools. |
+| Actual host navigation — T12/T16 | Observe project activation and supported symbol/reference/structure calls in an external workspace, including another cwd/worktree. Record actual host/Serena/backend versions and language prerequisites. |
+| Optionality and contract retention — T05–T08/T16 | Absent/disabled/failing Serena produces visible ordinary-tool fallback. Levels, coaching and ownership remain unchanged; no full-skill activation, memory/onboarding or background learner tracking. |
+| Code and efficiency evidence — T04/T12/T16 | Bounded same-task/model/preferences/starter comparison with/without Serena records actual code/comments/docs, available tokens/calls/time and startup overhead. Missing metrics and unchanged/worse outcomes stay accurate. |
+| Language/provider coverage — T12/T13 | Independent C# and Python cases identify actual OpenAI model/host/check results. Other providers stay pending without paid-account prerequisites or universal compatibility claims. Any TypeScript real-project check is reported at its actual scope. |
 
 ## M06 verification matrix
 
-Use the [M06 handoff](handoffs/M06-task-feedback.md). Both feedback and PR
-self-check skills are planned; implementation and every runtime row below remain
-pending. Planning checks are not skill evidence.
+Use the [M06 handoff](handoffs/M06-task-feedback.md) for feedback and the separate
+PR self-check. [Current evidence](evidence/M04-M07.md) records immediate feedback,
+question/hint/explanation/pause/stop/report behavior, correct/mistaken/valid-alternative
+scripted answers, and changed-revision conduct through labeled recorded transport.
+Planning checks are not runtime evidence; naturally changing live-PR and human
+understanding observations remain unperformed.
 
 | Boundary / criterion | Required observation |
 | --- | --- |
 | Invocation and scope — T15/T12/T13 | Actual registered host skill is explicitly invoked and reuses the task at hand. Ordinary work creates no feedback report or learner ledger. No private paths/services or automatic full interview/review activation. |
 | Immediate evidence-backed feedback — T15/T12 | Concrete strengths, improvements and optional next step cite the inspected task evidence. No reflection prerequisite or quiz; missing observations/checks and work in progress stay unknown/pending. Material defects and verification gaps are separate from optional refinements. |
-| Manual levels and coaching — T06/T08/T15 | Guided examples/reasoning, supported evidence/tradeoffs and independent concise actions follow controlled manual settings. Coaching-off gives direct feedback. Effective/saved preferences remain unchanged, including differing session overrides; explicit level changes use M02 controls. |
+| Manual levels and coaching — T06/T08/T15 | Junior code behavior/safe changes, Mid-level connected design/contracts/verification and Senior assumptions/alternatives/consequences follow controlled manual profiles. Coaching-off gives direct feedback. Readable-code/comment/doc standards remain active. Effective/saved preferences remain unchanged, including differing session overrides; explicit level changes retain M02 scope semantics. |
 | Local Markdown — T15/T12 | Report contains task/scope, evidence, feedback, checks and limitations outside public Git. Check directory collisions and failed saves. No full transcript, proficiency profile, ongoing ledger or fabricated saved artifact. |
 | Authorship and scope limits — T15/T12 | Agent-written work or passed checks alone causes no human-learning claim; supplied reasoning is identified accurately. No automatic progression/grades, fixes, posting or compulsory practice. Optional reflection remains available. |
-| PR target and questions — T17/T12/T13 | Native explicit skill resolves a supplied GitHub PR and reads actual diff/context/tests at a recorded revision. Questions have concrete answer evidence for behavior/decisions/boundaries/verification. Invalid or inaccessible links do not generate invented content. |
-| Attempts and teaching — T17 | Explanations wait for an attempt or explicit help request. Guided/supported/independent vary support. Correct, mistaken and valid alternative answers receive code-backed discussion; hints, direct answers, skip and stop work. Unattempted/assisted answers remain distinct from independent reasoning; serious defects are disclosed immediately. |
-| Self-check preferences and scope — T17 | Effective/saved manual preferences remain unchanged, including differing overrides and coaching-paused self-check invocation. Ordinary tasks/feedback/review do not launch quizzes. Self-check-only does not edit code, post/approve/merge, invoke fixes, grade ability or write a background ledger. |
-| Self-check report and evidence — T12/T17 | Local Markdown records PR/revision, actual questions/answers, assistance and limitations. Changed PRs refresh affected context or state the recorded-revision limit. Report collisions/failures are accurate. Scripted conduct and correct software are separate from observed human understanding; no mastery claim. |
+| PR target and questions — T12/T13/T17 | Actual native invocation resolves a supplied GitHub PR and reads diff/context/tests at recorded base/head. Questions and answer guidance have specific code/test evidence. Invalid/inaccessible targets do not generate invented content. |
+| Attempts and help — T17 | All three manual styles support correct/mistaken/valid alternative reasoning. Explanations wait for supplied answers or help requests; hint, direct explanation, skip and stop work. Assisted/unattempted answers are distinct from independent reasoning. Serious defects are disclosed immediately. |
+| Self-check preferences and scope — T17 | Explicit self-check works with coaching paused without resuming it or changing overrides/defaults. Ordinary tasks/feedback/review do not launch a quiz. No code edits, posting, approval/merge, fixing workflow, proficiency grading or ledger. |
+| Self-check reports/freshness — T12/T17 | Local Markdown records actual questions/answers/assistance, revision/scope and limitations. Changed PRs refresh affected context or identify the recorded-revision limit. Collisions/storage failures stay visible; scripted responses do not establish human understanding. |
 
 Use existing task scenarios and reports where suitable; do not create an evaluation
 runner or proficiency threshold to satisfy this slice. Process checks protect real
 invocation/storage boundaries; transcript/report evidence assesses useful feedback.
 
-Ground PR self-check behavior in known changes and responses, not exact generated
-question wording or a universal quiz score. Keep live PR retrieval and native tool
-use separate from simulated actor responses and any later human trial.
+## M04–M07 combined verification
+
+Use the [combined implementation plan](IMPLEMENTATION-PLAN.md#m04m07-execution-plan).
+Use [current evidence](evidence/M04-M07.md) to distinguish observed checks from
+pending coverage; verify within one delivery, retaining component-specific evidence. Unavailable cross-provider or later human observations
+do not become fabricated passes or block otherwise verified local use.
+
+| Use/boundary | Required observation |
+| --- | --- |
+| Ordinary creation help — T04–T06/T12 | Fresh coding work uses the manually selected support and explicit ownership request. An accepted contribution has context and useful help; direct explanation/takeover receives complete verified work. Generated code/comments/docs meet T04 without a fixed contribution/comment quota. |
+| Profile focus and shared foundation — T04/T06/T08 | Run the same backend behavior under Junior, Mid-level, Senior and paused coaching. Junior traces code and safe changes; Mid-level examines connected design/contracts/failures/tests; Senior examines assumptions, alternatives and consequences proportional to the task. Inspect actual generated names/flow, useful intent/rule comments and accurate docs in every condition. Topic-specific help/ownership requests are honored without changing preferences or inventing scale requirements. |
+| Legacy-state compatibility — T03/T07/T08 | Valid version-1 saved levels and retained session overrides translate read-only to canonical profiles; status identifies translation and effective/saved state. Legacy controls act as aliases. Only explicit project writes/reset save version 2, preserving the other field. Exercise invalid versions/enums/types, atomic/readback/write failures, two-session refresh and native startup/resume/manual compaction/clear/interview with new values. Historical results do not establish these checks passed. |
+| Existing-project help — T06/T12/T18 | Stafr/Crew Workforce explanation reads actual source/tests, maps relevant responsibilities and traces one real flow with locations, boundaries, failures and check limits. No diff/PR/full-skill/quiz/report prerequisite; unexplored scope remains explicit. |
+| Shared host/report infrastructure — T01/T02/T07/T08/T11/T15/T17 | Real native delivery, effective/saved preferences, project isolation, target/snapshot freshness and failure-aware report storage work across the three distinct workflows. Ordinary help does not implicitly activate them or write reports/preferences. |
+| DoughTracker disposable creation trial — T04–T06/T12 | Build a backend slice in a disposable copy using DoughTracker's active contracts and the owner's requested coding participation. Inspect generated code/comments/docs and run actual behavior checks with trial-local resources. Record supplied authorship/help/observations, retain evaluation notes/check results and discard trial implementation/outputs/resources. Verify original files, Git state, uncommitted work and project resources are unchanged; no generated patch is applied. |
+| Stafr source trial — T12/T18 | Inspect the existing Crew Workforce backend and explain actual request/data flow with concrete references. Preserve source/service state and use disposable copies for checks when needed. Architecture documents alone do not prove execution behavior. |
+| Actual use versus preflight — T12 | Simulated learner conduct, code correctness, native delivery and actual supplied human reasoning remain separate. No independent answer, coding contribution or understanding is invented; unavailable human observations stay pending. |
+| Completion and scope — T12–T18 | Applicable component checks/evidence support each reported result. Cross-provider coverage is pending under existing OpenAI access; optional tooling has verified fallback. Core/adapter dependencies remain portable and private-path-free. M08 installation/publication is excluded. |
 
 ## Per-slice sequence
 
@@ -305,8 +343,8 @@ instructions assign implementation to the agent.
 Marketplace packaging/other-user installation is final M08 and does not substitute
 for these local product checks. Later, automate the same scenario/evidence contract
 with isolated actors and an observer. This evaluation automation is separate from
-M06's invoked task feedback and PR self-check; it does not collect a runtime learner
-ledger or switch levels. Separate software authorship from evidence of human reasoning: agent-written
+M06's invoked task feedback; it does not collect a runtime learner ledger or switch
+levels. Separate software authorship from evidence of human reasoning: agent-written
 code can be independently reviewed by a human, while copied explanations cannot
 establish independent reasoning. Larger pilots, delayed recall and public learning
 claims require their own scoped plan.

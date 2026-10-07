@@ -15,8 +15,9 @@ from runtime.preferences import PreferenceStore, control, resolve_data_root, res
 def interview_context() -> str:
     """Advertise explicit invocation without delivering the full workflow."""
     return (
-        "## Codex interview invocation\n"
-        "The full interview runs only on explicit invocation of $mentor-interview, "
+        "## Codex explicit workflow invocation\n"
+        "Full workflows run only on explicit invocation: $mentor-interview, "
+        "$mentor-review, $mentor-feedback and $mentor-pr-check, "
         "registered separately through local development skill discovery. This hook "
         "does not register skills. Ordinary clarification remains available without "
         "launching that workflow. Invocation preserves effective/session/saved "
@@ -60,7 +61,7 @@ def preference_context(event: dict, adapter: Path) -> str:
         f"Base shell command: {shlex.join(command)}\n"
         "Append --session <shell-quoted JSON of the current session object> and the action. "
         "Example initial status: append --session '{}' status. "
-        "Use set-level guided|supported|independent, pause, resume, status, use-project "
+        "Use set-level junior|mid-level|senior (legacy aliases remain accepted), pause, resume, status, use-project "
         "(optional --field level|coaching_enabled), or --scope project reset. "
         "Only an explicit project request adds --scope project to set-level/pause/resume. "
         "Apply effective values and retain the returned session object in conversation context. "
@@ -87,11 +88,12 @@ def main() -> int:
         workflow = workflow_path.read_text(encoding="utf-8").strip()
         if not workflow:
             raise ValueError(f"controls workflow is empty: {workflow_path}")
-        interview_path = policy_path.parent / "workflows" / "interview.md"
         # Validate the advertised resource now; never claim a broken checkout
         # supplies a usable workflow. Load its instructions only when needed.
-        if not interview_path.read_text(encoding="utf-8").strip():
-            raise ValueError(f"interview workflow is empty: {interview_path}")
+        for name in ("interview.md", "review.md", "feedback.md", "pr-understanding.md"):
+            resource = policy_path.parent / "workflows" / name
+            if not resource.read_text(encoding="utf-8").strip():
+                raise ValueError(f"workflow is empty: {resource}")
     except (OSError, UnicodeError, ValueError) as error:
         print(f"Mentor SessionStart failed: {error}", file=sys.stderr)
         return 1

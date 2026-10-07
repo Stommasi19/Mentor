@@ -1,0 +1,20 @@
+name: mentor-navigation
+description: "Read-only semantic navigation for Mentor; no learner memories or onboarding."
+prompt: |
+  Use source navigation only. Activate the explicitly selected project, inspect
+  definitions, references and structure, and report missing or unsupported results.
+  Preserve mentoring preferences and implementation ownership. Use ordinary file
+  reads and project checks when semantic navigation is unavailable or insufficient.
+fixed_tools:
+  - initial_instructions
+  - activate_project
+  - get_current_config
+  - find_symbol
+  - find_referencing_symbols
+  - get_symbols_overview
+  - list_dir
+  - find_file
+  - read_file
+  - search_for_pattern
+excluded_apis:
+  - mem

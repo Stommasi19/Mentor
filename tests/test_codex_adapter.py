@@ -71,7 +71,7 @@ class CodexAdapterContractTests(unittest.TestCase):
                 status = subprocess.run(base + " --session '{}' status", shell=True,
                                         cwd=self.checkout, capture_output=True, text=True, check=True)
                 result_status = json.loads(status.stdout)
-                self.assertEqual(result_status["effective"], {"level": "guided", "coaching_enabled": True})
+                self.assertEqual(result_status["effective"], {"level": "junior", "coaching_enabled": True})
                 self.assertEqual(result_status["preference_path"], str(self.data_root.resolve() / "projects" /
                     hashlib.sha256(os.fsencode(self.workspace.resolve())).hexdigest() /
                     "preferences.json"))
@@ -82,7 +82,9 @@ class CodexAdapterContractTests(unittest.TestCase):
         event = json.dumps({"hook_event_name": "SessionStart", "source": "startup"})
         workflow = self.policy.parent / "workflows" / "controls.md"
         interview = self.policy.parent / "workflows" / "interview.md"
-        for resource in (self.policy, workflow, interview):
+        new_workflows = [self.policy.parent / "workflows" / name
+                         for name in ("review.md", "feedback.md", "pr-understanding.md")]
+        for resource in (self.policy, workflow, interview, *new_workflows):
             original = resource.read_bytes()
             for content in (None, b"  \n", b"\xff"):
                 with self.subTest(resource=resource.name, content=content):

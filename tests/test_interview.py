@@ -53,9 +53,9 @@ class InterviewContractTests(unittest.TestCase):
         self.assertEqual(self.context().returncode, 0)
         self.assertFalse(self.data.exists())
         preferences = PreferenceStore(str(self.data), self.project_id)
-        preferences.write({"level": "guided", "coaching_enabled": True})
+        preferences.write({"level": "junior", "coaching_enabled": True})
         saved = preferences.path.read_bytes()
-        session = {"overrides": {"level": "independent", "coaching_enabled": False}, "unsaved": []}
+        session = {"overrides": {"level": "senior", "coaching_enabled": False}, "unsaved": []}
         workflow = self.checkout / "core/workflows/interview.md"
         workflow.write_text("Current relocated workflow: café", encoding="utf-8")
         result = self.context(session)
@@ -63,14 +63,14 @@ class InterviewContractTests(unittest.TestCase):
         context = json.loads(result.stdout)
         self.assertEqual(Path(context["workflow_path"]).read_text(), "Current relocated workflow: café")
         self.assertEqual(context["status"]["session"], session)
-        self.assertEqual(context["status"]["effective"], {"level": "independent", "coaching_enabled": False})
+        self.assertEqual(context["status"]["effective"], {"level": "senior", "coaching_enabled": False})
         self.assertEqual(preferences.path.read_bytes(), saved)
         self.assertFalse((preferences.path.parent / "plans").exists())
         # Execute the shell-quoted command from another cwd with no hook environment.
         result = subprocess.run(context["control_command"] + " --session '{}' status",
                                 shell=True, cwd=self.root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(json.loads(result.stdout)["effective"], {"level": "guided", "coaching_enabled": True})
+        self.assertEqual(json.loads(result.stdout)["effective"], {"level": "junior", "coaching_enabled": True})
 
     def test_context_resource_and_configuration_failures_supply_no_success_result(self):
         for name in ("core/policy.md", "core/workflows/interview.md"):
