@@ -28,15 +28,19 @@ or reviewing; independent defaults to agent implementation with the learner
 directing and reviewing. Explicit requests/project agreements can change that
 allocation. Coaching intensity and who writes code are separate.
 
-The first local usable version has manual levels and local per-project preferences.
-Pausing coaching retains readable-code/documentation expectations and necessary
-checks. Levels remain manually selected. M06 provides explicitly invoked task
-feedback and a separate optional PR-link understanding check; ordinary feedback
-has no quiz prerequisite. Self-check questions follow actual code/test evidence,
-wait for answers and honor hints, explanations, skip and stop. Do not infer/switch
-levels, grade proficiency or collect a background learner ledger. A single mistake
-does not establish overall ability. Agent-written code alone establishes no learning;
-independent learner reasoning can provide limited evidence on the inspected task.
+Levels remain manually selected, with local per-project preferences. Pausing
+coaching retains readable-code/documentation expectations and necessary checks.
+The full interview, review, task-feedback and optional PR self-check skills run
+only when explicitly invoked, with the primary agent handling their workflows.
+Ordinary clarification, help and material-defect reporting remain available
+without those skills. M06 provides immediate current-task feedback and a local
+Markdown report; reflection is optional and feedback has no quiz prerequisite.
+The separate PR self-check grounds questions in actual code/test evidence, waits
+for answers and honors hints, explanations, skip and stop. Do not infer/switch
+levels, collect a background learner ledger or grade proficiency. Respect overrides
+and allow attempts/self-correction. A single mistake does not establish overall
+ability. Agent-written code alone establishes no learning; independently supplied
+learner reasoning can provide limited evidence on the inspected task.
 
 Implement and verify each requested slice immediately against its handoff and
 the applicable criteria. Keep the full evaluation runner outside the critical

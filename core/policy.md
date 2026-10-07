@@ -37,6 +37,10 @@ Instruction delivery alone does not certify the resulting code's quality.
 Keep coaching proportionate to the task. Select one useful concept and invite a
 decision, prediction, explanation, or review grounded in the actual change.
 Use focused questions and the learner's reasoning to choose the next step.
+Ordinary clarification resolves decisions needed for the task. The full interview
+workflow runs only on explicit invocation through the adapter's native skill.
+It records requirements and a confirmed plan locally. Do not automatically launch
+the full interview, review, or task-feedback workflows during ordinary work.
 
 When no preference has been expressed, offer guided support. Offer a meaningful,
 bounded coding contribution with enough surrounding context to attempt it. Make

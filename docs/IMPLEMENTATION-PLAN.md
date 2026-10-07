@@ -5,7 +5,14 @@ and M02's confirmed session-default controls and verification contracts.
 M01 is implemented and locally verified; [results](evidence/M01.md) distinguish
 code quality, simulated conduct, and actual host delivery. M02 is also implemented
 and locally verified; [M02 results](evidence/M02.md) record controls, preferences,
-native lifecycle/refresh and conduct/code evidence. M03–M08 remain planned.
+native lifecycle/refresh and conduct/code evidence. The original M03 workflow is
+locally verified; [M03 results](evidence/M03.md) remain historical. The revised
+native, explicitly invoked interview skill is implemented and locally verified;
+[revised evidence](evidence/M03-revised.md) records its limits. M04–M08 remain planned.
+M03/M04/M06 planning rewrites are confirmed and complete;
+M06 replaces automatic progression with invoked current-task feedback and local
+Markdown reporting. Revised M03 is locally verified; M04/M06 implementation
+and verification remain pending.
 M01 was implemented from planning revision `6e1efc2` on
 `feat/m01-readable-code-core`.
 Use [DESIGN.md](DESIGN.md) for the intended experience, [TESTING.md](TESTING.md)
@@ -29,7 +36,7 @@ discovery, packaging for others, and publication are the final phase.
 | First user | The owner learning through real projects; neutral core, initial Codex development adapter and C# test case. |
 | Neutrality | No model/vendor APIs, host hook schemas, or target-language defaults in canonical policy/workflows/state. Host specifics live in adapters; record actual tested combinations. |
 | Participation | Guided offers a focused coding part; supported offers coding or reviewing; independent defaults to agent implementation with the learner directing and reviewing. Requests can change that allocation at any level. |
-| Levels | Manual selection through controls; feedback and optional PR self-checks do not infer/switch levels or write preferences. |
+| Levels | Manual selection through controls; feedback and optional PR self-checks do not infer/switch levels or change preferences. No automatic progression in the planned release. |
 | Code standards | Descriptive names, understandable flow, appropriate boundaries, useful comments explaining intent/non-obvious rules, accurate documentation, and necessary verification at every level. |
 | Coaching pause | Pause learning prompts while retaining code/documentation expectations and ordinary defect reporting. Native plugin disabling disables the whole package. |
 | Preferences | Controls change the current session by default. Explicit project-scope changes save local preferences outside Git for later sessions. |
@@ -55,21 +62,23 @@ distribution remains outside this slice.
 | R04 | Level and coaching selections apply to the current conversation by default. Only explicit project-scope changes persist; failed saves still apply locally with an unsaved warning. | T03, T07, T08 |
 | R05 | Distinct projects keep separate preferences. Shared worktrees of one repository share its preferences. | T07 |
 | R06 | Demonstration/takeover requests receive direct help; repeated unproductive attempts receive useful escalation. | T05, T09 |
-| R07 | Interview coaching establishes the next useful step through relevant questions and records remaining assumptions. | T10 |
-| R08 | Review reads the actual diff and context, reports identified material defects with evidence, and distinguishes optional polish. | T11 |
+| R07 | An explicitly invoked native interview skill follows target/setup, focused rounds, teaching preferences, summary/confirmation, artifacts and execution/handoff, using only the primary agent and the manual level. | T10 |
+| R08 | An explicitly invoked local/PR review skill reads the actual change, primes the learner at the manual level, pauses, then discusses observations and reports material defects with evidence, optional polish separate. No automatic fixes or posting. | T11 |
 | R09 | Each implementation portion includes its relevant checks and honest evidence before being called complete. | All applicable criteria |
 | R10 | Shared resources, development adapters, and workflows work without the author's private toolkit, memory service, or machine paths. | T01, T02, T10, T11 |
 | R11 | Runtime delivery, correctness, readability/comments, mentoring conduct, and human comprehension are separate outcomes. | T12 and every evidence report |
 | R12 | Core behavior is language/LLM-neutral; compatibility claims identify tested language, model/provider, and host combinations. | T13 |
 | R13 | Distribution/discovery requirements are evaluated in the final milestone after local behavior and quality evidence. | T14 |
-| R14 | Explicit current-task feedback uses available evidence immediately and saves local Markdown, with optional reflection and unchanged manual preferences. | T15 |
+| R14 | Explicitly invoked feedback uses available current-task evidence immediately and saves local Markdown, with optional reflection, unchanged manual preferences and no background learner tracking. | T15 |
 | R15 | A separate explicitly invoked PR-link self-check reads actual code/tests, asks focused understanding questions, waits for answers and provides evidence-backed explanations and local Markdown, with no automatic level changes or PR edits. | T17 |
 
 ## Core and development adapters
 
 Layout: M01 supplies the policy, development adapter, fixture, and contract checks.
-M02 supplies the controls workflow and neutral preference helper. Interview and
-review workflows remain M03/M04.
+M02 supplies the controls workflow and neutral preference helper. Revised M03
+supplies a staged interview, native explicit-only skill wrapper, and neutral
+local artifact helper. Historical hook-provided invocation guidance is replaced. Revised M04 adds
+a native invoked review skill with priming, a learner pause and a local report.
 
 ```text
 core/
@@ -77,15 +86,20 @@ core/
   workflows/
     controls.md           # M02
     interview.md          # M03
-    review.md             # M04
+    review.md             # M04, pending
+    feedback.md           # M06, pending
 runtime/                  # neutral project-state/control helpers, M02
   preferences.py
+  artifacts.py            # neutral local interview records, M03
 adapters/
   codex/
     development_config.py # prints hooks.json for a disposable workspace
     session_start.py
     control.py            # thin local tool wrapper, M02
-    skills/               # later thin local invocation wrappers if needed
+    artifacts.py          # thin local artifact entry, M03
+    skills/
+      mentor-interview/    # explicit-only native wrapper, M03
+                          # M04/M06 wrappers pending
     serena/               # M05 planned setup/configuration/usage, not implemented
 tests/
 fixtures/expense-summary/ # initial C# task and independent checks
@@ -157,6 +171,21 @@ retains M01's visible adapter failure; it is not a successful policy load. Recor
 actual delivered policy, settings, and control guidance through the native runtime,
 then exercise a control there. Handler JSON or a model acknowledgment alone does
 not prove delivery or working controls. No custom host slash command is assumed.
+
+The revised M03 adapter validates the canonical interview resource on lifecycle
+delivery and supplies concise explicit-only skill guidance. Registration uses a
+local `.agents/skills/mentor-interview` symlink to the development wrapper; the
+hook does not register it. Full instructions load through explicit native skill
+invocation. Ordinary correctness clarification stays available outside the skill.
+Invocation preserves preferences and does not authorize implementation.
+
+Follow the [M03 sequence](handoffs/M03-interview-coaching.md#interview-sequence):
+target/setup, high-level questions, teaching preferences instead of subagents,
+drill-down, concrete-plan confirmation, saved interview/plan and execution/handoff.
+Use the neutral data root/project identity for task artifacts outside public Git.
+The host wrapper belongs in Mentor's adapter and must work with supported local
+skill registration; public plugin packaging remains M08. Private toolkit paths,
+memory services and upstream subagent infrastructure are not runtime dependencies.
 
 ## Local preferences
 
@@ -281,9 +310,12 @@ review, and verification. Explicit ownership requests can change these defaults.
 Do not leave unaccepted placeholders or call an unfinished learner contribution
 complete. Non-coding tasks and paused coaching have no compulsory exercise.
 
-The core policy prompts proportionate interview/review coaching when relevant.
-Supporting skills provide deeper workflows on request or when the task warrants
-them. There is no compulsory full interview or quiz for every edit.
+The revised full interview runs only on explicit user invocation. Its teaching
+explains real requirements and tradeoffs according to the manual level; ordinary
+clarification remains available for every task. M04's full review skill also runs
+only on explicit invocation. It primes the learner and pauses before findings when
+coaching is on; direct-findings requests skip the wait and coaching-off gives a
+direct report. Ordinary defect reporting remains active. There is no quiz for edits.
 
 ## Delivery and immediate verification
 
@@ -291,8 +323,8 @@ them. There is no compulsory full interview or quiz for every edit.
 | --- | --- | --- |
 | M01 | [Readable-code core and local hook](handoffs/M01-readable-code-core.md) | Neutral policy, actual generated code/comments/docs, controlled baseline, initial fixture, and verified development hook delivery. |
 | M02 | [Manual levels and preferences](handoffs/M02-manual-levels-and-preferences.md) | Explicit controls, project isolation, persistence, coaching pause, and level-specific participation. |
-| M03 | [Interview coaching](handoffs/M03-interview-coaching.md) | Neutral requirements workflow with a thin development invocation adapter, tested against ambiguity and learner reasoning. |
-| M04 | [Review coaching](handoffs/M04-review-coaching.md) | Neutral local-diff review workflow tested against a real defect plus optional polish. |
+| M03 | [Invoked interview skill](handoffs/M03-interview-coaching.md) | Native explicit invocation; upstream-like sequence with teaching, no subagents, confirmation, artifacts and scoped execution/handoff. |
+| M04 | [Invoked review skill](handoffs/M04-review-coaching.md) | Native explicit local/PR review, level-specific primer, learner pause, evidence-backed discussion and a local report without automatic fixes/posting. |
 
 Implement and run each slice's applicable [criteria](TESTING.md#criteria) immediately.
 Keep failures and pending checks in its handback. Do not mark a milestone verified
@@ -309,27 +341,45 @@ private integrations. Update status/docs after each implemented slice.
 
 ## Later feedback and PR understanding checks
 
-[M06](handoffs/M06-task-feedback.md) provides two explicitly invoked mentoring
-skills. Task feedback uses available evidence immediately and saves a local
-Markdown report; reflection is optional. The separate PR understanding-check
-skill accepts a GitHub PR link, reads actual diff/context/tests and asks focused
-questions about behavior, decisions, edge cases and verification. It waits for
-answers before revealing code-backed explanations, with hints/skip/stop available.
-A quiz is never a prerequisite for ordinary feedback or review.
+[M06](handoffs/M06-task-feedback.md) is an explicitly invoked task-feedback skill.
+Reuse the task at hand and available evidence; give concrete strengths, improvements
+and an optional next step immediately, then save a local Markdown report. Learner
+reflection is optional, not a prerequisite. Missing observations/checks stay unknown
+or pending. Use a task-specific directory under the neutral data root/project
+identity, with collision and write-failure handling; do not claim an unsaved report.
 
-Use the effective manual level for support style, preserving session/project
-preferences. Reports identify inspected scope/revision, actual answers and assistance;
-unattempted or explained answers do not establish independent reasoning. A changing
-PR requires refreshed evidence or an explicit recorded-revision limitation. No
-proficiency grades, automatic progression, background ledger, compulsory practice
-or automatic code/PR changes. Store reports outside public Git with honest failure
-handling; correct agent-written code alone establishes no learner comprehension.
+Feedback follows the manually selected support style and leaves effective/saved
+level and coaching preferences unchanged. Coaching-off permits direct requested
+feedback without reflection prompts. There is no progression threshold, background
+learner ledger, proficiency score or automatic level/task-difficulty change in the
+planned release. A level-change request uses M02's existing manual controls.
 
-After M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens language/provider
-coverage, adds optional Serena tooling and isolated evaluation; M06 adds feedback
-and self-checks; M07 observes real-project use separately. M08 remains final for
-public packaging/discovery/installation and publication. Test actual native use
-and report simulated conduct, software correctness and human understanding separately.
+Separate task/software feedback from human-learning claims. Agent-written code and
+passing checks alone establish no comprehension. Independently supplied learner
+reasoning can support limited observations on the current task; record assistance
+where relevant. No full conversation or learner profile is persisted by default.
+Feedback-only does not edit code, post findings or invoke fixes.
+
+The separate explicitly invoked PR understanding-check skill accepts a GitHub PR
+link, reads actual diff/context/tests and asks focused questions about behavior,
+decisions, edge cases and verification. It waits for answers before revealing
+code-backed explanations, with hints, direct explanations, skip and stop available.
+A quiz is never a prerequisite for ordinary feedback or review. Explicit self-check
+invocation permits its questions while coaching is paused without resuming coaching.
+
+Self-check reports identify the PR, inspected scope/revision, actual answers and
+assistance. Unattempted or explained answers do not establish independent reasoning.
+A changing PR requires refreshed evidence or an explicit recorded-revision limitation.
+The self-check preserves manual preferences, uses neutral local report handling and
+does not edit code, post findings, approve/merge or invoke fixes. It supplies limited
+evidence about the inspected change, not a proficiency grade or mastery claim.
+
+After local M01–M04, [M05](handoffs/M05-portability-and-tooling.md) broadens
+language/provider coverage, adds optional Serena tooling and isolated evaluation;
+M06 adds task feedback and self-checks; M07 records real-project use and comprehension
+separately. [M08 distribution](handoffs/M08-distribution.md) remains final: manifests,
+discovery, other-user installation/update/removal and publication. Document tested
+support and distinguish native delivery, simulation, software checks and human learning.
 
 ## Definition of this planning change
 

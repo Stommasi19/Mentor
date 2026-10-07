@@ -50,3 +50,26 @@ atomic replacement and readback. Before-replacement failures leave the prior
 record intact; concurrent writes use last-completed-write semantics and may lose
 a concurrent field change. A readback mismatch reports persistence as unverified.
 This is local preference storage, not a transactional multi-user database.
+
+## Interview artifacts (M03)
+
+`InterviewArtifacts` uses the same explicit canonical data root and 64-character
+project ID as preferences. It reserves
+`<data-root>/projects/<project-id>/plans/<local-date>-<task-slug>/` with exclusive
+mkdir and numeric collision suffixes, then creates `interview.md`. Non-Latin
+labels use a safe fallback slug. Existing interviews are never reused by `create`.
+Startup/status/context resolution does not create plan directories.
+
+`append` preserves earlier Markdown entries. `finalize` requires nonempty
+confirmation and plan text, appends the confirmation, and writes `plan.md`.
+Confirmation text records an actual user approval; the helper cannot determine
+whether the user approved the plan. The workflow must verify that separately.
+Directory operations accept only absolute task directories belonging to this
+project's plans. The helper never writes preferences or chooses a fallback root.
+
+Errors remain visible and the adapter emits no successful result. The two files
+are not a transaction: a failed finalization can leave a confirmation entry or
+partial plan. Inspect and repair the record, retry, and read both files back
+before execution/handoff. Concurrent interviews reserve separate directories;
+concurrent writers to the same interview are unsupported. Retention/deletion is
+manual for this local prototype. There is no learner profile or background ledger.

@@ -81,7 +81,8 @@ class CodexAdapterContractTests(unittest.TestCase):
     def test_unavailable_or_invalid_core_fails_visibly_without_context(self):
         event = json.dumps({"hook_event_name": "SessionStart", "source": "startup"})
         workflow = self.policy.parent / "workflows" / "controls.md"
-        for resource in (self.policy, workflow):
+        interview = self.policy.parent / "workflows" / "interview.md"
+        for resource in (self.policy, workflow, interview):
             original = resource.read_bytes()
             for content in (None, b"  \n", b"\xff"):
                 with self.subTest(resource=resource.name, content=content):

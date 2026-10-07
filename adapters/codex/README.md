@@ -10,6 +10,11 @@ visible warning; a missing/invalid core resource fails the hook. A host can
 continue after a hook error; do not interpret an open session as proof
 that Mentor loaded.
 
+It also validates `core/workflows/interview.md` and supplies concise explicit-only
+native skill guidance. The full interview instructions load through skill invocation
+rather than enlarging every session's context. A missing, empty, or
+invalid-encoding interview resource fails visibly like the other core resources.
+
 `development_config.py` prints a native hook definition with absolute, shell-quoted
 interpreter and handler paths. It does not install anything or change trust.
 The synchronous handler has a 5,000 approximate-token context limit, allowing
@@ -38,6 +43,71 @@ policy or invoke a skill to claim automatic delivery. Inspect the host's actual
 execution and delivered developer context, and exercise S01. Disable the hook
 through `/hooks` and repeat in a fresh session as a negative control. No global
 hook, plugin manifest, marketplace entry, or trust-store edit is needed.
+
+## Interview coaching
+
+The revised `$mentor-interview` is a native, explicit-only skill. Register its
+thin wrapper in a disposable development workspace, keeping the canonical core
+in this checkout. Codex supports repository `.agents/skills` discovery and
+symlinked folders; `agents/openai.yaml` disables implicit invocation. See the
+[official skill guide](https://learn.chatgpt.com/docs/build-skills).
+
+From the Mentor checkout, after choosing the absolute `mentor_workspace`:
+
+```sh
+mkdir -p "$mentor_workspace/.agents/skills"
+ln -s "$PWD/adapters/codex/skills/mentor-interview" \
+  "$mentor_workspace/.agents/skills/mentor-interview"
+```
+
+This is local development registration, not a public installer or plugin manifest.
+Keep an existing link unless you intend to replace it. Moving the checkout requires
+updating this link as well as regenerating the hook configuration. Start Codex in
+that workspace, use `/skills` or the `$` selector, and explicitly select
+`$mentor-interview`. The hook delivers concise discovery guidance but does not
+register the skill. Ordinary tasks retain necessary clarification without running
+the full interview or writing interview artifacts.
+
+Example: “$mentor-interview Help define the monthly/category calculation;
+requirements-only, 30 min, no UI. Explain consequential choices with examples.”
+For implementation, explicitly specify direct execution or an available target
+skill. Known requirements and participation agreements are reused. The primary
+agent handles staged questions, teaching preferences, drill-down, and a concrete
+summary. Settled tasks and skip requests avoid invented rounds. Paused coaching
+retains requirements, confirmation, and artifacts with direct clarification.
+
+The wrapper's `scripts/context.py` resolves the real checkout through the symlink,
+validates the canonical policy/workflow, and refreshes M02 status without writing
+preferences. It receives the current conversation session JSON and the hook's
+pinned data root when available. Without hook context, it uses the explicit
+`--data-root`, otherwise `MENTOR_DATA_DIR`, otherwise `<user-home>/.mentor`.
+It supplies shell-quoted commands and resource paths; tools may run from another
+cwd. Invalid locations fail visibly without silently selecting another root.
+
+Each invocation reserves a task directory under
+`<data-root>/projects/<project-id>/plans/<date>-<task-slug>/`, with numeric suffixes
+on collisions. `interview.md` records the original request, target, verbatim time
+box/scope, questions and actual answers throughout. The confirmed `plan.md` records
+understanding, approach, teaching plan, scope, assumptions, and acceptance checks,
+with a pointer to the interview. Full transcripts stay outside public Git.
+
+Execution waits for confirmation of the concrete plan; prior explicit approval
+of that same plan satisfies the gate. After both files are saved and read back,
+already-authorized work proceeds without another blanket gate. Requirements-only
+ends with artifacts and leaves code untouched. A selected skill receives the
+original request, constraints, and both artifact references, and runs through
+the primary agent. Missing/incompatible targets require a resolved replacement.
+
+`artifacts.py` supports `create --task LABEL`, `append --directory PATH` with
+Markdown on stdin, and `finalize --directory PATH --confirmation TEXT` with plan
+Markdown on stdin. Use the exact returned command and directory. Failed saves
+exit nonzero and emit no success JSON; partial files can remain, so inspect and
+repair them before retrying or continuing. A successful write does not itself
+certify plan accuracy or user authorization; the agent verifies those separately.
+
+See [revised M03 evidence](../../docs/evidence/M03-revised.md) for native invocation,
+conduct and limitations; [original M03 evidence](../../docs/evidence/M03.md) remains
+historical. Public packaging/discovery remains M08.
 
 ## Local controls and storage
 
