@@ -10,8 +10,8 @@ visible warning; a missing/invalid core resource fails the hook. A host can
 continue after a hook error; do not interpret an open session as proof
 that Mentor loaded.
 
-It also validates `core/workflows/interview.md` and supplies concise explicit-only
-native skill guidance. The full interview instructions load through skill invocation
+It also validates the interview, review, feedback and PR-understanding workflows
+and supplies concise explicit-only native skill guidance. Full instructions load through skill invocation
 rather than enlarging every session's context. A missing, empty, or
 invalid-encoding interview resource fails visibly like the other core resources.
 
@@ -119,9 +119,9 @@ Relative/invalid configuration or unavailable identity warns and disables saving
 without choosing another location. Settings live outside the repository; no
 storage is created by startup, status, or session-only controls.
 
-Ask naturally: “use supported”, “pause coaching”, “resume coaching”, “show Mentor
+Ask naturally: “use Mid-level”, “pause coaching”, “resume coaching”, “show Mentor
 status”, or “use project preferences again”. These affect only this conversation.
-“Use independent for this project”, “save coaching off as this project's default”,
+“Use Senior for this project”, “save coaching off as this project's default”,
 and “reset this project's preferences” explicitly request writes. Demonstration,
 takeover and task-specific help do not change preferences. No custom slash command
 is required.
@@ -132,12 +132,12 @@ The agent runs the delivered base shell command with the current session object:
 # Replace these example locations with the exact hook-provided values.
 /absolute/python3 /absolute/Mentor/adapters/codex/control.py \
   --project-id PROJECT_ID_FROM_HOOK --data-root /absolute/local-data \
-  --session '{"overrides":{},"unsaved":[]}' set-level independent
+  --session '{"overrides":{},"unsaved":[]}' set-level senior
 ```
 
 Other action forms: `pause`, `resume`, `status`, `use-project`,
 `--field level use-project`, `--field coaching_enabled use-project`,
-`--scope project set-level supported`, `--scope project pause`, and
+`--scope project set-level mid-level`, `--scope project pause`, and
 `--scope project reset`. Options may precede the action. Quote session JSON for
 the shell. Use the returned `session` object on the next call; the helper cannot
 discover another conversation's context. Apply `effective` immediately and report
@@ -177,3 +177,92 @@ paths with spaces, an apostrophe, and a dollar sign. They also exercise missing,
 empty, invalid-encoding resources, invalid events/controls, real project identity,
 field precedence and storage failures. They do not simulate a host trace or
 certify generated code quality.
+
+## Review, feedback and PR understanding
+
+The three new native skills use the same development registration as interview.
+After choosing a disposable or authorized target workspace, register their folders
+without replacing existing links:
+
+```sh
+for mentor_skill in mentor-review mentor-feedback mentor-pr-check; do
+  ln -s "$PWD/adapters/codex/skills/$mentor_skill" \
+    "$mentor_workspace/.agents/skills/$mentor_skill"
+done
+```
+
+The target's `.agents/skills` directory must already exist. Review any existing
+registration instead of overwriting it. This is development setup, not M08 public
+installation. Invoke through the host's `$` selector:
+
+- `$mentor-review Review staged changes; run relevant checks.` With no target,
+  Mentor asks what to review. Coaching-on primes and waits; “show findings” skips.
+  The workflow reports findings and saves Markdown without fixing/posting.
+- `$mentor-feedback Give feedback on this task.` Feedback is immediate;
+  reflection is optional, with a separate local report and no automatic review.
+- `$mentor-pr-check https://github.com/OWNER/REPO/pull/NUMBER` reads actual PR
+  source, asks focused questions and supports hint, explanation, skip and stop.
+  Unattempted and assisted answers remain visible. It does not approve or edit.
+
+Each wrapper resolves canonical resources through its real folder, refreshes
+preferences read-only with the current `--session`, and returns quoted control,
+report and target commands. Pass the hook-pinned data root; invocation never loses
+session overrides. Reports live under the configured project data root:
+`reviews/<date-task>/review.md`, `feedback/<date-task>/feedback.md`, or
+`pr-checks/<date-task>/pr-check.md`. Reserve with `create --task LABEL`; save with
+`save --directory RETURNED_PATH` and Markdown on stdin. Successful saves are
+read back and never replace an existing report. Failures remain visible.
+
+`review_target.py local --workspace /absolute/repo --scope staged` captures actual
+index content. Other explicit scopes: `unstaged`, `uncommitted` (including untracked),
+`range --base REF [--head REF]` using the merge base. Repeated `--path` filters
+literal repository-relative paths. Output includes before/after contents, modes,
+renames/deletions, per-layer diff and a content snapshot ID. Re-run after a pause;
+changed IDs invalidate affected evidence. Run checks in disposable copies at the
+captured content; a worktree check cannot certify different staged code.
+Submodule commit changes can be captured. Dirty submodule contents require a
+separate local target; the helper fails rather than treating status filenames as
+an identity for the changed code.
+
+`review_target.py pr --url https://github.com/OWNER/REPO/pull/NUMBER` uses read-only
+GitHub CLI API calls, complete paginated filenames, merge-base/head file context,
+fork identity and revision refresh. Missing CLI/auth/network, incomplete context
+or changed PRs fail visibly. The primary agent may use an available read-only GitHub
+connector instead, recording actual transport and pinned evidence separately.
+Neither transport is required for ordinary source explanations.
+
+Profiles use `junior`, `mid-level`, `senior`. Legacy `guided`, `supported`,
+`independent` remain control aliases. Valid version-1 preferences and retained
+legacy sessions translate read-only; status identifies their legacy values.
+Only explicit project changes/reset write canonical version-2 preferences. The
+profiles change task focus while readable code, useful comments/docs and requested
+help/ownership overrides remain active. Ordinary creation/explanations need no
+full skill, diff, quiz or report.
+
+[Optional Serena setup](serena/README.md) keeps ordinary-tool fallback available.
+[Optional Prism continuity](prism/README.md) defaults to a dedicated Mentor database
+for explicitly selected project context and requested summary/handoff saves.
+The hook and all four workflow context helpers supply its pinned command/guide;
+startup performs no Prism calls or writes. The adapter prepares requests for the
+primary agent to execute through the selected dedicated connection's exposed tools.
+Inspect live host inventory before setup: reuse Serena and compatible dedicated
+Prism, including aliases/plugins. Preserve shared Workflow Prism. When requested
+connections are missing, [development setup](MCP-SETUP.md) provisions/registers
+them through the native host writer. Dedicated Prism uses a Docker volume without
+another host port. Missing/incompatible services retain ordinary tools/local docs.
+[Original PR #6 evidence](../../docs/evidence/PR6-Prism.md) records earlier reuse
+and hook coexistence; [setup/isolation evidence](../../docs/evidence/PR6-MCP-setup.md)
+records the subsequent separate-memory request.
+[Current evidence](../../docs/evidence/M04-M07.md) records successful native skill
+discovery, selected waits/reports, manual compaction, ordinary Python coding and
+executable checks. Direct and native-host Serena source calls and the disposable
+pinned-SDK DoughTracker build/HTTP checks also passed. The initial routing failures
+remain historical receipts. Ordinary help and an explicit review wait also ran
+alongside the installed Workflow hooks. The evidence records a nonblocking rewrite
+failure and an unnecessary Stop continuation that retained the wait; private
+toolkit files were unchanged. New-profile native lifecycle/control, settled
+interview invocation, paused review, live PR review and scripted self-check
+answer/change handling now have receipts. Model semantic navigation and the
+matched build pair record actual tool calls and correct/readable outputs.
+See the [acceptance audit](../../docs/evidence/M04-M07-acceptance.md) for original
+delivery scope and limits; historical M03 evidence is not a substitute.

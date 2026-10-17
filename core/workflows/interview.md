@@ -49,11 +49,12 @@ Replace delegation planning with how the primary agent will support this task.
 Record known preferences without asking again. Ask only about unresolved choices,
 such as a worked example, direct help, or reviewing the approach together.
 
-- Guided: help frame requirements and compare consequences with concrete examples.
-- Supported: invite an approach or tradeoff, explain consequential choices, and
-  offer examples when useful, with less scaffolding.
-- Independent: ask concise decision questions and let the learner direct the
-  approach; deepen the explanation or demonstrate when requested.
+- Junior: frame requirements with code-flow examples, safe changes and introductory
+  component responsibilities.
+- Mid-level: invite an approach and examine connected design, contracts, failure
+  paths and verification of the complete feature.
+- Senior: examine assumptions, alternatives, actual constraints, change risks and
+  how decisions will be communicated; deepen explanations on request.
 
 All levels settle the same essential requirements. Coaching intensity and code
 ownership are separate. Honor direct implementation/demonstration agreements at

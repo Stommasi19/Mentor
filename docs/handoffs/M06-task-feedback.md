@@ -1,9 +1,13 @@
 # M06 — invoked task feedback and PR understanding checks
 
-Status: Revised plan confirmed on 2026-10-06; implementation and verification
-have not started. Optional PR self-check scope added on 2026-10-07.
+Status: Implemented on 2026-10-07 with [boundary/report/PR-retrieval evidence](../evidence/M06.md).
+Native immediate feedback and PR answer/help/report conduct are recorded, including
+labeled changed-revision simulation. Revised plan confirmed on 2026-10-06;
+optional PR self-check scope added on 2026-10-07.
 Dependency: M01/M02 and the revised [M03 interview](M03-interview-coaching.md)
-and [M04 review](M04-review-coaching.md). Follows M05 in the delivery roadmap.
+and [M04 review](M04-review-coaching.md), with shared report/target infrastructure.
+Delivery: [Combined M04–M07 implementation plan](../IMPLEMENTATION-PLAN.md#m04m07-execution-plan).
+M06 implementation does not wait for unavailable M05 provider coverage.
 Scope: Current-task feedback and a separate optional PR understanding-check skill,
 with local Markdown reports.
 Criteria: [T15, T17, T12, T13](../TESTING.md#criteria) and the
@@ -16,7 +20,9 @@ a local Markdown report. It uses available task evidence immediately, explains
 concrete strengths and improvements, and suggests an optional next step. Reflection
 can follow but is not a prerequisite for feedback.
 
-Guided, supported and independent remain manually selected through M02's controls.
+Junior, Mid-level and Senior remain manually selected through M02's control scope,
+with legacy-state compatibility in the combined implementation plan. New profiles
+and migration are implemented; legacy choices remain compatibility aliases.
 Feedback does not infer or switch a level, write mentoring preferences or track
 progress in the background. It replaces the earlier automatic-progression plan.
 The primary agent handles the workflow; no subagents are required or spawned.
@@ -36,9 +42,11 @@ The primary agent handles the workflow; no subagents are required or spawned.
    defects, required verification gaps and optional refinements. Do not require a
    learner reflection or perfect answer before reporting. Disclose every material
    defect identified within the inspected scope; do not promise an exhaustive audit.
-4. **Match the selected support.** Guided explains examples and reasoning; supported
-   connects evidence and tradeoffs with less scaffolding; independent gives concise
-   observations and next actions. Coaching-off retains directly requested feedback
+4. **Match the selected support.** Junior explains code behavior and safe changes;
+   Mid-level connects design/contracts, failure paths and verification; Senior
+   examines assumptions, alternatives and consequences. Each retains readable-code,
+   useful-comment and documentation expectations and deeper help on request.
+   Coaching-off retains directly requested feedback
    and code/check standards, without added reflection prompts. Invoking feedback
    does not resume coaching or change effective/saved preferences.
 5. **Save a local Markdown report.** Use a task-specific report directory under the
@@ -73,8 +81,9 @@ feedback remains immediate and does not require answering this quiz.
    no trivia, fixed question quota or exhaustive exam. Prepare evidence-backed
    answer guidance that allows valid alternative reasoning.
 3. **Ask and wait.** Present questions progressively and wait for the learner's
-   answers before revealing explanations. Guided provides more context/examples,
-   supported gives focused prompts, independent uses concise reasoning questions.
+   answers before revealing explanations. Junior asks about real code flow and safe
+   changes with context/examples; Mid-level asks about contracts, design and failure
+   paths; Senior asks about assumptions, tradeoffs and change risks relevant to the PR.
    Keep the actual answer out of the initial prompt. Hints, direct explanations,
    skip and stop are available immediately on request; unanswered questions are
    marked unattempted rather than treated as a demonstrated misunderstanding.
@@ -128,8 +137,9 @@ separate from feedback content.
    command spelling or one host's metadata works everywhere. Keep the full workflow
    out of always-loaded policy; ordinary task help remains available there.
 3. Read effective level/coaching state through M02, preserving session overrides
-   and saved defaults. Reuse neutral artifact handling as appropriate without
-   adding an evidence ledger or preference mutations.
+   and saved defaults. Reuse `runtime/reports.py` and `adapters/codex/reports.py`
+   for neutral report handling, plus M04's adapter-owned PR access for the self-check.
+   Add no evidence ledger or preference mutations.
 4. Exercise current-task feedback in an external workspace, including work in
    progress, agent-authored work and missing learner observations. Inspect the
    actual report and record native invocation, conduct and check evidence separately.

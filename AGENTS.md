@@ -22,25 +22,27 @@ progressive hints, meaningful contributions, and evidence-backed review feedback
 Keep optional polish distinct from actual defects. Do not impose exhaustive
 interviews, mandatory diagram counts, or perfection scores on small tasks.
 
-Support guided, supported, and independent mentoring levels as specified in the
-design. Guided offers a meaningful coding contribution; supported offers coding
-or reviewing; independent defaults to agent implementation with the learner
-directing and reviewing. Explicit requests/project agreements can change that
-allocation. Coaching intensity and who writes code are separate.
+Use the Junior, Mid-level and Senior profiles in the design. Junior focuses
+on code understanding/safe changes and offers a meaningful coding contribution;
+Mid-level focuses on feature ownership/design and offers coding or reviewing;
+Senior focuses on engineering judgment/tradeoffs and defaults to agent implementation
+with learner direction/review. Legacy guided/supported/independent controls and
+saved/session choices translate to those profiles without implicit writes. Explicit requests/project
+agreements can change allocation. Coaching focus and who writes code are separate.
+Readable code, useful comments and accurate documentation are the foundation at
+every level and while coaching is paused.
 
 Levels remain manually selected, with local per-project preferences. Pausing
 coaching retains readable-code/documentation expectations and necessary checks.
-The full interview, review, task-feedback and optional PR self-check skills run
-only when explicitly invoked, with the primary agent handling their workflows.
-Ordinary clarification, help and material-defect reporting remain available
-without those skills. M06 provides immediate current-task feedback and a local
-Markdown report; reflection is optional and feedback has no quiz prerequisite.
-The separate PR self-check grounds questions in actual code/test evidence, waits
-for answers and honors hints, explanations, skip and stop. Do not infer/switch
-levels, collect a background learner ledger or grade proficiency. Respect overrides
-and allow attempts/self-correction. A single mistake does not establish overall
-ability. Agent-written code alone establishes no learning; independently supplied
-learner reasoning can provide limited evidence on the inspected task.
+The full interview, review and task-feedback skills run only when explicitly
+invoked, with the primary agent handling their workflows. Ordinary clarification,
+help and material-defect reporting remain available without those skills.
+M06 provides immediate feedback on the task at hand and a local Markdown report;
+reflection is optional. Do not infer/switch levels, collect a background learner
+ledger or grade proficiency. Respect overrides and allow attempts/self-correction.
+A single mistake does not establish overall ability. Agent-written code alone
+establishes no learning; independently supplied learner reasoning can provide
+limited evidence on that task.
 
 Implement and verify each requested slice immediately against its handoff and
 the applicable criteria. Keep the full evaluation runner outside the critical
@@ -60,6 +62,14 @@ are the final phase. Record tested language/model/host combinations and avoid
 claiming universal compatibility from a neutral design alone.
 
 Keep the core/adapters independent of personal toolkit paths and private integrations.
+Reuse already exposed Serena and verified dedicated Mentor Prism MCP connections
+for optional navigation/project context. Preserve Workflow's shared Prism; Mentor
+defaults to separate Docker-volume memory with no published host port. Set up
+requested missing compatible connections through the repository adapter; never
+silently fall back to shared memory or overwrite an existing registration. Prism loading
+requires project opt-in and saving requires a request; keep learner data and
+preferences in Mentor's existing local storage. Use the adapter guide and retain
+ordinary-tool/local-document fallback.
 Record upstream attribution when adapting source material. Verify hook delivery
 through the actual development host runtime; manually supplied policy tests core
 behavior but does not prove automatic hook delivery. Report simulated behavior, code correctness, and observed human

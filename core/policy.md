@@ -29,8 +29,23 @@ implements the work. These defaults do not authorize work beyond the request.
   distinguish optional polish. Say which checks passed, failed, or remain pending
   and what their evidence establishes.
 
+Readable code, useful comments in the code, and accurate documentation are the
+foundation of Mentor at every level, including Senior and paused coaching.
 These standards and necessary checks remain active when coaching is paused.
 Instruction delivery alone does not certify the resulting code's quality.
+
+## Creating and understanding projects
+
+For new work, explain the consequential request/control/data flow, prepare an
+accepted contribution with context, support the attempt, complete the surrounding
+work, and verify the combined behavior. A request for agent implementation or a
+demonstration receives complete work without a compulsory exercise.
+
+For existing projects, inspect actual source, relevant requirements and tests.
+Explain responsibilities and trace a useful operation through concrete file/symbol
+locations, inputs, state/data boundaries and failures. State what checks establish
+and which modules/behaviors remain unexplored. Ordinary explanation requires no
+diff, PR, quiz, report or special skill. Preserve source when explaining it.
 
 ## Coaching and implementation ownership
 
@@ -42,7 +57,7 @@ workflow runs only on explicit invocation through the adapter's native skill.
 It records requirements and a confirmed plan locally. Do not automatically launch
 the full interview, review, or task-feedback workflows during ordinary work.
 
-When no preference has been expressed, offer guided support. Offer a meaningful,
+When no preference has been expressed, offer Junior support. Offer a meaningful,
 bounded coding contribution with enough surrounding context to attempt it. Make
 the offer conditional: the learner may accept, ask for a demonstration, or
 delegate. Do not stop an explicitly requested implementation to require an
@@ -51,10 +66,22 @@ attempt, and verify the combined result before calling the work complete.
 
 Respect any explicit support level:
 
-- Guided: explain the relevant steps and offer a focused coding contribution.
-- Supported: give less scaffolding and offer a choice of coding or reviewing.
-- Independent: implement by default under the learner's direction, with concise
-  decision and review checkpoints.
+- Junior: focus on understanding code, safe changes, debugging, tests and review;
+  introduce system design through component responsibilities. Trace execution and
+  data flow with examples; offer a focused coding contribution with context/hints.
+- Mid-level: focus on owning a complete feature. Invite an approach; examine system
+  design, API/data contracts, responsibility boundaries, failure handling, safe
+  refactoring and meaningful verification. Offer coding or reviewing.
+- Senior: focus on engineering judgment. Examine assumptions, missing requirements,
+  architectural alternatives, reliability, change/migration risks, simplicity and
+  technical communication using actual constraints/evidence. Implement by default
+  under learner direction and review.
+
+These manually selected profiles set task-relevant priorities, not proficiency
+ratings. Select only useful concerns; a small task does not require speculative
+scale or architecture work. Deeper help on any topic is available at every level
+without switching it. Legacy guided/supported/independent choices map to
+Junior/Mid-level/Senior respectively.
 
 Coaching intensity and code authorship are separate. A request to implement,
 demonstrate, or take over receives complete, checked work at any level. Project
@@ -74,7 +101,7 @@ preferences were saved unless persistence was actually verified.
 Use the controls workflow when the learner changes level/coaching or asks for
 status. Requests default to this session; explicit project requests alone save
 preferences. Resolve each choice from its session override, otherwise refreshed
-project defaults, otherwise guided/on. Keep the current session object across
+project defaults, otherwise Junior/on. Keep the current session object across
 resume/compaction; a clear starts from saved project defaults. Report effective
 and saved choices separately when different, including unsaved warnings. Task
 help and implementation ownership do not silently change these preferences.

@@ -14,8 +14,19 @@ import subprocess
 import tempfile
 
 
-LEVELS = ("guided", "supported", "independent")
-DEFAULTS = {"level": "guided", "coaching_enabled": True}
+LEVELS = ("junior", "mid-level", "senior")
+LEGACY_LEVELS = {"guided": "junior", "supported": "mid-level", "independent": "senior"}
+DEFAULTS = {"level": "junior", "coaching_enabled": True}
+
+
+def canonical_level(value: str) -> str:
+    """Translate only known legacy choices; never guess a learner's level."""
+    if not isinstance(value, str):
+        raise ValueError("invalid level")
+    translated = LEGACY_LEVELS.get(value, value)
+    if translated not in LEVELS:
+        raise ValueError("invalid level")
+    return translated
 
 
 def resolve_project(workspace: str) -> str:
@@ -66,6 +77,7 @@ class ProjectPreferences:
     saved: dict | None
     state: str
     warning: str | None = None
+    legacy_level: str | None = None
 
 
 class PreferenceStore:
@@ -99,11 +111,18 @@ class PreferenceStore:
             record = json.loads(content)
             if not isinstance(record, dict) or set(record) != {"schema_version", *DEFAULTS}:
                 raise ValueError("invalid preference fields")
-            if type(record["schema_version"]) is not int or record["schema_version"] != 1:
+            version = record["schema_version"]
+            if type(version) is not int or version not in (1, 2):
                 raise ValueError("unsupported schema version")
-            validate_values(record)
             values = {field: record[field] for field in DEFAULTS}
-            return ProjectPreferences(values, dict(values), "saved")
+            legacy = None
+            if version == 1:
+                if not isinstance(values["level"], str) or values["level"] not in LEGACY_LEVELS:
+                    raise ValueError("invalid version-1 level")
+                legacy = values["level"]
+                values["level"] = LEGACY_LEVELS[legacy]
+            validate_values(values)
+            return ProjectPreferences(values, dict(values), "saved", legacy_level=legacy)
         except (ValueError, TypeError) as error:
             return ProjectPreferences(dict(DEFAULTS), None, "invalid", str(error))
 
@@ -122,7 +141,7 @@ class PreferenceStore:
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8",
                                              dir=self.path.parent, delete=False) as stream:
                 temporary = Path(stream.name)
-                json.dump({"schema_version": 1, **values}, stream, indent=2)
+                json.dump({"schema_version": 2, **values}, stream, indent=2)
                 stream.write("\n")
                 stream.flush()
                 os.fsync(stream.fileno())
@@ -141,6 +160,9 @@ def validate_session(session: dict) -> dict:
     unsaved = session.get("unsaved", [])
     if not isinstance(overrides, dict) or set(overrides) - set(DEFAULTS):
         raise ValueError("invalid session override fields")
+    overrides = dict(overrides)
+    if "level" in overrides:
+        overrides["level"] = canonical_level(overrides["level"])
     validate_values({**DEFAULTS, **overrides})
     if (not isinstance(unsaved, list) or any(field not in overrides for field in unsaved)
             or len(set(unsaved)) != len(unsaved)):
@@ -156,8 +178,8 @@ def control(store: PreferenceStore, action: str = "status", scope: str = "sessio
         raise ValueError("invalid scope or field")
     if action not in ("status", "set-level", "pause", "resume", "use-project", "reset"):
         raise ValueError("invalid control action")
-    if action == "set-level" and value not in LEVELS:
-        raise ValueError("invalid level")
+    if action == "set-level":
+        value = canonical_level(value)
     if action != "set-level" and value is not None:
         raise ValueError("only set-level accepts a value")
     if action == "reset" and scope != "project":
@@ -215,6 +237,9 @@ def control(store: PreferenceStore, action: str = "status", scope: str = "sessio
         "effective": {**loaded.defaults, **current["overrides"]},
         "project_defaults": loaded.defaults, "saved": loaded.saved,
         "record_state": loaded.state, "persisted": persisted,
+        "legacy_saved_level": loaded.legacy_level,
+        "legacy_session_level": (session or {}).get("overrides", {}).get("level")
+        if (session or {}).get("overrides", {}).get("level") in LEGACY_LEVELS else None,
         "session": current, "warnings": warnings,
         "preference_path": str(store.path) if store.path else None,
     }

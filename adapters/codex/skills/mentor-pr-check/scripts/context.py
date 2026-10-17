@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+"""Native mentor-pr-check entry, resolved through the real development checkout."""
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from workflow_context import main
+if __name__ == '__main__':
+    sys.exit(main('pr-check'))

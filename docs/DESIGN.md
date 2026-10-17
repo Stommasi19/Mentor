@@ -4,8 +4,14 @@ Status: M01's neutral policy, C# experiment fixture, and Codex development hook
 and M02's manual controls/preferences are implemented and locally verified on
 2026-10-06. Revised M03's native interview skill is implemented and locally verified
 on 2026-10-07; [revised evidence](evidence/M03-revised.md) separates runtime,
-scripted conduct, code checks, and pending human-learning evidence. This remains a development integration; public plugin
-packaging and M04–M08 are planned. [M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
+scripted conduct, code checks, and pending human-learning evidence. Public plugin
+packaging remains deferred. M04–M07 implementation, selected native/navigation
+checks and the disposable pinned-SDK build/HTTP result are recorded in
+[combined evidence](evidence/M04-M07.md) and the original-delivery
+[acceptance audit](evidence/M04-M07-acceptance.md). Broader compatibility, human
+learning remain separate. The subsequently requested §7a adapter integration has
+[separate evidence](evidence/PR6-Prism.md). M08 remains planned.
+[M01 evidence](evidence/M01.md), [M02 evidence](evidence/M02.md),
 [implementation plan](IMPLEMENTATION-PLAN.md), and
 [verification criteria](TESTING.md) specify the immediate delivery contracts.
 Project home: The standalone Mentor repository. The design began in a
@@ -13,7 +19,7 @@ DoughTracker discussion and is maintained here independently.
 
 ## Purpose
 
-Mentor has a coding-language- and LLM-agnostic core that helps junior developers
+Mentor has a coding-language- and LLM-agnostic core that helps developers
 write readable, maintainable, appropriately commented software and practice
 engineering decisions, implementation, debugging, and code review. Host adapters
 make it an always-on plugin or development integration. Its default includes the learner in meaningful
@@ -24,10 +30,36 @@ a failure, and justify a review comment. Shipping a working change and learning
 from it are separate outcomes. Neither generated explanations nor passing tests
 establish the learner's understanding.
 
+## Creating and understanding projects
+
+Both uses are core Mentor behavior. During creation, help define a useful behavior,
+explain the relevant code, prepare a meaningful accepted learner contribution,
+support the attempt and verify the complete result. Generate clear names, readable
+flow, intent/rule comments and accurate documentation. The learner may request
+more direct help or takeover without changing the manual level.
+
+For an existing project, inspect source, relevant requirements and tests. Explain
+the service/module responsibilities and trace a useful request or operation through
+its code and data boundaries, with concrete file/symbol references. Explain failures
+and what checks establish; label unexplored scope and unknown behavior. No diff,
+PR, quiz, special walkthrough skill or report is required for ordinary help.
+
+The [combined M04–M07 plan](IMPLEMENTATION-PLAN.md#m04m07-execution-plan) verifies creation
+through a disposable DoughTracker backend-build trial and existing-code understanding
+through Stafr/Crew Workforce. Actual code/check evidence, scripted conduct and
+observed human understanding remain separate. Planning does not implement either
+project's backend.
+The creation trial evaluates generated code before discarding it; only evaluation
+notes/check results are retained. DoughTracker's original code and project resources
+remain unchanged.
+
 ## Code standards and coaching
 
-Mentor has two concerns: readable, maintainable implementation with useful
-documentation, and coaching that helps the learner practice. Code standards,
+Readable implementation, useful comments in the code, and accurate documentation
+are Mentor's foundation at every level. Comments explain intent, constraints and
+non-obvious rules where they help a reader; avoid narrating obvious syntax or
+imposing a comment quota. Coaching helps the learner practice on top of that
+foundation. Code standards,
 material defect reporting, and necessary verification remain active when coaching
 is paused. Native plugin disabling turns off the whole package.
 
@@ -62,26 +94,40 @@ the resulting change. Instruction delivery is distinct from code quality.
 
 ## Mentoring levels and task support
 
-Levels describe coaching intensity, not a permanent label or a coding quota.
-The first usable version defaults to `guided` and supports manual selection,
-local per-project preferences, and coaching pause/resume. Level/pause/resume
+The profiles are **Junior**, **Mid-level** and **Senior**. They set the
+default coaching focus for the task and are manually selected; they do not grade
+proficiency or impose a coding quota. The default is Junior with coaching
+on. Local per-project preferences and coaching pause/resume remain available. Level/pause/resume
 requests change only the current session unless project scope is explicit.
 Session overrides survive resume/manual compaction; clear starts from saved
 project preferences. Status refreshes those preferences while retaining session
 overrides and showing both effective and saved values. Project reset clears the
-current conversation's overrides to guided/on; other sessions retain their own.
+current conversation's overrides to Junior/on; other sessions retain their own.
 Failed project writes still apply locally with an unsaved warning. These M02
-contracts are locally verified for the [recorded combination](evidence/M02.md).
+contracts are locally verified with the legacy guided/supported/independent names
+for the [recorded combination](evidence/M02.md). The new profiles and their
+[compatibility migration](IMPLEMENTATION-PLAN.md#2-core-support-for-creation-and-understanding)
+are implemented with passing boundary checks in [current evidence](evidence/M04-M07.md);
+new-profile native lifecycle/control and bounded conduct checks are also recorded,
+including two-open-session refresh, clear and settled interview invocation.
 Levels remain manually selected throughout the planned release. The learner can
 request more/less help, demonstrate/takeover or different implementation ownership
-without changing the stored level. M06's invoked task feedback and optional PR
-self-check do not infer or switch levels.
+without changing the stored level. M06's invoked task feedback does not infer or
+switch levels.
 
-| Level | Mentor behavior | Learner responsibility |
+| Profile | Default focus | Mentor behavior and participation |
 | --- | --- | --- |
-| `guided` | Explain relevant steps, offer a focused coding part with context, and give progressively useful hints. | Make a decision or prediction and try the accepted coding part; request demonstration/takeover when useful. |
-| `supported` | Invite an approach with less scaffolding, offer coding or reviewing, and help with demonstrated gaps. | Choose the contribution, justify the approach, and explain relevant verification. |
-| `independent` | Implement by default under learner direction, offer concise decision/review checkpoints, and help on request. | Direct the change, review the diff, justify decisions, and understand verification evidence. |
+| Junior | Code comprehension, safe changes, debugging, tests and reviews; introductory system design | Trace execution/data flow, explain concepts with examples, introduce component responsibilities, and offer a focused coding contribution with context and progressive help. |
+| Mid-level | Complete feature ownership, system design, API/data contracts, failure handling, refactoring and verification | Invite an approach, examine boundaries and alternatives, connect components/failure paths, and help choose meaningful checks. Offer coding or reviewing. |
+| Senior | Engineering judgment under ambiguity, architectural tradeoffs, reliability, change risks, simplicity and technical communication | Examine assumptions and missing requirements, compare options using actual constraints/evidence, assess migration/operational consequences, and help communicate decisions or useful review feedback. Default to agent implementation with learner direction/review. |
+
+For the same backend endpoint, Junior traces request, validation, storage and
+response; Mid-level examines responsibility boundaries, contracts, failures and
+tests; Senior examines requirements, compatibility, operational consequences and
+whether a simpler design meets the need. Select only concerns relevant to the
+actual task; small changes do not acquire speculative scale or architecture work.
+Deeper explanation, help on any topic, examples and takeover remain available at
+every level. A topic-specific help request does not change the selected profile.
 
 As experience grows, the learner can delegate more implementation and practice
 directing/reviewing agent-written code. Coaching intensity and who types code
@@ -89,7 +135,7 @@ remain separate; explicit user instructions and project agreements override
 these defaults. Independent reasoning can be demonstrated while reviewing code
 the agent wrote.
 
-Readable code, accurate documentation, and necessary verification remain goals
+Readable code, useful comments, accurate documentation, and necessary verification remain goals
 at every level. Reducing help does not increase PR size automatically or require
 the learner to tackle multiple unfamiliar concepts at once.
 
@@ -101,8 +147,9 @@ comments/docs, supplied observations and check results. Give concrete strengths,
 improvements and an optional next step immediately; reflection can follow but
 is not a prerequisite. Do not silently launch another interview or review skill.
 
-Match the manual level: guided explains examples/reasoning, supported connects
-evidence and tradeoffs, independent gives concise observations/actions. Coaching-off
+Match the manual profile: Junior explains code behavior and safe changes; Mid-level
+connects design/contracts, failure paths and verification; Senior examines
+assumptions, alternatives and consequences. Coaching-off
 retains direct requested feedback without added reflection prompts. Local help can
 respond to uncertainty or a direct request without changing the selected level.
 
@@ -113,32 +160,18 @@ overwrite. Do not store a full transcript, background evidence ledger or profici
 profile. Feedback-only does not change code or publish findings.
 
 Agent-authored work and passing checks alone establish no learner comprehension.
+
+M06 also includes a separate [explicit PR understanding check](handoffs/M06-task-feedback.md#optional-pr-understanding-check-skill).
+It reads an actual GitHub PR and asks focused code-backed questions before discussing
+answers, with hints, direct explanations, skip and stop available. Actual assistance
+and unattempted answers remain visible; no proficiency grade or automatic level
+change is inferred. This optional self-check does not gate ordinary explanations
+or immediate task feedback.
 Discuss independently supplied reasoning only where observed; identify assistance
 and keep missing observations unknown. A mistake does not establish overall ability.
 Levels and coaching state change through explicit M02 controls only. Automatic
 progression thresholds, learner scoring and background tracking are removed from
 the planned release; there is no automatic task-difficulty adjustment.
-
-### Optional PR understanding check
-
-A separate explicitly invoked skill accepts a PR link, reads the real change and
-asks useful questions: why the approach was chosen, how an input flows through it,
-what happens at a boundary, and what tests prove. Ordinary feedback and review
-have no quiz requirement.
-
-Wait for the learner's answers before explanations; offer hints, direct help,
-skip and stop. Match scaffolding to the manual level, without altering the expected
-behavior or assigning a proficiency grade. Explicitly requesting the self-check
-permits its questions while coaching is paused without resuming global coaching.
-
-Discuss answers using actual code/test evidence and save local Markdown with
-PR/revision, questions/answers, assistance and uncertain/unattempted areas. Refresh
-stale context if the PR changes, or explicitly limit the check to the recorded
-revision. Respect valid alternative reasoning, disclose serious defects immediately
-and do not edit/post/approve/merge as part of a check. No automatic level switch,
-progression threshold or background learner profile. Agent-written code and supplied
-explanations alone establish no human understanding; a self-check provides limited
-evidence about this inspected change, not mastery.
 
 ### Productive struggle
 
@@ -177,15 +210,19 @@ at their artifacts. Teaching explains requirements/tradeoffs without quizzes,
 grades or inferred level changes. Paused coaching retains clarification and task
 artifacts without teaching prompts. M04's [confirmed review contract](handoffs/M04-review-coaching.md)
 adds a level-specific primer and learner pause before ordinary findings, followed
-by discussion and a local report. Its implementation remains pending. Architecture
+by discussion and a local report. It is implemented with [native conduct evidence](evidence/M04.md). Architecture
 and product lenses can follow after the basic workflow is exercised.
 
 ## Review feedback
 
 The full M04 review skill starts only when invoked, for local changes or a PR.
+If no target is supplied, ask what to review. Reuse an explicit target and clarify
+scope ambiguity; do not silently choose uncommitted changes or the whole branch.
 Read the actual diff/context and relevant evidence first. Prime the learner with
-what changed, intended behavior and useful things to inspect: guided gets a
-walkthrough/examples, supported a flow map/prompts, independent a brief checklist.
+what changed, intended behavior and useful things to inspect: Junior gets a code-flow
+walkthrough with correctness/test examples; Mid-level gets boundary/contract/failure
+prompts; Senior gets a concise assumptions/tradeoffs/change-risk primer. Every
+profile retains correctness, readability, useful comments and documentation concerns.
 With coaching on, pause for observations or a request to see findings; silence
 is not an attempted review. Direct-findings requests skip the wait, and coaching-off
 provides a direct report. Disclose serious defects already identified immediately.
@@ -204,6 +241,12 @@ Keep correctness and learning feedback distinct:
 A coaching conversation can focus on one or two learning topics while the review
 still reports every material defect it identifies. Unknown behavior stays unknown
 until checked. Do not mark required checks passed when they were not performed.
+Run relevant focused existing checks when practical, preserving the source checkout
+through isolated execution where needed. Tie results to inspected behavior and the
+checked snapshot, including dirty local content. Stale, unrelated and untied evidence
+does not establish a current PASS. Missing required verification is a gap with a
+concrete next check, separate from a reproduced defect. Checks follow the project;
+non-UI work has no screenshot or upstream evidence-format requirement.
 
 Save a local report with target/revision, inspected scope, findings/evidence,
 checks, optional refinements and limitations. Refresh affected context if the diff
@@ -235,20 +278,6 @@ adapter, use SessionStart for startup/resume/clear/compact, concise context, and
 the host's normal hook review/trust flow. This does not need marketplace discovery
 or a distributable plugin manifest. Policy-only experiments establish behavior
 observations; actual host traces establish automatic delivery.
-
-[M05](handoffs/M05-portability-and-tooling.md) plans optional Serena MCP tooling
-through the host adapter, adapting Agentic Workflow's project activation and
-semantic-navigation usage. This improves the agent's available tools without
-changing mentoring levels, implementation ownership, mentee work or full-skill
-activation. Start with read-only navigation and ordinary host edits; keep memory
-and onboarding disabled. Retain ordinary search/read/check tools and a visible
-fallback when Serena is absent or unavailable. Compare efficiency and actual code
-quality before claiming a benefit. The core stays independent of this integration;
-implementation and runtime verification are pending. M05 includes repository-owned
-setup/launch helpers, configuration examples and usage documentation under
-`adapters/codex/serena/`, with integration checks. Reuse an existing compatible
-connection in the same host/session, and offer opt-in setup when one is missing;
-do not duplicate registration or silently replace user configuration.
 
 Use a small C# fixture initially. Broaden the same criteria to another language
 and models from different providers before making broad compatibility claims.
@@ -352,8 +381,6 @@ The remaining scenario ideas are:
   the learner's explicit preferences?
 - Invoked feedback on a current task: Does the report cite concrete evidence,
   leave levels unchanged and offer an optional next step without requiring reflection?
-- An invoked PR understanding check: Are questions grounded in the actual change,
-  with explanations after attempts and independent/assisted answers distinguished?
 - Correct answers that required hints or were supplied by the agent: Does the
   mentor avoid falsely counting them as independent demonstrations?
 - An incorrect attempt repaired independently: Does the mentor recognize the

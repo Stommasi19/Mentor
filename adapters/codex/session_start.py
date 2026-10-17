@@ -10,13 +10,34 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
+from adapters.codex.prism.context import guidance_paths
+
+
+def prism_context(event: dict) -> str:
+    """Advertise optional continuity without connecting or saving at startup."""
+    locations = guidance_paths(event.get('cwd'))
+    return (
+        '## Optional Prism project context\n' + json.dumps(locations, ensure_ascii=False) + '\n'
+        'Only use Prism after explicit project-context opt-in; read the adapter guide then. '
+        'Prism defaults to a dedicated Mentor database; do not load or save through '
+        'Workflow’s shared Prism. Reuse a verified dedicated Prism connection and '
+        'an existing Serena connection, including aliases/plugins. Do not choose '
+        'another host port. When requested '
+        'tools are absent, run the supplied mcp_setup_command with --apply and --server '
+        'prism|serena|both; pass actual compatible connected names before setup. '
+        'The host launches registered servers after reload. Save project '
+        'summaries/handoffs only when requested; never save learner transcripts/grades '
+        'or change Mentor preferences. Continue with local docs if unavailable. '
+        'This hook performs no Prism load/save or server launch.'
+    )
 
 
 def interview_context() -> str:
     """Advertise explicit invocation without delivering the full workflow."""
     return (
-        "## Codex interview invocation\n"
-        "The full interview runs only on explicit invocation of $mentor-interview, "
+        "## Codex explicit workflow invocation\n"
+        "Full workflows run only on explicit invocation: $mentor-interview, "
+        "$mentor-review, $mentor-feedback and $mentor-pr-check, "
         "registered separately through local development skill discovery. This hook "
         "does not register skills. Ordinary clarification remains available without "
         "launching that workflow. Invocation preserves effective/session/saved "
@@ -60,7 +81,7 @@ def preference_context(event: dict, adapter: Path) -> str:
         f"Base shell command: {shlex.join(command)}\n"
         "Append --session <shell-quoted JSON of the current session object> and the action. "
         "Example initial status: append --session '{}' status. "
-        "Use set-level guided|supported|independent, pause, resume, status, use-project "
+        "Use set-level junior|mid-level|senior (legacy aliases remain accepted), pause, resume, status, use-project "
         "(optional --field level|coaching_enabled), or --scope project reset. "
         "Only an explicit project request adds --scope project to set-level/pause/resume. "
         "Apply effective values and retain the returned session object in conversation context. "
@@ -87,11 +108,12 @@ def main() -> int:
         workflow = workflow_path.read_text(encoding="utf-8").strip()
         if not workflow:
             raise ValueError(f"controls workflow is empty: {workflow_path}")
-        interview_path = policy_path.parent / "workflows" / "interview.md"
         # Validate the advertised resource now; never claim a broken checkout
         # supplies a usable workflow. Load its instructions only when needed.
-        if not interview_path.read_text(encoding="utf-8").strip():
-            raise ValueError(f"interview workflow is empty: {interview_path}")
+        for name in ("interview.md", "review.md", "feedback.md", "pr-understanding.md"):
+            resource = policy_path.parent / "workflows" / name
+            if not resource.read_text(encoding="utf-8").strip():
+                raise ValueError(f"workflow is empty: {resource}")
     except (OSError, UnicodeError, ValueError) as error:
         print(f"Mentor SessionStart failed: {error}", file=sys.stderr)
         return 1
@@ -102,7 +124,7 @@ def main() -> int:
                 "hookEventName": "SessionStart",
                 "additionalContext": "\n\n".join([
                     policy, workflow, preference_context(event, Path(__file__).resolve().parent),
-                    interview_context(),
+                    interview_context(), prism_context(event),
                 ]),
             }
         },

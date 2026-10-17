@@ -6,6 +6,27 @@ decisions, implementation, debugging, and review.
 
 ## Project status
 
+The approved M04–M07 delivery is implemented and locally verified: Junior/Mid-level/Senior profiles, creation and
+source-understanding guidance, explicit review/feedback/PR-check skills, shared
+reports/snapshots, optional Serena helpers and a Python fixture. The
+[implementation evidence](docs/evidence/M04-M07.md) records 26 passing boundary
+tests, C# 11/11 and Python behavior checks, actual native skill discovery and
+Stafr's 15 focused checks. Selected native workflows, manual compaction, Serena
+MCP navigation and the disposable DoughTracker health build/HTTP checks succeeded.
+All-profile/paused Python implementation and feedback, a supported scripted coding
+contribution, and a named-model native C# candidate now have checked results.
+Ordinary help and a deliberate review wait were also observed with installed
+Workflow hooks retained, including recorded hook conflicts. Native controls,
+clear/two-session refresh, disabled/untrusted delivery, settled interview,
+paused review, live PR review and scripted PR answer/change handling are recorded.
+Serena model navigation and the matched build comparison also have actual calls
+and checked results. [Acceptance audit](docs/evidence/M04-M07-acceptance.md) identifies
+the original scope and limits. Human understanding remains unobserved. The
+subsequently requested [Prism adapter integration](adapters/codex/prism/README.md)
+has [original checks](docs/evidence/PR6-Prism.md) and
+[missing-tool setup/dedicated-memory checks](docs/evidence/PR6-MCP-setup.md);
+Mentor's default Prism database is separate from Workflow. M08 distribution remains future work.
+
 M01 is implemented and verified locally: a [neutral policy](core/policy.md),
 [Codex development hook](adapters/codex/README.md), and
 [C# fixture with independent checks](fixtures/expense-summary/README.md).
@@ -30,17 +51,31 @@ manual levels, scope, failure recovery, and generated-code checks;
 [original M03 evidence](docs/evidence/M03.md) remains historical.
 M04 completes the first local usable version. Packaging for others and publication remain final.
 
-[M04's revised plan](docs/handoffs/M04-review-coaching.md) specifies an explicitly
+The [combined M04–M07 implementation plan](docs/IMPLEMENTATION-PLAN.md#m04m07-execution-plan)
+organizes the implemented local work into one delivery. It covers
+active help while creating software and explanations of existing source, plus
+review, task feedback, PR understanding checks and optional Serena integration.
+Trial cases are a disposable DoughTracker backend build and explanations of
+Stafr/Crew Workforce's existing backend. Trial code is discarded after evaluation;
+DoughTracker stays unchanged. See current evidence for performed and pending checks.
+
+[M04's confirmed implementation plan](docs/handoffs/M04-review-coaching.md#implementation-plan) specifies an explicitly
 invoked review skill for local changes or PRs: prime the learner at the selected
 level, pause for their review, then discuss evidence-backed findings and save a
 report. It reports findings; fixing and posting require separate requests.
-Implementation and verification have not started.
+An invocation without a target asks what to review. Relevant focused checks run
+against the reviewed snapshot; stale evidence and required verification gaps stay
+distinct from reproduced defects. The plan adopts the evidence rules from the
+[upstream migration assessment](docs/UPSTREAM-MIGRATION.md).
+Implementation and selected native conduct checks are recorded in
+[M04 evidence](docs/evidence/M04.md), including paused review.
 
-[M06's confirmed plan](docs/handoffs/M06-task-feedback.md) replaces automatic
-progression with feedback explicitly invoked for the task at hand. It uses
-available evidence immediately and saves a local Markdown report, with reflection
-optional afterward. Levels remain manually switched. Implementation and verification
-are pending; all three requested planning rewrites are complete.
+[M06's plan](docs/handoffs/M06-task-feedback.md) provides immediate invoked task
+feedback and a separate optional PR understanding check, with local Markdown
+reports. Reflection is optional for ordinary feedback; levels remain manually
+switched. [M05](docs/handoffs/M05-portability-and-tooling.md) covers opt-in Serena
+and C#/Python verification using existing OpenAI access. Other providers stay
+unverified/pending, with no new paid model accounts required for this delivery.
 
 Run the adapter checks with `python3 -m unittest discover -s tests -v`.
 Use the fixture's `check.py` against a completed disposable candidate; the checked-in
@@ -62,13 +97,26 @@ them. Review and behavioral checks assess the actual change.
 Coaching invites decisions, offers coding or review practice, and provides hints
 and feedback. The learner can request a demonstration or takeover. Pausing
 coaching leaves code standards and necessary verification active.
+For new work, support a meaningful accepted coding contribution and verify the
+complete result. For existing work, inspect actual source and explain responsibilities,
+request/data flow, failures and check limits with concrete locations. Ordinary
+explanations have no diff/PR, quiz, special walkthrough skill or report prerequisite.
 
 ## Mentoring levels
 
-- **Guided:** Step-by-step help and an offer of a focused coding contribution.
-- **Supported:** Less scaffolding, with a choice of coding or reviewing.
-- **Independent:** Agent implementation by default, with the learner directing
-  decisions and reviewing the result.
+- **Junior:** Code understanding, safe changes, debugging, tests and review, with
+  introductory system design and an offer of a focused coding contribution.
+- **Mid-level:** Feature ownership, system design, contracts, failure handling,
+  refactoring and verification, with a choice of coding or reviewing.
+- **Senior:** Engineering judgment, assumptions, architectural tradeoffs,
+  reliability, change risks and technical communication. Agent implementation
+  defaults to learner direction and review.
+
+These profiles are implemented from the [active implementation plan](docs/IMPLEMENTATION-PLAN.md#manual-mentoring-profiles).
+Guided/Supported/Independent remain compatibility aliases; legacy saved/session
+choices translate read-only until an explicit project write. Readable code, useful comments and accurate
+documentation remain the foundation at every level and with coaching paused.
+Help on any topic and explicit coding-ownership overrides remain available.
 
 The first local version has manual levels and per-project preferences outside
 Git. Level/pause/resume requests change the session unless project scope is
@@ -79,10 +127,9 @@ separately, so a temporary session pause cannot become a project default when
 changing the saved level. See [storage contracts](runtime/README.md).
 
 Greater experience can mean delegating more code while owning decisions and
-review. Invoked task feedback explains concrete strengths, improvements and an
-optional next step; a separate optional PR understanding check supports practice.
-Neither switches levels or tracks proficiency. Explicit requests can change
-implementation ownership at any level.
+review. Task feedback can explain concrete strengths, improvements and an optional
+next step; it does not switch levels or track proficiency. Explicit requests can
+change implementation ownership at any level.
 
 ## Build and prove locally
 
@@ -91,8 +138,7 @@ implementation ownership at any level.
 2. Verify automatic policy loading with a local development hook.
 3. Add manual levels/preferences and invoked interview/review skills; test each
    portion immediately.
-4. Broaden language/model coverage, evaluate optional Serena tooling, add invoked
-   task feedback and PR understanding checks, and try real project work.
+4. Broaden language/model coverage, add invoked task feedback, and try real project work.
 5. Finally package and document the verified behavior for other users, including
    marketplace discovery and installation.
 
@@ -109,11 +155,11 @@ record the combinations actually tested.
 - [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
 - [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
 - [M03 — invoked interview skill, locally verified](docs/handoffs/M03-interview-coaching.md)
-- [Next implementation: M04 invoked review skill](docs/handoffs/M04-review-coaching.md)
-- [Planned M05 — portability and optional Serena tooling](docs/handoffs/M05-portability-and-tooling.md)
-- [Planned M06 — invoked feedback and PR understanding checks](docs/handoffs/M06-task-feedback.md)
+- [Combined M04–M07 implementation plan](docs/IMPLEMENTATION-PLAN.md#m04m07-execution-plan)
+- [M04 — invoked review contract](docs/handoffs/M04-review-coaching.md)
+- [M05 — portability and optional tooling](docs/handoffs/M05-portability-and-tooling.md)
+- [M06 — task feedback and PR understanding](docs/handoffs/M06-task-feedback.md)
 - [Design](docs/DESIGN.md)
-- [Upstream migration assessment and proposed steps](docs/UPSTREAM-MIGRATION.md)
 - [Authorship and references](docs/ATTRIBUTION.md)
 - [Agent instructions](AGENTS.md)
 

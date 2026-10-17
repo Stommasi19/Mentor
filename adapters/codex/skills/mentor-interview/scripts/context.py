@@ -12,6 +12,7 @@ import sys
 REPOSITORY = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPOSITORY))
 from runtime.preferences import PreferenceStore, control, resolve_data_root, resolve_project
+from adapters.codex.prism.context import guidance_paths
 
 
 def main() -> int:
@@ -42,6 +43,7 @@ def main() -> int:
             "project_id": project_id, "data_root": data_root, "status": status,
             "control_command": shlex.join([sys.executable, str(adapter / "control.py"), *locations]),
             "artifact_command": shlex.join([sys.executable, str(adapter / "artifacts.py"), *locations]),
+            **guidance_paths(arguments.workspace),
         }
     except (OSError, UnicodeError, ValueError, TypeError, RuntimeError, subprocess.SubprocessError) as error:
         print(f"Mentor interview context failed: {error}", file=sys.stderr)

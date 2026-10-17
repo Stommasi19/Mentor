@@ -57,13 +57,83 @@ Workflow release (`e0ff305-portable-20261006T031059Z`), SHA-256
 and local reporting into a primary-agent workflow with learner priming and a
 pause. No upstream source text, code or templates were copied. Redistribution
 terms remain unconfirmed; any future copying requires verified terms/notices.
-Runtime implementation and verification have not started.
+Runtime implementation is now present; [performed checks and pending native evidence](evidence/M04-M07.md) are separate.
 
-M05's optional Serena plan inspected `joi-fairshare/agentic-workflow` revision
-`e0ff305a0f17746858bd63e4752047731edf2282`: `.agents/rules/mcp-servers.md`,
-`.serena/project.yml`, `scripts/serena-docker` and `CLAUDE.md`. The plan is
-originally written; no source code, configuration templates or launcher scripts
-are vendored. Before copying during implementation, verify redistribution terms
-and required notices for the exact sources and pin the tested Serena version.
-Private toolkit paths, memory integrations and the multi-agent messaging bridge
-are not planned dependencies. Implementation and runtime verification are pending.
+The M04 implementation plan confirmed on 2026-10-07 adopts the evidence rules
+documented in the [upstream migration assessment](UPSTREAM-MIGRATION.md).
+The replacement checkout identifies
+`joi-fairshare/agentic-workflow` as its origin and is clean at
+`e0ff305a0f17746858bd63e4752047731edf2282`. Local inspection rechecked these
+SHA-256 fingerprints on 2026-10-07:
+
+| Source | SHA-256 |
+| --- | --- |
+| `skills/review/SKILL.md` | `25963b307f21f338e59d1def71ea1db77c2b0e37bbfedc0de00e4a3f864e9946` |
+| `skills/review/reviewer-prompt.md` | `8e1ea89797a742fffe13f804e720d92dc1662637fbe01d6cc1b2b0ad4deffaa5` |
+| `skills/review/triage-prompt.md` | `82246b09b7c4eb8b208c8ae1d94a00d9587642edf1af65aa068f409684de85e1` |
+| `skills/withInterview/SKILL.md` | `f6cc85807ffb378296cf69c6d9b4c4f3d2aef0a0f59e0fc4a7669f293b6ddf11` |
+
+The interview entrypoint matches the historical fingerprint; the review entrypoint
+differs. The previous portable source is unavailable for a complete textual delta,
+so the cause of the review difference remains unconfirmed. Preserve the historical
+records above rather than relabeling them as replacement-source evidence.
+
+No repository-wide LICENSE was found in the tracked replacement files.
+`skills/testAudit/NOTICE.md` applies to that skill's adaptation, not permission to
+redistribute the review/interview sources. This technical plan was authored from
+Mentor's contracts and confirmed answers; no upstream source text, code or templates
+were copied into Mentor. The implementation plan calls for original instructions;
+any later copying still requires verified applicable terms and notices. Upstream
+setup, private services and author toolkit paths are not Mentor dependencies.
+Runtime implementation and local checks are recorded in [current evidence](evidence/M04-M07.md);
+new native conduct and human-learning evidence remain pending.
+
+The combined M04–M07 technical plan reuses Mentor's own M05/M06 planning contracts
+from branch `docs/m05-serena-tooling` at
+`86c3ee7ee31e3c099e2f30499593961a9ff545b9`, together with the confirmed M04
+contracts and subsequent user clarifications. It specifies ordinary creation and
+existing-code assistance, existing OpenAI access, shared reports/PR access and two
+real-project trials. These are planning documents, not runtime evidence. No external
+skill text/templates or Serena implementation were copied into Mentor. Inspect
+actual Serena versions/capabilities and applicable terms during implementation;
+private Docker launchers and toolkit setup are not reusable adapter dependencies.
+
+## Implemented M04–M07 resources
+
+The new policy/profiles, review/feedback/PR-understanding instructions, report and
+snapshot helpers, wrappers, optional-tool helpers/config and Python fixture were
+originally authored from Mentor's approved contracts. No upstream skill text,
+Serena implementation or private launcher was copied. Development-time testAudit
+and skill-creator were used for authoring checks; neither is a product dependency.
+
+GitHub transport follows the [official gh API reference](https://cli.github.com/manual/gh_api).
+Serena setup/configuration was checked against its
+[official CLI](https://github.com/oraios/serena/blob/main/src/serena/cli.py),
+[context/mode schema](https://github.com/oraios/serena/blob/main/src/serena/config/context_mode.py),
+[tool inclusion schema](https://github.com/oraios/serena/blob/main/src/serena/config/serena_config.py)
+and [memory disabling guide](https://oraios.github.io/serena/02-usage/045_memories.html)
+on 2026-10-07. These references describe API/configuration usage; installed-server
+version/acceptance is unverified. Code identifiers and configuration keys do not
+represent vendored source. See [actual evidence](evidence/M04-M07.md) for limits.
+
+## PR #6 Prism follow-up
+
+Original adapter request preparation and instructions adapt the session-load,
+project-work ledger and versioned handoff pattern inspected in Agentic Workflow's
+[`skills/_preamble.md`](https://github.com/joi-fairshare/agentic-workflow/blob/e0ff305a0f17746858bd63e4752047731edf2282/skills/_preamble.md).
+No upstream source text, templates or implementation are copied. Unlike that
+upstream workflow, unavailable Prism does not stop ordinary Mentor work, and
+project saves require an explicit request. Native tool schemas and installed
+`prism-mcp-server@20.21.17` behavior were inspected; actual host calls verify the
+recorded subset. Prism itself is not vendored. Its
+[upstream documentation](https://github.com/dcostenco/prism-coder) describes setup
+and transport. The subsequent missing-tool/separate-memory request adds a
+repository-authored Dockerfile and stdio launcher that install pinned Prism
+`20.21.17` into a dedicated image/volume. The installed upstream storage source
+was inspected to identify `/root/.prism-mcp` as the actual memory directory;
+configuration/metrics path overrides alone do not isolate memory. No upstream
+implementation is copied. Serena provisioning follows its official `uvx --from`
+CLI pattern at commit `3b99f8b024dafd58c962ea6e74f37c8a730ef532`, with `uv==0.12.23`
+bootstrapped locally when needed. No private toolkit path or paid model is required.
+Actual installed-version checks are recorded in
+[dedicated setup evidence](evidence/PR6-MCP-setup.md).
