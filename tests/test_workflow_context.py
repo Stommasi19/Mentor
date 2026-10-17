@@ -26,7 +26,7 @@ class WorkflowContextTests(unittest.TestCase):
             data = root / 'data'
             project_id = resolve_project(str(workspace))
             store = PreferenceStore(str(data), project_id)
-            store.write({'level': 'junior', 'coaching_enabled': True})
+            store.write({'level': 'junior', 'coaching_enabled': True, 'coding_mode': 'manual'})
             original = store.path.read_bytes()
             session = {'overrides': {'level': 'senior', 'coaching_enabled': False}, 'unsaved': []}
             for name, kind, filename in (('mentor-review', 'review', 'review.md'),
@@ -42,6 +42,7 @@ class WorkflowContextTests(unittest.TestCase):
                     context = json.loads(result.stdout)
                     self.assertEqual(context['status']['session'], session)
                     self.assertEqual(context['status']['saved']['level'], 'junior')
+                    self.assertEqual(context['status']['effective']['coding_mode'], 'manual')
                     self.assertEqual(Path(context['workflow_path']), checkout / 'core/workflows' / filename)
                     prism = subprocess.run(shlex.split(context['prism_command']) + ['inspect',
                         '--config', str(root / 'no-mcp.toml')], cwd=root, capture_output=True, text=True)

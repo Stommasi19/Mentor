@@ -24,6 +24,15 @@ Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
 ## Evidence and results
 
+Manual coding follow-up: exercise `set-coding-mode manual|assisted` at the actual
+control CLI and lifecycle handler; prove explicit project persistence, no session
+writes, independent level/coaching choices, retained overrides, project isolation,
+old-record read-only compatibility, reset and failed-save reporting. Verify that
+all skill contexts retain the effective mode. Native conduct still needs observed
+guidance/review with unchanged learner source, followed by a scoped requested
+demonstration and return to manual guidance. Process assertions alone do not prove
+the host/model honored the no-edit policy. See [handoff](handoffs/manual-coding-mode.md).
+
 Use `pass`, `fail`, or `pending` per criterion. A pending host interaction is
 not a pass; record the unavailable action or missing observation. For mentoring
 judgments, use `inconclusive` when the transcript cannot support a conclusion.

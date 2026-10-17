@@ -1,5 +1,9 @@
 # Mentor implementation plan
 
+Follow-up requested on 2026-10-17: [manual coding mode](handoffs/manual-coding-mode.md)
+adds saved manual/assisted ownership independently of level/coaching, while
+preserving old records read-only. Scoped demonstration requests do not switch mode.
+
 Status: M04–M07 implementation performed on 2026-10-07 with passing local
 boundary/fixture checks and [recorded verification limits](evidence/M04-M07.md).
 Selected native conduct, direct/host Serena calls and the disposable pinned-SDK
@@ -111,14 +115,15 @@ session overrides, pause/resume and project isolation while changing level value
 Update `core/workflows/controls.md`, `core/workflows/interview.md`,
 `runtime/preferences.py`, `adapters/codex/control.py`,
 `adapters/codex/session_start.py` and the existing native interview context/usage
-where needed. Use canonical values `junior`, `mid-level`, `senior`, with Junior/on
+where needed. Use canonical values `junior`, `mid-level`, `senior`, with Junior/on/assisted
 as the initial/reset fallback. Preserve legacy manual selections by translating
 `guided` to `junior`, `supported` to `mid-level`, and `independent` to `senior`.
 Accept legacy control names as compatibility aliases; report canonical names.
 
 Read valid schema-version-1 project records and retained legacy session values
-without writing or clearing overrides. Save canonical values in schema version 2
-only on an explicit project write/reset; preserve the other saved field. Validate
+without writing or clearing overrides. Read schema-version-2 records with their
+existing canonical levels and assisted coding. Save canonical values and coding
+mode in schema version 3 only on an explicit project write/reset; preserve the other saved fields. Validate
 version-specific enums and coaching types; unknown values/versions still warn and
 leave the original record intact. Status must identify translated legacy values
 and distinguish effective/saved state; never claim an unwritten migration was saved.
@@ -447,8 +452,9 @@ Unchecked rows retain newly planned, unauthorized integration scope. Check again
 - [x] Junior, Mid-level and Senior demonstrate their task-relevant focus, with
   readable code/useful comments/docs and direct help available at all levels and
   during paused coaching. Coding ownership remains independently overridable.
-- [x] Legacy saved/session levels translate read-only; explicit project writes use
-  schema version 2. Controls, overrides, lifecycle, isolation and save failures
+- [x] Legacy saved/session levels translate read-only; explicit project writes used
+  schema version 2 in this original audit (the manual-coding follow-up uses version 3).
+  Controls, overrides, lifecycle, isolation and save failures
   retain their contracts; native evidence for new profiles is recorded separately.
 - [x] Review, feedback and PR self-check load through actual native explicit
   invocation and retain their distinct pause/help/report-only contracts.
@@ -730,21 +736,23 @@ Minimal persisted shape:
 
 ```json
 {
-  "schema_version": 1,
-  "level": "guided",
-  "coaching_enabled": true
+  "schema_version": 3,
+  "level": "junior",
+  "coaching_enabled": true,
+  "coding_mode": "assisted"
 }
 ```
 
-Validate the version, exact level enum, and boolean type. Missing records use
-guided/coaching-on project defaults. Do not create storage on reads, status, or
+Validate the version, exact level/coding-mode enums, and boolean type. Read valid
+version-1/2 records as assisted without rewriting; version 1 translates legacy
+levels. Missing records use Junior/coaching-on/assisted project defaults. Do not create storage on reads, status, or
 session-only changes; create a record only for an explicit project mutation.
 Session overrides are separate from this minimal persisted schema.
 
 ### Preference precedence and lifetime
 
 For each field, use a current session override when present; otherwise use the
-latest loaded project setting, falling back to guided/on. Session choices are
+latest loaded project setting, falling back to Junior/on/assisted. Session choices are
 retained in conversation context across resume/manual compaction. Hook context
 labels stored settings as project defaults, so reloads do not replace explicit
 session choices. Verify this behavior in the actual host; policy text alone is
@@ -752,17 +760,17 @@ not proof of retention.
 
 | Operation | Current conversation | Saved project preferences |
 | --- | --- | --- |
-| Startup or clear | Load project defaults with no previous conversation overrides. | Read only; missing record defaults to guided/on. |
+| Startup or clear | Load project defaults with no previous conversation overrides. | Read only; missing record defaults to Junior/on/assisted. |
 | Resume or manual compaction | Reload project defaults and retain session overrides. | Read only. |
-| Unqualified level/pause/resume | Override only the requested field for this session. | No write. |
+| Unqualified level/coding-mode/pause/resume | Override only the requested field for this session. | No write. |
 | Status or control refresh | Reload project defaults; retain session overrides and show effective/saved values separately when different. | Read only unless a project mutation was explicitly requested. |
-| Successful project level/pause/resume | Apply the requested field and clear its session override; retain any override on the other field. | Atomically update only the requested field; preserve the other saved field. |
-| Failed project level/pause/resume | Apply the requested field as an unsaved session override; retain the other field. | Report failure; do not claim saved success or silently repair an invalid record. |
-| Explicit project reset | Apply guided/on and clear current overrides; if saving fails, retain those defaults as unsaved session overrides. | Restore guided/on for this project only, or report non-persistence. |
+| Successful project level/coding-mode/pause/resume | Apply the requested field and clear its session override; retain overrides on other fields. | Atomically update only the requested field; preserve other saved fields. |
+| Failed project level/coding-mode/pause/resume | Apply the requested field as an unsaved session override; retain other fields. | Report failure; do not claim saved success or silently repair an invalid record. |
+| Explicit project reset | Apply Junior/on/assisted and clear current overrides; if saving fails, retain those defaults as unsaved session overrides. | Restore Junior/on/assisted for this project only, or report non-persistence. |
 
-Demonstration/takeover, task-specific help, and implementation ownership are
-separate from persisted level/coaching fields. A task-only help adjustment ends
-with that task; unqualified level/coaching changes last for the conversation.
+Demonstration/takeover and task-specific help are scoped exceptions that do not
+change the persisted coding mode, level or coaching choice. A task-only help
+adjustment ends with that task; unqualified preference changes last for the conversation.
 An explicit request to use project preferences again clears the relevant session
 override without writing storage.
 
@@ -776,14 +784,14 @@ without these overrides. Existing project ownership agreements remain authoritat
 ### Failure and recovery
 
 Read errors, malformed/unsupported records, or unavailable storage warn visibly.
-Use guided/on as fallback project defaults while preserving any session overrides
+Use Junior/on/assisted as fallback project defaults while preserving any session overrides
 and the valid code policy. Keep unreadable/invalid records intact until explicit
 project reset. Ordinary project mutations refuse to overwrite these records,
 apply the requested field locally, and explain that reset is needed before saving.
 Session-only controls remain available without working storage.
 
 The control helper validates actions and uses atomic replacement for successful
-project writes. Changing one field preserves the other saved field, not a temporary
+project writes. Changing one field preserves the other saved fields, not temporary
 override from the conversation. A failed write leaves the prior record intact and
 returns a persistence failure separately from the requested conversation change.
 Report requested/effective values, saved values when readable, and the failure;
@@ -806,14 +814,15 @@ for every session control; confirm the scope and actual result when responding.
 | Request | Effect |
 | --- | --- |
 | Set guided / supported / independent | Change the active level for this session. |
-| Show mentor status | Refresh project defaults; show effective level/coaching, session overrides, saved values or fallback state, project scope, and persistence warnings. |
+| Show mentor status | Refresh project defaults; show effective level/coaching/coding mode, session overrides, saved values or fallback state, project scope, and persistence warnings. |
 | Pause coaching / mentoring off | Pause coaching for this session; continue code standards, required checks, and defect reporting. |
 | Resume coaching | Resume coaching for this session at its effective level. |
-| Set a level or coaching state explicitly for this project | Apply now and save only the requested field; report verified persistence or an unsaved session change. |
+| Use manual / assisted coding | Change coding ownership for this session without changing level/coaching. |
+| Set a level, coaching state or coding mode explicitly for this project | Apply now and save only the requested field; report verified persistence or an unsaved session change. |
 | Use project preferences in this session | Clear the requested session overrides and use refreshed project defaults without writing storage. |
-| Demonstrate / take over this part | Give direct help for the current task without changing the project's level. |
+| Demonstrate / take over this part | Implement the explicitly requested part without changing level or coding mode; return to manual guidance afterward when selected. |
 | More / less help with this part | Adjust assistance locally without recording an automatic level change. |
-| Reset this project's preferences | Restore guided/on for this project and clear current session overrides; report any persistence failure. Other sessions keep their own overrides. |
+| Reset this project's preferences | Restore Junior/on/assisted for this project and clear current session overrides; report any persistence failure. Other sessions keep their own overrides. |
 
 Guided offers a purposeful coding contribution and enough surrounding context.
 When the learner accepts, pause for their attempt; on a demonstration/takeover

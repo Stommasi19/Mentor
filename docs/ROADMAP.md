@@ -1,5 +1,9 @@
 # Mentor delivery roadmap
 
+Requested follow-up, 2026-10-17: [manual coding mode](handoffs/manual-coding-mode.md)
+adds independent session/project ownership controls. Process verification and
+native model-conduct observations are recorded separately in that handoff.
+
 Status: M01/M02 and the original M03 workflow locally verified on 2026-10-06.
 Revised M03 is implemented and locally verified on 2026-10-07;
 [revised evidence](evidence/M03-revised.md) records native invocation and limits.

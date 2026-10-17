@@ -118,6 +118,20 @@ choices translate read-only until an explicit project write. Readable code, usef
 documentation remain the foundation at every level and with coaching paused.
 Help on any topic and explicit coding-ownership overrides remain available.
 
+Choose **manual coding** when you want to write all the code and receive insightful
+guidance, progressive hints, explanations and reviews. Mentor leaves project
+implementation untouched and avoids complete task solutions unless you explicitly
+ask for a demonstration or implementation of that part. It then returns to manual
+guidance. This choice is independent of level and stays active when coaching is
+paused. **Assisted coding** retains the existing allocation of work.
+
+Say “use manual coding” for this conversation or “save manual coding for this
+project” to retain it across conversations. “Use assisted coding” switches back.
+Status shows the effective and saved mode. Existing records default to assisted
+without a write. This is an agent behavior setting, not a filesystem permission
+lock. See the [manual coding handoff](docs/handoffs/manual-coding-mode.md) for
+verification and limitations.
+
 The first local version has manual levels and per-project preferences outside
 Git. Level/pause/resume requests change the session unless project scope is
 explicitly requested. Session overrides survive resume/manual compaction; clear

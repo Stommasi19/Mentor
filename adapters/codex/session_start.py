@@ -82,8 +82,8 @@ def preference_context(event: dict, adapter: Path) -> str:
         "Append --session <shell-quoted JSON of the current session object> and the action. "
         "Example initial status: append --session '{}' status. "
         "Use set-level junior|mid-level|senior (legacy aliases remain accepted), pause, resume, status, use-project "
-        "(optional --field level|coaching_enabled), or --scope project reset. "
-        "Only an explicit project request adds --scope project to set-level/pause/resume. "
+        "(optional --field level|coaching_enabled|coding_mode), set-coding-mode manual|assisted, or --scope project reset. "
+        "Only an explicit project request adds --scope project to set-level/set-coding-mode/pause/resume. "
         "Apply effective values and retain the returned session object in conversation context. "
         "Pass these exact locations even if tools run from another cwd; do not depend on hook environment. "
         "Report warnings and never claim persisted success unless persisted is true.",

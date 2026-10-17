@@ -102,7 +102,7 @@ requests change only the current session unless project scope is explicit.
 Session overrides survive resume/manual compaction; clear starts from saved
 project preferences. Status refreshes those preferences while retaining session
 overrides and showing both effective and saved values. Project reset clears the
-current conversation's overrides to Junior/on; other sessions retain their own.
+current conversation's overrides to Junior/on/assisted; other sessions retain their own.
 Failed project writes still apply locally with an unsaved warning. These M02
 contracts are locally verified with the legacy guided/supported/independent names
 for the [recorded combination](evidence/M02.md). The new profiles and their
@@ -134,6 +134,19 @@ directing/reviewing agent-written code. Coaching intensity and who types code
 remain separate; explicit user instructions and project agreements override
 these defaults. Independent reasoning can be demonstrated while reviewing code
 the agent wrote.
+
+Coding ownership has an independent saved `manual`/`assisted` choice. In manual
+mode, the learner writes the code; Mentor inspects, explains, offers progressive
+hints and reviews, and runs requested non-destructive checks. No project source,
+test, configuration or implementation-document edits, or complete task solutions,
+are supplied without an explicit request for that part. A feature request or plan
+confirmation in manual mode starts guided work, not agent implementation. An
+explicit demonstration/takeover is a scoped exception, after which manual guidance
+resumes without changing the saved mode. Requested plan/report artifacts remain
+allowed. Level changes and paused coaching never switch ownership. Assisted mode
+retains the existing profile allocation and is the backwards-compatible default.
+Unqualified mode changes are session-only; explicit project changes persist.
+This setting guides agent behavior; it does not sandbox the host's write tools.
 
 Readable code, useful comments, accurate documentation, and necessary verification remain goals
 at every level. Reducing help does not increase PR size automatically or require

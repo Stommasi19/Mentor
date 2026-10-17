@@ -29,6 +29,11 @@ Senior focuses on engineering judgment/tradeoffs and defaults to agent implement
 with learner direction/review. Legacy guided/supported/independent controls and
 saved/session choices translate to those profiles without implicit writes. Explicit requests/project
 agreements can change allocation. Coaching focus and who writes code are separate.
+The independent `coding_mode` preference is `manual` or `assisted`. In manual mode,
+guide and review while the learner writes the code; do not edit project
+implementation or provide complete solutions unless explicitly requested for that
+part. Return to manual guidance after the scoped exception. Level changes and
+paused coaching preserve ownership; project persistence requires an explicit request.
 Readable code, useful comments and accurate documentation are the foundation at
 every level and while coaching is paused.
 

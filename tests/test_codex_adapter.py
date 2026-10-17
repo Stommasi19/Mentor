@@ -71,7 +71,8 @@ class CodexAdapterContractTests(unittest.TestCase):
                 status = subprocess.run(base + " --session '{}' status", shell=True,
                                         cwd=self.checkout, capture_output=True, text=True, check=True)
                 result_status = json.loads(status.stdout)
-                self.assertEqual(result_status["effective"], {"level": "junior", "coaching_enabled": True})
+                self.assertEqual(result_status["effective"], {"level": "junior", "coaching_enabled": True,
+                                                            "coding_mode": "assisted"})
                 self.assertEqual(result_status["preference_path"], str(self.data_root.resolve() / "projects" /
                     hashlib.sha256(os.fsencode(self.workspace.resolve())).hexdigest() /
                     "preferences.json"))

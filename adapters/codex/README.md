@@ -120,9 +120,13 @@ without choosing another location. Settings live outside the repository; no
 storage is created by startup, status, or session-only controls.
 
 Ask naturally: “use Mid-level”, “pause coaching”, “resume coaching”, “show Mentor
-status”, or “use project preferences again”. These affect only this conversation.
+status”, “use manual coding”, “use assisted coding”, or “use project preferences
+again”. These affect only this conversation.
 “Use Senior for this project”, “save coaching off as this project's default”,
-and “reset this project's preferences” explicitly request writes. Demonstration,
+“save manual coding for this project”, and “reset this project's preferences”
+explicitly request writes. Manual mode gives guidance/hints/reviews without
+project implementation edits or complete solutions unless explicitly requested;
+it applies at every level and while coaching is paused. Demonstration,
 takeover and task-specific help do not change preferences. No custom slash command
 is required.
 
@@ -135,8 +139,10 @@ The agent runs the delivered base shell command with the current session object:
   --session '{"overrides":{},"unsaved":[]}' set-level senior
 ```
 
-Other action forms: `pause`, `resume`, `status`, `use-project`,
+Other action forms: `pause`, `resume`, `status`, `set-coding-mode manual`,
+`set-coding-mode assisted`, `--scope project set-coding-mode manual`, `use-project`,
 `--field level use-project`, `--field coaching_enabled use-project`,
+`--field coding_mode use-project`,
 `--scope project set-level mid-level`, `--scope project pause`, and
 `--scope project reset`. Options may precede the action. Quote session JSON for
 the shell. Use the returned `session` object on the next call; the helper cannot
