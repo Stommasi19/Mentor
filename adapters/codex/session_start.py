@@ -34,10 +34,14 @@ def prism_context(event: dict) -> str:
 
 def interview_context() -> str:
     """Advertise explicit invocation without delivering the full workflow."""
+    # Installed plugins namespace their skills; development registrations use
+    # the bare names. Match the actual host-discovered invocation surface.
+    prefix = 'mentor:' if os.environ.get('PLUGIN_ROOT') else ''
+    skills = ', '.join('$' + prefix + name for name in
+                       ('mentor-interview', 'mentor-review', 'mentor-feedback', 'mentor-pr-check'))
     return (
         "## Codex explicit workflow invocation\n"
-        "Full workflows run only on explicit invocation: $mentor-interview, "
-        "$mentor-review, $mentor-feedback and $mentor-pr-check, "
+        f"Full workflows run only on explicit invocation: {skills}, "
         "registered separately through local development skill discovery. This hook "
         "does not register skills. Ordinary clarification remains available without "
         "launching that workflow. Invocation preserves effective/session/saved "

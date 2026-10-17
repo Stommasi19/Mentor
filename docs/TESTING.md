@@ -24,6 +24,14 @@ Scope and ownership: [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md).
 
 ## Evidence and results
 
+Private packaging: run the actual Codex installer against an isolated host home;
+exercise install/list, cached controls and all four workflow contexts with the
+source unavailable, version update, disable/re-enable and removal. Verify manual
+preferences and unrelated host settings survive. Confirm native app-server
+discovers the plugin's namespaced skills and hook. Treat untrusted-hook discovery,
+direct handler execution, trusted automatic delivery and model compliance as
+different observations. See [private checks](evidence/private-plugin.md).
+
 Manual coding follow-up: exercise `set-coding-mode manual|assisted` at the actual
 control CLI and lifecycle handler; prove explicit project persistence, no session
 writes, independent level/coaching choices, retained overrides, project isolation,

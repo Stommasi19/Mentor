@@ -6,6 +6,12 @@ decisions, implementation, debugging, and review.
 
 ## Project status
 
+PR #6 is merged. The private-use follow-up adds saved manual coding mode and a
+native local plugin package. Follow [private installation](docs/PRIVATE-INSTALL.md)
+for install/update/disable/removal without public publication. Its
+[checks and limits](docs/evidence/private-plugin.md) distinguish native package
+discovery from pending trusted delivery and live model conduct.
+
 The approved M04–M07 delivery is implemented and locally verified: Junior/Mid-level/Senior profiles, creation and
 source-understanding guidance, explicit review/feedback/PR-check skills, shared
 reports/snapshots, optional Serena helpers and a Python fixture. The

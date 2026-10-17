@@ -1,6 +1,11 @@
 # M08 — distribute the verified product
 
-Status: Final phase; implementation has not started.
+Status: Public distribution is deferred at the user's request. The private-use
+subset now has a native local manifest/catalog, lifecycle checks and
+[installation instructions](../PRIVATE-INSTALL.md). See
+[private package evidence](../evidence/private-plugin.md) for performed checks and
+the pending trusted host/model observation. This does not complete public release
+or claim the full installed-conduct acceptance below.
 Depends on local behavior, code quality, and portability evidence from M01–M07.
 Scope: [Roadmap](../ROADMAP.md#final-phase--distribution).
 Criteria: [T14](../TESTING.md#criteria), plus regression checks of the core and

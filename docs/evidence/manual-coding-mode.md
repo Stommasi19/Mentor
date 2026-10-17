@@ -1,5 +1,9 @@
 # Manual coding mode — 2026-10-17
 
+PR #6 subsequently merged without this change. It is now carried on the
+main-based private-use follow-up branch; see [private package checks](private-plugin.md).
+The attempted publication below is retained as historical evidence.
+
 Implemented following the user's request for a persistent option to write all
 code with insightful guidance and review. Existing uncommitted M04–M07 work was
 preserved. At the user's subsequent request, PR #6 integration was prepared in an
@@ -95,7 +99,7 @@ the working checkout before PR integration. PR receipts are retained locally und
 `/private/tmp/mentor-pr6-manual-zv37sswz/`. These integration checks add no new
 native model or human-learning observation.
 
-## Publishing status
+## Earlier attempted publication
 
 The user explicitly requested adding this change to PR #6. The existing PR head
 was verified through GitHub as `578f0eaf6fb715850224481ac0782b87d427e2dc`.
@@ -103,7 +107,8 @@ Normal Git transport failed DNS resolution in this session. The connected GitHub
 write tool rejected creation of the new tree with: “MCP tool call requires approval,
 but approval policy is never”. No remote commit or branch update occurred.
 The isolated clone contains the tested change, prepared for a normal fast-forward
-publication when an approved write connection is available. PR #6 remains unchanged.
+publication when an approved write connection is available. That attempt left
+PR #6 unchanged; the subsequent merge did not include manual mode.
 
 ## Pending observations
 

@@ -1,5 +1,12 @@
 # Mentor implementation plan
 
+After PR #6 merged, the user requested a new PR for missing private-use work.
+The follow-up includes the unmerged manual-mode change plus a native local
+plugin manifest/catalog, cached resource lifecycle checks and
+[private install/update/removal](PRIVATE-INSTALL.md). Public publication remains
+out of scope. Actual checks and pending native conduct are recorded in
+[the private package evidence](evidence/private-plugin.md).
+
 Follow-up requested on 2026-10-17: [manual coding mode](handoffs/manual-coding-mode.md)
 adds saved manual/assisted ownership independently of level/coaching, while
 preserving old records read-only. Scoped demonstration requests do not switch mode.

@@ -1,5 +1,11 @@
 # Mentor delivery roadmap
 
+PR #6 was merged on 2026-10-17. Its private-use follow-up carries the unmerged
+manual-mode change and adds [private native installation](PRIVATE-INSTALL.md).
+[Package evidence](evidence/private-plugin.md) records lifecycle/discovery checks;
+trusted hook delivery and a live manual-mode conversation remain pending.
+Public catalog submission, release assets and publication remain deferred.
+
 Requested follow-up, 2026-10-17: [manual coding mode](handoffs/manual-coding-mode.md)
 adds independent session/project ownership controls. Process verification and
 native model-conduct observations are recorded separately in that handoff.

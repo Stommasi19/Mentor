@@ -1,5 +1,11 @@
 # Codex development adapter
 
+For private use, follow [the native plugin installation guide](../../docs/PRIVATE-INSTALL.md).
+Its manifest wraps these canonical resources, without personal paths or copied
+policy. Installed workflow names are prefixed `mentor:`; development registrations
+below use bare names. The package hook selects the matching invocation guidance.
+Do not enable both the private plugin and an earlier Mentor development hook.
+
 `session_start.py` reads `core/policy.md` and `core/workflows/controls.md` relative
 to its own location. It adds refreshed project defaults, warnings, and a pinned
 control command. It accepts the native `SessionStart` JSON input on stdin and emits
