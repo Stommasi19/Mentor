@@ -6,6 +6,12 @@ decisions, implementation, debugging, and review.
 
 ## Project status
 
+PR #6 is merged. The private-use follow-up adds saved manual coding mode and a
+native local plugin package. Follow [private installation](docs/PRIVATE-INSTALL.md)
+for install/update/disable/removal without public publication. Its
+[checks and limits](docs/evidence/private-plugin.md) distinguish native package
+discovery from pending trusted delivery and live model conduct.
+
 The approved M04–M07 delivery is implemented and locally verified: Junior/Mid-level/Senior profiles, creation and
 source-understanding guidance, explicit review/feedback/PR-check skills, shared
 reports/snapshots, optional Serena helpers and a Python fixture. The
@@ -117,6 +123,20 @@ Guided/Supported/Independent remain compatibility aliases; legacy saved/session
 choices translate read-only until an explicit project write. Readable code, useful comments and accurate
 documentation remain the foundation at every level and with coaching paused.
 Help on any topic and explicit coding-ownership overrides remain available.
+
+Choose **manual coding** when you want to write all the code and receive insightful
+guidance, progressive hints, explanations and reviews. Mentor leaves project
+implementation untouched and avoids complete task solutions unless you explicitly
+ask for a demonstration or implementation of that part. It then returns to manual
+guidance. This choice is independent of level and stays active when coaching is
+paused. **Assisted coding** retains the existing allocation of work.
+
+Say “use manual coding” for this conversation or “save manual coding for this
+project” to retain it across conversations. “Use assisted coding” switches back.
+Status shows the effective and saved mode. Existing records default to assisted
+without a write. This is an agent behavior setting, not a filesystem permission
+lock. See the [manual coding handoff](docs/handoffs/manual-coding-mode.md) for
+verification and limitations.
 
 The first local version has manual levels and per-project preferences outside
 Git. Level/pause/resume requests change the session unless project scope is

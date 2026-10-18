@@ -137,3 +137,13 @@ CLI pattern at commit `3b99f8b024dafd58c962ea6e74f37c8a730ef532`, with `uv==0.12
 bootstrapped locally when needed. No private toolkit path or paid model is required.
 Actual installed-version checks are recorded in
 [dedicated setup evidence](evidence/PR6-MCP-setup.md).
+
+## Private Codex package
+
+The local catalog, compatibility manifest and hook configuration were authored
+for Mentor using the [official OpenAI package format](https://developers.openai.com/plugins/build/plugins)
+and the installed Codex 0.160.1 CLI/protocol schemas. No upstream implementation
+or private toolkit source is copied. Native lifecycle and app-server discovery
+checks identify the supported subset; [private evidence](evidence/private-plugin.md)
+records the pending trusted-delivery/model observation. This adds no public
+catalog submission or release.

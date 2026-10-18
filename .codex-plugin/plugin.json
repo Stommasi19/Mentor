@@ -1,0 +1,14 @@
+{
+  "name": "mentor",
+  "version": "0.1.0",
+  "description": "Readable-code guidance, manual or assisted coding, and explicit mentoring workflows for private local use.",
+  "author": {"name": "Sebastian Tommasi"},
+  "skills": "./adapters/codex/skills/",
+  "hooks": "./adapters/codex/plugin-hooks.json",
+  "interface": {
+    "displayName": "Mentor",
+    "shortDescription": "Guidance, code understanding and review",
+    "developerName": "Sebastian Tommasi",
+    "category": "Developer Tools"
+  }
+}

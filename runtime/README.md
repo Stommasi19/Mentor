@@ -16,10 +16,10 @@ relocation of saved project records.
 The only saved record is `<data-root>/projects/<id>/preferences.json`:
 
 ```json
-{"schema_version": 2, "level": "junior", "coaching_enabled": true}
+{"schema_version": 3, "level": "junior", "coaching_enabled": true, "coding_mode": "manual"}
 ```
 
-Exact fields/types are validated. Missing records use junior/on without creating
+Exact fields/types are validated. Missing records use junior/on/assisted without creating
 storage. Invalid, unsupported or unreadable records stay intact until explicit
 reset. Reads and session controls never create storage. An ordinary project
 mutation refuses invalid records and applies an unsaved session change. Reset
@@ -30,7 +30,8 @@ uses `guided`, `supported` or `independent`; reads translate those choices to th
 corresponding canonical level without rewriting the file. Retained legacy session
 overrides and explicitly supplied aliases translate the same way. Status includes
 legacy metadata so the translation is visible. Only an explicit project mutation
-or reset writes version 2. Unknown versions or invalid combinations remain invalid;
+or reset writes version 3. Version-1/2 records default to `coding_mode: assisted`
+without being rewritten; version 3 requires the explicit mode. Unknown versions or invalid combinations remain invalid;
 they never silently revert to defaults or migrate on read.
 
 `control(store, action, scope, value, field, session)` returns requested, effective,
@@ -41,9 +42,15 @@ read/session operations. An unavailable store still permits session controls.
 
 For each field, an override wins over refreshed project defaults. Successful
 project changes clear only that field's override and preserve the other saved
-field. Failed changes retain the requested values as unsaved overrides. Successful
-reset clears both current overrides; failed reset overrides both with junior/on.
+fields. Failed changes retain the requested values as unsaved overrides. Successful
+reset clears all current overrides; failed reset overrides all with junior/on/assisted.
 `use-project` clears all overrides or the selected field without writing.
+
+`set-coding-mode manual|assisted` sets coding ownership independently of level
+and coaching. Session scope never writes; explicit project scope persists and
+survives a new conversation. `use-project` accepts `field="coding_mode"` to drop
+only that override. Demonstrations/takeovers authorize a scoped exception in the
+agent policy, not a mode change; the runtime does not intercept filesystem tools.
 
 Session shape (kept in conversation context, never in Mentor's preference record;
 the host may persist its conversation transcript):

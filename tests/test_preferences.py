@@ -11,7 +11,7 @@ import unittest
 
 
 REPOSITORY = Path(__file__).resolve().parents[1]
-DEFAULTS = {"level": "junior", "coaching_enabled": True}
+DEFAULTS = {"level": "junior", "coaching_enabled": True, "coding_mode": "assisted"}
 
 
 class PreferenceContractTests(unittest.TestCase):
@@ -35,9 +35,9 @@ class PreferenceContractTests(unittest.TestCase):
         result = subprocess.run(args, cwd=self.root, capture_output=True, text=True, check=check)
         return json.loads(result.stdout) if check else result
 
-    def hook(self, workspace=None, data=None):
+    def hook(self, workspace=None, data=None, source="startup"):
         result = subprocess.run([sys.executable, str(REPOSITORY / "adapters/codex/session_start.py")],
-            input=json.dumps({"hook_event_name": "SessionStart", "source": "startup",
+            input=json.dumps({"hook_event_name": "SessionStart", "source": source,
                               "cwd": str(workspace or self.workspace)}),
             env={**os.environ, "MENTOR_DATA_DIR": str(data or self.data)},
             cwd=self.root, capture_output=True, text=True, check=True)
@@ -51,33 +51,78 @@ class PreferenceContractTests(unittest.TestCase):
         self.assertEqual(status["record_state"], "missing")
         session = self.invoke("set-level", "senior")["session"]
         paused = self.invoke("pause", session=session)
-        self.assertEqual(paused["effective"], {"level": "senior", "coaching_enabled": False})
+        self.assertEqual(paused["effective"], {"level": "senior", "coaching_enabled": False, "coding_mode": "assisted"})
         resumed = self.invoke("resume", session=paused["session"])
-        self.assertEqual(resumed["effective"], {"level": "senior", "coaching_enabled": True})
+        self.assertEqual(resumed["effective"], {"level": "senior", "coaching_enabled": True, "coding_mode": "assisted"})
         self.assertFalse(self.data.exists())
         saved = self.invoke("set-level", "mid-level", "project")
         before = self.record.read_bytes()
         refreshed = self.invoke(session=paused["session"])
-        self.assertEqual(refreshed["saved"], {"level": "mid-level", "coaching_enabled": True})
+        self.assertEqual(refreshed["saved"], {"level": "mid-level", "coaching_enabled": True, "coding_mode": "assisted"})
         self.assertEqual(refreshed["effective"], paused["effective"])
         returned = self.invoke("use-project", session=paused["session"], field="level")
-        self.assertEqual(returned["effective"], {"level": "mid-level", "coaching_enabled": False})
+        self.assertEqual(returned["effective"], {"level": "mid-level", "coaching_enabled": False, "coding_mode": "assisted"})
         self.assertEqual(self.invoke("use-project", session=returned["session"])["session"]["overrides"], {})
         self.assertEqual(self.record.read_bytes(), before)
         self.assertTrue(saved["persisted"])
+
+    def test_manual_coding_is_saved_per_project_and_independent_of_level_and_coaching(self):
+        for level in ("junior", "mid-level", "senior"):
+            with self.subTest(level=level):
+                self.invoke("set-level", level, "project")
+                manual = self.invoke("set-coding-mode", "manual", "project")
+                self.assertTrue(manual["persisted"])
+                self.assertEqual(manual["saved"], {"level": level, "coaching_enabled": True,
+                                                   "coding_mode": "manual"})
+                self.assertEqual(json.loads(self.record.read_text())["schema_version"], 3)
+                before = self.record.read_bytes()
+                paused = self.invoke("pause")
+                self.assertEqual(paused["effective"]["coding_mode"], "manual")
+                self.assertFalse(paused["effective"]["coaching_enabled"])
+                resumed = self.invoke("resume", session=paused["session"])
+                self.assertEqual(resumed["effective"]["coding_mode"], "manual")
+                for source in ("startup", "resume", "compact", "clear"):
+                    context, status = self.hook(source=source)
+                    self.assertEqual(status["effective"], manual["saved"])
+                    self.assertIn('set-coding-mode manual|assisted', context)
+                self.assertEqual(self.record.read_bytes(), before)
+                self.assertEqual(self.invoke(project_id="b" * 64)["effective"], DEFAULTS)
+
+    def test_coding_mode_session_override_refresh_and_failed_save_preserve_ownership(self):
+        self.invoke("set-coding-mode", "manual", "project")
+        before = self.record.read_bytes()
+        assisted = self.invoke("set-coding-mode", "assisted")
+        self.assertEqual(self.record.read_bytes(), before)
+        session = assisted["session"]
+        self.assertEqual(assisted["effective"]["coding_mode"], "assisted")
+        changed_level = self.invoke("set-level", "senior", "project", session=session)
+        self.assertEqual(changed_level["saved"]["coding_mode"], "manual")
+        self.assertEqual(changed_level["effective"]["coding_mode"], "assisted")
+        self.assertEqual(self.invoke(session=session)["effective"]["coding_mode"], "assisted")
+        returned = self.invoke("use-project", field="coding_mode", session=session)
+        self.assertEqual(returned["effective"]["coding_mode"], "manual")
+        self.assertEqual(returned["session"]["overrides"], {})
+        # A fresh conversation (or clear) has no prior session override.
+        self.assertEqual(self.hook()[1]["effective"]["coding_mode"], "manual")
+        self.assertNotEqual(self.record.read_bytes(), before)  # Only the explicit level save wrote.
+        unavailable = self.invoke("set-coding-mode", "manual", "project", data="relative")
+        self.assertFalse(unavailable["persisted"])
+        self.assertEqual(unavailable["session"]["unsaved"], ["coding_mode"])
+        self.assertEqual(unavailable["effective"]["coding_mode"], "manual")
+        self.assertEqual(self.invoke("reset", scope="project", session=session)["saved"], DEFAULTS)
 
     def test_project_writes_preserve_other_saved_field_and_override_reset_is_local(self):
         self.invoke("set-level", "mid-level", "project")
         session = self.invoke("set-level", "senior")["session"]
         result = self.invoke("pause", scope="project", session=session)
-        self.assertEqual(result["saved"], {"level": "mid-level", "coaching_enabled": False})
+        self.assertEqual(result["saved"], {"level": "mid-level", "coaching_enabled": False, "coding_mode": "assisted"})
         self.assertEqual(result["session"]["overrides"], {"level": "senior"})
         self.assertEqual(self.invoke()["effective"], result["saved"])
         resumed_session = self.invoke("resume", session=result["session"])["session"]
         level_saved = self.invoke("set-level", "junior", "project", resumed_session)
-        self.assertEqual(level_saved["saved"], {"level": "junior", "coaching_enabled": False})
+        self.assertEqual(level_saved["saved"], {"level": "junior", "coaching_enabled": False, "coding_mode": "assisted"})
         self.assertEqual(level_saved["session"]["overrides"], {"coaching_enabled": True})
-        self.assertEqual(level_saved["effective"], {"level": "junior", "coaching_enabled": True})
+        self.assertEqual(level_saved["effective"], {"level": "junior", "coaching_enabled": True, "coding_mode": "assisted"})
         other_id = "b" * 64
         self.invoke("pause", scope="project", project_id=other_id)
         other_record = self.data / "projects" / other_id / "preferences.json"
@@ -87,11 +132,13 @@ class PreferenceContractTests(unittest.TestCase):
         self.assertEqual(reset["saved"], DEFAULTS)
         self.assertEqual(self.invoke(session=session)["effective"]["level"], "senior")
         self.assertEqual(other_record.read_bytes(), other_bytes)
-        self.assertEqual(set(json.loads(self.record.read_text())), {"schema_version", "level", "coaching_enabled"})
+        self.assertEqual(set(json.loads(self.record.read_text())), {"schema_version", "level", "coaching_enabled", "coding_mode"})
 
     def test_invalid_records_survive_mutations_until_explicit_reset(self):
         self.record.parent.mkdir(parents=True)
-        records = [b"not JSON", b"\xff", b"[]", b'{"schema_version":3,"level":"junior","coaching_enabled":true}',
+        records = [b'{"schema_version":3,"level":"junior","coaching_enabled":true,"coding_mode":"automatic"}',
+                   b'{"schema_version":4,"level":"junior","coaching_enabled":true,"coding_mode":"manual"}',
+                   b"not JSON", b"\xff", b"[]", b'{"schema_version":3,"level":"junior","coaching_enabled":true}',
                    b'{"schema_version":true,"level":"junior","coaching_enabled":true}',
                    b'{"schema_version":1,"level":"Guided","coaching_enabled":true}',
                    b'{"schema_version":1,"level":"junior","coaching_enabled":1}',
@@ -143,7 +190,10 @@ class PreferenceContractTests(unittest.TestCase):
 
     def test_invalid_commands_do_not_write_or_claim_success(self):
         for action, value, scope, session in [
-            ("set-level", "expert", "project", {}), ("reset", None, "session", {}),
+            ("set-level", "expert", "project", {}),
+            ("set-coding-mode", "automatic", "project", {}),
+            ("status", None, "session", {"overrides": {"coding_mode": True}}),
+            ("reset", None, "session", {}),
             ("pause", "false", "project", {}), ("status", None, "project", {}),
             ("pause", None, "project", {"overrides": {"coaching_enabled": 1}}),
             ("status", None, "session", {"unsaved": ["level"]}),
@@ -171,7 +221,7 @@ class PreferenceContractTests(unittest.TestCase):
                                        "coaching_enabled": False}).encode()
                 self.record.write_bytes(original)
                 status = self.invoke(session={"overrides": {"level": "independent"}})
-                self.assertEqual(status["saved"], {"level": canonical, "coaching_enabled": False})
+                self.assertEqual(status["saved"], {"level": canonical, "coaching_enabled": False, "coding_mode": "assisted"})
                 self.assertEqual(status["effective"]["level"], "senior")
                 self.assertEqual(status["legacy_saved_level"], legacy)
                 self.assertEqual(status["legacy_session_level"], "independent")
@@ -182,9 +232,21 @@ class PreferenceContractTests(unittest.TestCase):
                 saved = self.invoke("resume", scope="project", session=status["session"])
                 self.assertTrue(saved["persisted"])
                 self.assertEqual(json.loads(self.record.read_text()),
-                                 {"schema_version": 2, "level": canonical, "coaching_enabled": True})
+                                 {"schema_version": 3, "level": canonical, "coaching_enabled": True, "coding_mode": "assisted"})
                 self.assertEqual(saved["effective"]["level"], "senior")
                 self.assertIsNone(saved["legacy_saved_level"])
+        # Version 2 already used canonical levels, but predates coding ownership.
+        original = b'{"schema_version":2,"level":"senior","coaching_enabled":false}'
+        self.record.write_bytes(original)
+        status = self.invoke()
+        self.assertEqual(status["effective"], {"level": "senior", "coaching_enabled": False,
+                                               "coding_mode": "assisted"})
+        self.assertEqual(self.hook()[1]["saved"], status["saved"])
+        self.assertEqual(self.record.read_bytes(), original)
+        saved = self.invoke("set-coding-mode", "manual", "project")
+        self.assertEqual(saved["saved"], {"level": "senior", "coaching_enabled": False,
+                                          "coding_mode": "manual"})
+        self.assertEqual(json.loads(self.record.read_text())["schema_version"], 3)
 
     def test_identity_worktrees_symlinks_and_hook_tool_cwd_share_only_the_same_project(self):
         def git(*args):

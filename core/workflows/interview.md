@@ -101,7 +101,10 @@ saved artifact that does not exist.
 
 For requirements-only, finish with the confirmed summary and both artifact paths,
 leaving implementation untouched. For direct execution, begin the confirmed work
-already authorized and run its relevant checks. For an available target, explicitly
+already authorized and run its relevant checks. In manual coding mode, guide the
+learner through that work; plan confirmation alone does not request agent-written
+implementation. Only an explicit request to implement or demonstrate a part
+authorizes that exception, without changing the saved mode. For an available target, explicitly
 invoke that skill with the original request, verbatim constraints, and both artifact
 references; read its entrypoint and follow it if the host has no invocation tool.
 The primary agent continues to handle the work. Do not silently switch a missing

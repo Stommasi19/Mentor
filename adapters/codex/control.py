@@ -17,8 +17,8 @@ def main() -> int:
     parser.add_argument("--unavailable-reason")
     parser.add_argument("--session", default='{}', help="current conversation state as JSON")
     parser.add_argument("--scope", choices=("session", "project"), default="session")
-    parser.add_argument("--field", choices=("all", "level", "coaching_enabled"), default="all")
-    parser.add_argument("action", choices=("status", "set-level", "pause", "resume", "use-project", "reset"))
+    parser.add_argument("--field", choices=("all", "level", "coaching_enabled", "coding_mode"), default="all")
+    parser.add_argument("action", choices=("status", "set-level", "set-coding-mode", "pause", "resume", "use-project", "reset"))
     parser.add_argument("value", nargs="?")
     arguments = parser.parse_args()
     try:

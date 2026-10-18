@@ -16,7 +16,8 @@ import tempfile
 
 LEVELS = ("junior", "mid-level", "senior")
 LEGACY_LEVELS = {"guided": "junior", "supported": "mid-level", "independent": "senior"}
-DEFAULTS = {"level": "junior", "coaching_enabled": True}
+CODING_MODES = ("manual", "assisted")
+DEFAULTS = {"level": "junior", "coaching_enabled": True, "coding_mode": "assisted"}
 
 
 def canonical_level(value: str) -> str:
@@ -65,8 +66,10 @@ def resolve_data_root(value: str) -> Path:
 
 
 def validate_values(values: dict) -> None:
-    if values.get("level") not in LEVELS or type(values.get("coaching_enabled")) is not bool:
-        raise ValueError("expected exact level enum and coaching boolean")
+    if (set(values) != set(DEFAULTS) or values.get("level") not in LEVELS
+            or type(values.get("coaching_enabled")) is not bool
+            or values.get("coding_mode") not in CODING_MODES):
+        raise ValueError("expected level enum, coaching boolean and manual/assisted coding mode")
 
 
 @dataclass
@@ -109,12 +112,17 @@ class PreferenceStore:
             return ProjectPreferences(dict(DEFAULTS), None, "unreadable", str(error))
         try:
             record = json.loads(content)
-            if not isinstance(record, dict) or set(record) != {"schema_version", *DEFAULTS}:
+            if not isinstance(record, dict):
                 raise ValueError("invalid preference fields")
-            version = record["schema_version"]
-            if type(version) is not int or version not in (1, 2):
+            version = record.get("schema_version")
+            if type(version) is not int or version not in (1, 2, 3):
                 raise ValueError("unsupported schema version")
-            values = {field: record[field] for field in DEFAULTS}
+            fields = {"level", "coaching_enabled"} if version < 3 else set(DEFAULTS)
+            if set(record) != {"schema_version", *fields}:
+                raise ValueError("invalid preference fields")
+            # Old records retain their assisted behavior without a migration
+            # write. Only an explicit project change publishes schema version 3.
+            values = {**DEFAULTS, **{field: record[field] for field in fields}}
             legacy = None
             if version == 1:
                 if not isinstance(values["level"], str) or values["level"] not in LEGACY_LEVELS:
@@ -141,7 +149,7 @@ class PreferenceStore:
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8",
                                              dir=self.path.parent, delete=False) as stream:
                 temporary = Path(stream.name)
-                json.dump({"schema_version": 2, **values}, stream, indent=2)
+                json.dump({"schema_version": 3, **values}, stream, indent=2)
                 stream.write("\n")
                 stream.flush()
                 os.fsync(stream.fileno())
@@ -176,12 +184,14 @@ def control(store: PreferenceStore, action: str = "status", scope: str = "sessio
     current = validate_session(session if session is not None else {})
     if scope not in ("session", "project") or field not in ("all", *DEFAULTS):
         raise ValueError("invalid scope or field")
-    if action not in ("status", "set-level", "pause", "resume", "use-project", "reset"):
+    if action not in ("status", "set-level", "set-coding-mode", "pause", "resume", "use-project", "reset"):
         raise ValueError("invalid control action")
     if action == "set-level":
         value = canonical_level(value)
-    if action != "set-level" and value is not None:
-        raise ValueError("only set-level accepts a value")
+    if action == "set-coding-mode" and value not in CODING_MODES:
+        raise ValueError("coding mode must be manual or assisted")
+    if action not in ("set-level", "set-coding-mode") and value is not None:
+        raise ValueError("only set-level and set-coding-mode accept a value")
     if action == "reset" and scope != "project":
         raise ValueError("reset requires explicit project scope")
     if action in ("status", "use-project") and scope != "session":
@@ -195,6 +205,8 @@ def control(store: PreferenceStore, action: str = "status", scope: str = "sessio
     persisted = None
     if action == "set-level":
         changed = {"level": value}
+    elif action == "set-coding-mode":
+        changed = {"coding_mode": value}
     elif action in ("pause", "resume"):
         changed = {"coaching_enabled": action == "resume"}
     elif action == "reset":
@@ -210,7 +222,7 @@ def control(store: PreferenceStore, action: str = "status", scope: str = "sessio
         try:
             if action != "reset" and loaded.state not in ("missing", "saved"):
                 raise ValueError("cannot overwrite unavailable/invalid preferences; explicit project reset required")
-            # Use saved defaults, never the other field's temporary session value.
+            # Use saved defaults, never another field's temporary session value.
             store.write({**loaded.defaults, **changed})
             persisted = True
             loaded = store.read()

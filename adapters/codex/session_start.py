@@ -34,10 +34,14 @@ def prism_context(event: dict) -> str:
 
 def interview_context() -> str:
     """Advertise explicit invocation without delivering the full workflow."""
+    # Installed plugins namespace their skills; development registrations use
+    # the bare names. Match the actual host-discovered invocation surface.
+    prefix = 'mentor:' if os.environ.get('PLUGIN_ROOT') else ''
+    skills = ', '.join('$' + prefix + name for name in
+                       ('mentor-interview', 'mentor-review', 'mentor-feedback', 'mentor-pr-check'))
     return (
         "## Codex explicit workflow invocation\n"
-        "Full workflows run only on explicit invocation: $mentor-interview, "
-        "$mentor-review, $mentor-feedback and $mentor-pr-check, "
+        f"Full workflows run only on explicit invocation: {skills}, "
         "registered separately through local development skill discovery. This hook "
         "does not register skills. Ordinary clarification remains available without "
         "launching that workflow. Invocation preserves effective/session/saved "
@@ -82,8 +86,8 @@ def preference_context(event: dict, adapter: Path) -> str:
         "Append --session <shell-quoted JSON of the current session object> and the action. "
         "Example initial status: append --session '{}' status. "
         "Use set-level junior|mid-level|senior (legacy aliases remain accepted), pause, resume, status, use-project "
-        "(optional --field level|coaching_enabled), or --scope project reset. "
-        "Only an explicit project request adds --scope project to set-level/pause/resume. "
+        "(optional --field level|coaching_enabled|coding_mode), set-coding-mode manual|assisted, or --scope project reset. "
+        "Only an explicit project request adds --scope project to set-level/set-coding-mode/pause/resume. "
         "Apply effective values and retain the returned session object in conversation context. "
         "Pass these exact locations even if tools run from another cwd; do not depend on hook environment. "
         "Report warnings and never claim persisted success unless persisted is true.",
