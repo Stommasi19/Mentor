@@ -1,188 +1,177 @@
 # Mentor
 
-A language- and LLM-agnostic mentoring core for coding agents that helps developers
-produce readable, maintainable, appropriately commented code while practicing
-decisions, implementation, debugging, and review.
+**A coaching layer for AI coding agents that keeps developers involved in understanding, building, and reviewing software.**
 
-## Project status
+Coding agents can finish a task while leaving the developer with little understanding
+of the result. Mentor makes that collaboration explicit: choose the kind of coaching
+you want, decide who writes the code, and work through decisions and verification
+with the agent. Readable code, useful comments, and accurate documentation remain
+part of the task at every level.
 
-PR #6 is merged. The private-use follow-up adds saved manual coding mode and a
-native local plugin package. Follow [private installation](docs/PRIVATE-INSTALL.md)
-for install/update/disable/removal without public publication. Its
-[checks and limits](docs/evidence/private-plugin.md) distinguish native package
-discovery from pending trusted delivery and live model conduct.
+Mentor combines a host-neutral policy and workflow core with Python helpers for
+preferences, artifacts, and reports. Its first adapter integrates with Codex through
+native development hooks and explicitly invoked skills.
 
-The approved M04–M07 delivery is implemented and locally verified: Junior/Mid-level/Senior profiles, creation and
-source-understanding guidance, explicit review/feedback/PR-check skills, shared
-reports/snapshots, optional Serena helpers and a Python fixture. The
-[implementation evidence](docs/evidence/M04-M07.md) records 26 passing boundary
-tests, C# 11/11 and Python behavior checks, actual native skill discovery and
-Stafr's 15 focused checks. Selected native workflows, manual compaction, Serena
-MCP navigation and the disposable DoughTracker health build/HTTP checks succeeded.
-All-profile/paused Python implementation and feedback, a supported scripted coding
-contribution, and a named-model native C# candidate now have checked results.
-Ordinary help and a deliberate review wait were also observed with installed
-Workflow hooks retained, including recorded hook conflicts. Native controls,
-clear/two-session refresh, disabled/untrusted delivery, settled interview,
-paused review, live PR review and scripted PR answer/change handling are recorded.
-Serena model navigation and the matched build comparison also have actual calls
-and checked results. [Acceptance audit](docs/evidence/M04-M07-acceptance.md) identifies
-the original scope and limits. Human understanding remains unobserved. The
-subsequently requested [Prism adapter integration](adapters/codex/prism/README.md)
-has [original checks](docs/evidence/PR6-Prism.md) and
-[missing-tool setup/dedicated-memory checks](docs/evidence/PR6-MCP-setup.md);
-Mentor's default Prism database is separate from Workflow. M08 distribution remains future work.
+**Status:** Private-use prototype with implemented workflows, a native local Codex
+plugin package, and recorded verification. Public distribution remains planned.
+The core is designed to be independent of coding language, model, and host; current
+evidence covers selected Codex/OpenAI runs with C# and Python, not universal support.
 
-M01 is implemented and verified locally: a [neutral policy](core/policy.md),
-[Codex development hook](adapters/codex/README.md), and
-[C# fixture with independent checks](fixtures/expense-summary/README.md).
-The [M01 evidence report](docs/evidence/M01.md) records the comparison, actual hook
-delivery, code review, and limitations. The baseline already passed; this sample
-does not establish a code-quality improvement or human learning.
+## What using it looks like
 
-Verified combination: C#/.NET 9, OpenAI `gpt-6.1-sol`, Codex CLI/app-server 0.160.1,
-macOS arm64. Startup, resume, clear, manual compaction, disabled hooks, and changed
-untrusted hooks were exercised. Other languages/providers/hosts remain unverified.
+After configuring Mentor, you can ask naturally:
 
-M02 is implemented and locally verified: session controls, explicit project
-preferences, failure recovery, native lifecycle retention, and two-session refresh.
-The [M02 evidence report](docs/evidence/M02.md) records scope and limitations;
-the [adapter guide](adapters/codex/README.md) explains natural controls and local setup.
+> Use Junior coaching and manual coding for this conversation. Help me add a
+> monthly expense summary. Start by explaining the existing calculation and give
+> me a focused first step.
 
-Revised M03 is implemented and locally verified: the explicit-only native
-`$mentor-interview` skill follows staged clarification, concrete-plan confirmation,
-local interview/plan artifacts, and primary-agent execution or skill handoff.
-[Revised M03 evidence](docs/evidence/M03-revised.md) records native invocation,
-manual levels, scope, failure recovery, and generated-code checks;
-[original M03 evidence](docs/evidence/M03.md) remains historical.
-M04 completes the first local usable version. Packaging for others and publication remain final.
+Mentor's intended behavior is to inspect the actual source, explain the relevant
+flow, and offer progressive hints while you write the implementation. Ask for a
+demonstration of a particular part when needed; that scoped exception ends with a
+return to manual guidance. Checks and review assess the resulting code.
 
-The [combined M04–M07 implementation plan](docs/IMPLEMENTATION-PLAN.md#m04m07-execution-plan)
-organizes the implemented local work into one delivery. It covers
-active help while creating software and explanations of existing source, plus
-review, task feedback, PR understanding checks and optional Serena integration.
-Trial cases are a disposable DoughTracker backend build and explanations of
-Stafr/Crew Workforce's existing backend. Trial code is discarded after evaluation;
-DoughTracker stays unchanged. See current evidence for performed and pending checks.
+For more structure, explicitly invoke a workflow. These examples use the private
+plugin identifiers; development registrations use the bare `$mentor-interview`,
+`$mentor-review`, `$mentor-feedback`, and `$mentor-pr-check` names:
 
-[M04's confirmed implementation plan](docs/handoffs/M04-review-coaching.md#implementation-plan) specifies an explicitly
-invoked review skill for local changes or PRs: prime the learner at the selected
-level, pause for their review, then discuss evidence-backed findings and save a
-report. It reports findings; fixing and posting require separate requests.
-An invocation without a target asks what to review. Relevant focused checks run
-against the reviewed snapshot; stale evidence and required verification gaps stay
-distinct from reproduced defects. The plan adopts the evidence rules from the
-[upstream migration assessment](docs/UPSTREAM-MIGRATION.md).
-Implementation and selected native conduct checks are recorded in
-[M04 evidence](docs/evidence/M04.md), including paused review.
+| Workflow | Example | Result |
+| --- | --- | --- |
+| Define a task | `$mentor:mentor-interview Help scope the expense summary; requirements only.` | Focused clarification, a confirmed plan, and local interview/plan files. Implementation requires an implementation request. |
+| Practice review | `$mentor:mentor-review Review staged changes; run relevant checks.` | A review primer and pause for your observations, followed by evidence-backed findings and a local report. Fixing or posting requires a separate request. |
+| Get task feedback | `$mentor:mentor-feedback Give feedback on this task.` | Immediate, grounded feedback and a local report; reflection is optional. |
+| Check PR understanding | `$mentor:mentor-pr-check https://github.com/OWNER/REPO/pull/NUMBER` | Source-grounded questions with hints, explanations, skip/stop controls, and a local report. |
 
-[M06's plan](docs/handoffs/M06-task-feedback.md) provides immediate invoked task
-feedback and a separate optional PR understanding check, with local Markdown
-reports. Reflection is optional for ordinary feedback; levels remain manually
-switched. [M05](docs/handoffs/M05-portability-and-tooling.md) covers opt-in Serena
-and C#/Python verification using existing OpenAI access. Other providers stay
-unverified/pending, with no new paid model accounts required for this delivery.
+Ordinary coding help and explanations of existing source need no special skill,
+PR, quiz, or report. Full workflows run only when explicitly invoked.
 
-Run the adapter checks with `python3 -m unittest discover -s tests -v`.
-Use the fixture's `check.py` against a completed disposable candidate; the checked-in
-starter is intentionally unfinished and must fail its behavior checks.
+## Choose coaching and coding ownership separately
 
-## Intended experience
+| Profile | Coaching focus | Default participation |
+| --- | --- | --- |
+| **Junior** | Code understanding, safe changes, debugging, tests, and review. | Offers a focused coding contribution. |
+| **Mid-level** | Feature ownership, design, contracts, failure handling, and verification. | Offers coding or reviewing. |
+| **Senior** | Engineering judgment, tradeoffs, reliability, and change risks. | Agent implements with developer direction and review. |
 
-A shared policy establishes code standards and optional coaching. Thin host
-adapters load that policy automatically through the host's supported hooks.
-Codex is the first development adapter; C# is the first fixture, not a restriction
-on the product's coding language or LLM.
+**Manual coding** means you write the code while the agent guides and reviews. It
+avoids implementation edits and complete solutions unless you explicitly request
+that part. **Assisted coding** uses the selected profile and your task-specific
+agreements to allocate the work. Coding ownership is independent of profile and
+remains in effect when coaching is paused.
 
-The core follows the project's language and conventions. It asks for descriptive
-names, understandable flow, appropriate boundaries, comments explaining intent
-and non-obvious rules, and useful accurate documentation. Comments must appear
-where needed in the resulting code; a verbose chat explanation does not replace
-them. Review and behavioral checks assess the actual change.
+Controls use ordinary language:
 
-Coaching invites decisions, offers coding or review practice, and provides hints
-and feedback. The learner can request a demonstration or takeover. Pausing
-coaching leaves code standards and necessary verification active.
-For new work, support a meaningful accepted coding contribution and verify the
-complete result. For existing work, inspect actual source and explain responsibilities,
-request/data flow, failures and check limits with concrete locations. Ordinary
-explanations have no diff/PR, quiz, special walkthrough skill or report prerequisite.
+- “Use Mid-level” or “use manual coding” changes this conversation.
+- “Save manual coding for this project” explicitly persists a project preference.
+- “Pause coaching” keeps code standards and necessary checks active.
+- “Show Mentor status” displays effective and saved choices.
+- “Use project preferences again” removes session overrides.
 
-## Mentoring levels
+Levels stay manually selected. Mentor does not grade proficiency, automatically
+promote developers, or maintain a background learner ledger. Manual mode is an
+agent instruction, not a filesystem permission lock.
 
-- **Junior:** Code understanding, safe changes, debugging, tests and review, with
-  introductory system design and an offer of a focused coding contribution.
-- **Mid-level:** Feature ownership, system design, contracts, failure handling,
-  refactoring and verification, with a choice of coding or reviewing.
-- **Senior:** Engineering judgment, assumptions, architectural tradeoffs,
-  reliability, change risks and technical communication. Agent implementation
-  defaults to learner direction and review.
+## How it works
 
-These profiles are implemented from the [active implementation plan](docs/IMPLEMENTATION-PLAN.md#manual-mentoring-profiles).
-Guided/Supported/Independent remain compatibility aliases; legacy saved/session
-choices translate read-only until an explicit project write. Readable code, useful comments and accurate
-documentation remain the foundation at every level and with coaching paused.
-Help on any topic and explicit coding-ownership overrides remain available.
+```mermaid
+flowchart TD
+    Host[Codex session starts or resumes] --> Adapter[Codex development hook]
+    Core[Neutral policy and workflow resources] --> Adapter
+    State[Local project preferences] --> Adapter
+    Adapter --> Context[Policy, effective settings, and skill guidance]
+    Context --> Work[Ordinary coding and source explanations]
+    Context --> Skills[Explicit interview, review, feedback, or PR check]
+    Skills --> Helpers[Python artifact, report, and snapshot helpers]
+    Helpers --> Local[Local plans and Markdown reports]
+    Helpers --> Source[Git snapshots or read-only GitHub PR context]
+```
 
-Choose **manual coding** when you want to write all the code and receive insightful
-guidance, progressive hints, explanations and reviews. Mentor leaves project
-implementation untouched and avoids complete task solutions unless you explicitly
-ask for a demonstration or implementation of that part. It then returns to manual
-guidance. This choice is independent of level and stays active when coaching is
-paused. **Assisted coding** retains the existing allocation of work.
+1. **Deliver context through the host.** The Codex `SessionStart` handler loads
+   the canonical policy, refreshes project defaults, and supplies session controls
+   and concise skill guidance. Full workflow instructions load on invocation.
+   Missing core resources fail visibly; preference failures retain valid policy
+   with a warning.
+2. **Resolve preferences without implicit writes.** Session overrides take
+   precedence over saved project defaults. The neutral runtime identifies Git
+   projects by their canonical common directory, so linked worktrees share
+   settings. Reads do not create or migrate records; explicit project changes
+   use atomic writes and readback. Failed saves remain visible as unsaved session
+   choices.
+3. **Ground review in a specific revision.** The adapter captures local Git
+   content or reads PR source through GitHub CLI. Snapshots include content
+   identities; refreshing after a pause detects changes that invalidate affected
+   evidence. Checks must match the reviewed snapshot.
+4. **Keep task artifacts local.** Plans and Markdown reports live outside the
+   repository under `<user-home>/.mentor` by default, with an optional
+   `MENTOR_DATA_DIR` override. Reports use exclusive publication and readback to
+   avoid overwriting an existing report. Storage failures are reported explicitly.
 
-Say “use manual coding” for this conversation or “save manual coding for this
-project” to retain it across conversations. “Use assisted coding” switches back.
-Status shows the effective and saved mode. Existing records default to assisted
-without a write. This is an agent behavior setting, not a filesystem permission
-lock. See the [manual coding handoff](docs/handoffs/manual-coding-mode.md) for
-verification and limitations.
+The core contains no host hook schema or model API integration. Those concerns
+belong in adapters. The Python runtime uses the standard library; Python is an
+implementation choice for the helpers, not a restriction on the developer's
+project language. Optional Serena integration provides semantic source navigation
+with ordinary-tool fallback. Optional Prism integration supplies project context
+using separate Mentor storage by default; neither service is required. See the
+[MCP setup guide](adapters/codex/MCP-SETUP.md).
 
-The first local version has manual levels and per-project preferences outside
-Git. Level/pause/resume requests change the session unless project scope is
-explicitly requested. Session overrides survive resume/manual compaction; clear
-starts from saved project preferences. Status shows effective and saved choices;
-failed saves still apply locally with an unsaved warning. Saved fields are updated
-separately, so a temporary session pause cannot become a project default when
-changing the saved level. See [storage contracts](runtime/README.md).
+## Try it locally
 
-Greater experience can mean delegating more code while owning decisions and
-review. Task feedback can explain concrete strengths, improvements and an optional
-next step; it does not switch levels or track proficiency. Explicit requests can
-change implementation ownership at any level.
+For private plugin setup, follow [install, update, disable, and remove instructions](docs/PRIVATE-INSTALL.md).
+The tested package uses Python 3.11+, Git, a POSIX shell, and a Codex host supporting
+the recorded hook/skill interfaces. C# fixture
+execution additionally needs its .NET SDK; PR access uses authenticated GitHub CLI.
+Serena is optional.
 
-## Build and prove locally
+From the Mentor checkout, run the process-boundary checks:
 
-1. Write the neutral policy and test generated code, comments, and documentation
-   against a small C# case and controlled baseline.
-2. Verify automatic policy loading with a local development hook.
-3. Add manual levels/preferences and invoked interview/review skills; test each
-   portion immediately.
-4. Broaden language/model coverage, add invoked task feedback, and try real project work.
-5. Finally package and document the verified behavior for other users, including
-   marketplace discovery and installation.
+```sh
+python3 -m unittest discover -s tests -v
+```
 
-Synthetic conversations assess conduct. Behavioral checks assess software.
-Readability review examines code/comments/docs. Unaided human exercises assess
-comprehension. A neutral design is not proof that every model or host is supported;
-record the combinations actually tested.
+For development without the plugin, follow the [Codex adapter guide](adapters/codex/README.md) to create a disposable
+workspace, generate its `.codex/hooks.json`, review/trust the hook through the host,
+and register the native skills. The hook does not register skills by itself.
+Moving the development checkout requires updating the generated paths and skill
+links. Avoid enabling both development registration and the installed plugin in
+the same workspace.
 
-## Project references
+Use the [C# fixture](fixtures/expense-summary/README.md) or
+[Python fixture](fixtures/expense-summary-python/README.md) to evaluate a completed
+candidate. The checked-in starters are intentionally unfinished; their behavior
+checks are expected to fail until implemented. Supplying policy manually tests
+core behavior, but does not prove automatic hook delivery.
 
-- [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
-- [Verification criteria and scenarios](docs/TESTING.md)
-- [Delivery roadmap](docs/ROADMAP.md)
-- [Completed M01 handoff](docs/handoffs/M01-readable-code-core.md)
-- [Completed M02 handoff](docs/handoffs/M02-manual-levels-and-preferences.md)
-- [M03 — invoked interview skill, locally verified](docs/handoffs/M03-interview-coaching.md)
-- [Combined M04–M07 implementation plan](docs/IMPLEMENTATION-PLAN.md#m04m07-execution-plan)
-- [M04 — invoked review contract](docs/handoffs/M04-review-coaching.md)
-- [M05 — portability and optional tooling](docs/handoffs/M05-portability-and-tooling.md)
-- [M06 — task feedback and PR understanding](docs/handoffs/M06-task-feedback.md)
-- [Design](docs/DESIGN.md)
-- [Authorship and references](docs/ATTRIBUTION.md)
-- [Agent instructions](AGENTS.md)
+## Verification and limits
 
-For local development setup, follow the adapter README and the host's ordinary
-hook review/trust flow. No marketplace entry, distributable plugin manifest, or
-public installation is included. The test workspace's hook was left disabled.
+Verification separates runtime correctness, host delivery, agent conduct, generated
+software, and human understanding:
+
+| Area | Recorded evidence | Boundary |
+| --- | --- | --- |
+| Runtime and adapter contracts | The private-package revision records 36 passing tests covering helpers, persistence, lifecycle handlers, wrappers, optional MCP setup, and native package lifecycle. | Process tests do not prove model compliance. [Package evidence](docs/evidence/private-plugin.md), [manual-mode evidence](docs/evidence/manual-coding-mode.md). |
+| Native host integration | Recorded startup/resume/clear/manual-compaction checks, native skill discovery, and selected workflow/control conversations. | Historical baseline: Codex CLI/app-server 0.160.1, macOS arm64, OpenAI `gpt-6.1-sol`, C#/.NET 9. Versions and scope belong to each receipt. [M01](docs/evidence/M01.md), [M02](docs/evidence/M02.md). |
+| Generated code and workflow conduct | C#/Python behavior checks, code/comments/docs review, selected native review/feedback/PR-check runs, and disposable project trials. | Scripted participation is labeled separately from human participation. [Combined evidence](docs/evidence/M04-M07.md), [acceptance audit](docs/evidence/M04-M07-acceptance.md). |
+| Private package | Native install/update/disable/remove and app-server skill/hook discovery in a disposable host home. | Trusted automatic delivery and live manual-mode conduct remain pending for this revision. [Package evidence](docs/evidence/private-plugin.md). |
+| Manual coding ownership | Persistence, precedence, migration, and handler/wrapper transport checks. | Fresh native model compliance with the new manual mode remains unobserved in that revision. [Evidence](docs/evidence/manual-coding-mode.md). |
+
+These checks do not establish improved learning outcomes or universal code-quality
+improvement. The initial baseline already passed its behavior checks. Human
+understanding, broader provider/host compatibility, and automatic mid-turn
+compaction remain pending. See the evidence for observed hook conflicts and
+other limitations. Distribution is the final phase of the [roadmap](docs/ROADMAP.md).
+
+## Explore the repository
+
+| Path | Responsibility |
+| --- | --- |
+| [`core/`](core/policy.md) | Neutral code-quality policy and coaching workflows. |
+| [`runtime/`](runtime/README.md) | Project identity, preferences, interview artifacts, and report storage. |
+| [`adapters/codex/`](adapters/codex/README.md) | Host hooks, controls, native skill wrappers, local/PR snapshots, and optional Serena setup. |
+| [`fixtures/`](fixtures/expense-summary/README.md) | Small C# and Python tasks with independent behavior checks. |
+| [`tests/`](tests/) | Runtime and adapter contract checks. |
+| [`docs/evidence/`](docs/evidence/) | Recorded experiments, acceptance checks, and limitations. |
+
+For the product contracts and development direction, see the
+[design](docs/DESIGN.md), [implementation plan](docs/IMPLEMENTATION-PLAN.md),
+[testing criteria](docs/TESTING.md), and [current local-product handoff](docs/handoffs/M04-M07-local-product.md).
+[Attribution](docs/ATTRIBUTION.md) records authorship, design inspiration, and
+upstream references.
